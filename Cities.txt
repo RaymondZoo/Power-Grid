@@ -1,1 +1,8 @@
-meme machine
+Seattle p Portland/3,Boise/12,Billings/9
+PortLand p Seattle/3,Boise/13,San_Francisco/24
+Boise p Portland/13,Seattle/12,Billings/12,Cheyenne/24,Salt_Lake_City/8,San_Francisco/27
+Billings p Seattle/0,Boise/12,Cheyenne/9,Fargo/17,Minneapolis/18
+Cheyenne p Denver/0,Billings/9,Boise/24,Minneapolis/18,Omaha/14
+Denver p Cheyenne/0,Salt_Lake_City/21,Santa_Fe/13,Kansas_City/16
+Omaha p Kansas_City/5,Cheyenne/14,Minneapolis/8,Chicago/13
+
