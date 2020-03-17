@@ -16,8 +16,32 @@ Santa_Fe b Salt_Lake_City/28,Las_Vegas/27,Phoenix/18,Houston/21,Dallas/16,Oklaho
 
 Kansas_City r Omaha/5,Denver/16,Santa_Fe/16,Oklahoma_City/8,Memphis/12,St._Louis/6,Chicago/8
 Oklahoma_City r Santa_Fe/15,Dallas/3,Memphis/14,Kansas_City/8
-Dallas r
-Houston r
-New_Orleans r
-Memphis r
-Birmingham r
+Dallas r Oklahoma_City/3,Santa_Fe/16,Houston/5,New_Orleans/12,Memphis/12
+Houston r Santa_Fe/21,Dallas/5,New_Orleans/8
+New_Orleans r Houston/8,Dallas/12,Memphis/7,Birmingham/11,Jacksonville/16
+Memphis r St._Louis/7,Kansas_City/12,Oklahoma_City/14,Dallas/12,New_Orleans/7,Birmingham/6
+Birmingham r Memphis/6,New_Orleans/11,Jacksonville/9,Atlanta/3
+
+Fargo y Billings/17,Minneapolis/6,Duluth/6
+Duluth y Fargo/6,Minneapolis/5,Chicago/12,Detroit/15
+Minneapolis y Fargo/6,Billings/18,Cheyenne/18,Omaha/8,Chicago/8,Duluth/5
+Chicago y Duluth/12,Minneapolis/8,Omaha/13,Kansas_City/8,St._Louis/10,Cincinnati/7,Detroit/7
+St._Louis y Kansas_City/6,Memphis/7,Cincinnati/12,Chicago/10,Atlanta/12
+Cincinnati y Chicago/7,St._Louis/12,Knoxville/6,Raleigh/15,Pittsburgh/7,Detroit/4
+Knoxville y Cincinnati/6,Atlanta/5
+
+Atlanta g
+Tampa g
+Miami g
+Jacksonville g
+Savannah g
+Raleigh g
+Norfolk g
+
+Detroit br
+Pittsburgh br
+Buffalo br
+Washington_D.C. br
+Philadelphia br
+New_York br
+Boston br
