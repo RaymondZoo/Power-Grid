@@ -6,3 +6,10 @@ Cheyenne p Denver/0,Billings/9,Boise/24,Minneapolis/18,Omaha/14
 Denver p Cheyenne/0,Salt_Lake_City/21,Santa_Fe/13,Kansas_City/16
 Omaha p Kansas_City/5,Cheyenne/14,Minneapolis/8,Chicago/13
 
+San_Francisco b Portland/24,Boise/23,Salt_Lake_City/27,Las_Vegas/14,Los_Angeles/9
+Los_Angeles b San_Francisco/9,Las_Vegas/9,San_Diego/3
+San_Diego b Los_Angeles/3,Las_Vegas/9,Phoenix/14
+Phoenix b San_Diego/14,Las_Vegas/15,Santa_Fe/18
+Las_Vegas b San_Francisco/14,Los_Angeles/9,San_Diego/9,Phoenix/15,Santa_Fe/27,Salt_Lake_City/18
+Salt_Lake_City b Boise/8,San_Francisco/27,Las_Vegas/18,Santa_Fe/28,Denver/21
+Santa_Fe b Salt_Lake_City/28,Las_Vegas/27,Phoenix/18,Houston/21,Dallas/16,Oklahoma_City/15,Kansas_City/16,Denver/13
