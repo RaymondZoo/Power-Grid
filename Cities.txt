@@ -30,18 +30,18 @@ St._Louis y Kansas_City/6,Memphis/7,Cincinnati/12,Chicago/10,Atlanta/12
 Cincinnati y Chicago/7,St._Louis/12,Knoxville/6,Raleigh/15,Pittsburgh/7,Detroit/4
 Knoxville y Cincinnati/6,Atlanta/5
 
-Atlanta g
-Tampa g
-Miami g
-Jacksonville g
-Savannah g
-Raleigh g
-Norfolk g
+Atlanta g Birmingham/3,Savannah/7,Raleigh/7,Knoxville/5
+Tampa g Jacksonville/4,Miami/4
+Miami g Tampa/4
+Jacksonville g Tampa/4,New_Orleans/16,Birmingham/9,Savannah/0
+Savannah g Jacksonville/0,Atlanta/7,Raleigh/7
+Raleigh g Savannah/7,Atlanta/7,Cincinnati/15,Pittsburgh/7,Norfolk/3
+Norfolk g Washington_D.C./5,Raleigh/3
 
-Detroit br
-Pittsburgh br
-Buffalo br
-Washington_D.C. br
-Philadelphia br
-New_York br
-Boston br
+Detroit br Duluth/15,Chicago/7,Cincinnati/4,Pittsburgh/6,Buffalo/7
+Pittsburgh br Detroit/6,Cincinnati/7,Raleigh/7,Washington_D.C./6,Buffalo/7
+Buffalo br Detroit/7,Pittsburgh/7,New_York/8
+Washington_D.C. br Pittsburgh/6,Philadelphia/3,Norfolk/5
+Philadelphia br Washington_D.C./3,New_York/0
+New_York br Philadelphia/0,Buffalo/8,Boston/3
+Boston br New_York/3
