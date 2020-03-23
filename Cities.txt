@@ -1,8 +1,8 @@
 Seattle p Portland/3,Boise/12,Billings/9
 PortLand p Seattle/3,Boise/13,San_Francisco/24
-Boise p Portland/13,Seattle/12,Billings/12,Cheyenne/24,Salt_Lake_City/8,San_Francisco/27
+Boise p Portland/13,Seattle/12,Billings/12,Salt_Lake_City/8,San_Francisco/27
 Billings p Seattle/0,Boise/12,Cheyenne/9,Fargo/17,Minneapolis/18
-Cheyenne p Denver/0,Billings/9,Boise/24,Minneapolis/18,Omaha/14
+Cheyenne p Denver/0,Billings/9,Minneapolis/18,Omaha/14
 Denver p Cheyenne/0,Salt_Lake_City/21,Santa_Fe/13,Kansas_City/16
 Omaha p Kansas_City/5,Cheyenne/14,Minneapolis/8,Chicago/13
 
@@ -27,7 +27,7 @@ Duluth y Fargo/6,Minneapolis/5,Chicago/12,Detroit/15
 Minneapolis y Fargo/6,Billings/18,Cheyenne/18,Omaha/8,Chicago/8,Duluth/5
 Chicago y Duluth/12,Minneapolis/8,Omaha/13,Kansas_City/8,St._Louis/10,Cincinnati/7,Detroit/7
 St._Louis y Kansas_City/6,Memphis/7,Cincinnati/12,Chicago/10,Atlanta/12
-Cincinnati y Chicago/7,St._Louis/12,Knoxville/6,Raleigh/15,Pittsburgh/7,Detroit/4
+Cincinnati y Chicago/7,St._Louis/12,Knoxville/6,Pittsburgh/7,Detroit/4
 Knoxville y Cincinnati/6,Atlanta/5
 
 Atlanta g Birmingham/3,Savannah/7,Raleigh/7,Knoxville/5
@@ -35,7 +35,7 @@ Tampa g Jacksonville/4,Miami/4
 Miami g Tampa/4
 Jacksonville g Tampa/4,New_Orleans/16,Birmingham/9,Savannah/0
 Savannah g Jacksonville/0,Atlanta/7,Raleigh/7
-Raleigh g Savannah/7,Atlanta/7,Cincinnati/15,Pittsburgh/7,Norfolk/3
+Raleigh g Savannah/7,Atlanta/7,Pittsburgh/7,Norfolk/3
 Norfolk g Washington_D.C./5,Raleigh/3
 
 Detroit br Duluth/15,Chicago/7,Cincinnati/4,Pittsburgh/6,Buffalo/7
