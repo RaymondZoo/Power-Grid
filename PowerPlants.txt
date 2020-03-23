@@ -41,3 +41,4 @@ cost/listResourcesNeeded/numCitiesPowered
 44/green/5
 46/1 coal.oil 1 coal.oil 1 coal.oil/7
 50/green/6
+f3riofj
