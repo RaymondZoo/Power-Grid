@@ -1,3 +1,5 @@
+
+
 Seattle p Portland/3,Boise/12,Billings/9
 PortLand p Seattle/3,Boise/13,San_Francisco/24
 Boise p Portland/13,Seattle/12,Billings/12,Salt_Lake_City/8,San_Francisco/27
