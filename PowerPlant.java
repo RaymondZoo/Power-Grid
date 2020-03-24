@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-
-public class PowerPlant {
+//Note: Resources are fully lowercase (oil, coal, nuclear, trash)
+public class PowerPlant implements Comparable{
 	private ArrayList<String> cost;
 	private ArrayList<String> storage;
 	int minBid, numCitiesPowered;
@@ -9,6 +9,13 @@ public class PowerPlant {
 		cost = new ArrayList<String>();
 		storage = new ArrayList<String>();
 		minBid = 0;
+		numCitiesPowered = 0;
+	}
+	
+	public PowerPlant(int minBid) {
+		cost = new ArrayList<String>();
+		storage = new ArrayList<String>();
+		this.minBid = minBid;
 		numCitiesPowered = 0;
 	}
 
@@ -159,6 +166,15 @@ public class PowerPlant {
 
 	public void setNumCitiesPowered(int numCitiesPowered) {
 		this.numCitiesPowered = numCitiesPowered;
+	}
+
+	public int compareTo(Object arg0) {
+		PowerPlant toComp= (PowerPlant)arg0;
+		return toComp.getMinBid()-getMinBid();
+	}
+	
+	public String toString() {
+		return "Number: "+minBid+". Cost"+cost.toString()+" powers "+numCitiesPowered+" cities.";
 	}
 
 }
