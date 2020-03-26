@@ -42,6 +42,7 @@ public class TextRunner {
 					}
 					else {
 						minPrice=bid;
+						gs.getBids().put(tempPlayers.get(i), bid);
 					}
 				}
 				Player auctionWinner=null;
@@ -50,13 +51,38 @@ public class TextRunner {
 						auctionWinner=p;
 					}
 				}
-				System.out.println(auctionWinner.getColor()+" has won the auction for "+gs.getAuctionCard().toString()+ " for "+minPrice);
+				System.out.println(auctionWinner.getColor()+" has won the auction for "+gs.getAuctionCard().toString()+ " for "+minPrice+".");
 				gs.setAuctionCard(null);
-				
+				gs.playerDecision(auctionWinner);
+				gs.getBids().clear();
+				gs.addPowerPlant();
 			}
 
 			// phase 3
-			// resources
+			for (int i=gs.getPlayerOrder().size()-1;i>=0;i--) {
+				System.out.println("Type in how many coal you wish to buy (0 for none)");
+				int numCoal=Integer.parseInt(input.nextLine());
+				if (numCoal>0) {
+					System.out.println("Choose which powerplant to move these resources to (index 0-");
+				}
+				
+				System.out.println("Type in how many oil you wish to buy (0 for none)");
+				int numOil=Integer.parseInt(input.nextLine());
+				
+				System.out.println("Type in how many trash you wish to buy (0 for none)");
+				int numTrash=Integer.parseInt(input.nextLine());
+				
+				System.out.println("Type in how many nuclear you wish to buy (0 for none)");
+				int numNuclear=Integer.parseInt(input.nextLine());
+				
+				ArrayList<String>resources=new ArrayList<String>();
+				while(numCoal>0) {
+					resources.add("coal");
+					int price=gs.removeCoal();
+				}
+				//index refers to the powerplant the player has chosen the resources to go to
+				gs.getPlayerOrder().get(i).getPowerList().get(index).addResources()
+			}
 
 			// phase 4
 			// citybuilding

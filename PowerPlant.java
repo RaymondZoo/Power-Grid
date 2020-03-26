@@ -39,7 +39,7 @@ public class PowerPlant implements Comparable{
 			return;
 		}
 		int index = 0;
-		while (storage.size() <= cost.size()) {
+		while (storage.size() <= cost.size()*2) {
 			if (cost.get(0).contains(resources.get(index))) {
 				storage.add(resources.get(index));
 			}

@@ -431,4 +431,20 @@ public class GameState {
 		}
 		return countPositive==1;
 	}
+	
+	public void playerDecision(Player p) {
+		decision.put(p, true);
+	}
+	
+	public int totalSize(TreeMap<Integer, ArrayList<String>>market) {
+		int size=0;
+		for (int key:market.keySet()) {
+			size+=market.get(key).size();
+		}
+		return size;
+	}
+	
+	public int removeCoal() {
+		
+	}
 }
