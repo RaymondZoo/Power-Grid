@@ -444,7 +444,7 @@ public class GameState {
 		return size;
 	}
 	
-	public int removeCoal() {
-		
+	public City findCity(String name) {
+		return cities.contains(name);
 	}
 }
