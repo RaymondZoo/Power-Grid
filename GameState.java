@@ -444,7 +444,33 @@ public class GameState {
 		return size;
 	}
 	
-	public City findCity(String name) {
-		return cities.contains(name);
+	public City findCity(String name) {//incomplete
+		return null;
+	}
+	
+	public void checkPowerPlantSize() {
+		int maxNumCities=0;
+		for (Player p:numCities.keySet()) {
+			if (numCities.get(p)>maxNumCities) {
+				maxNumCities=numCities.get(p);
+			}
+		}
+		boolean b=false;
+		for (PowerPlant p:currentMarket) {
+			if (p.getMinBid()<=maxNumCities) {
+				b=true;
+				currentMarket.remove(p);
+				addPowerPlant();
+			}
+		}
+		if (b) {
+			for (PowerPlant p:currentMarket) {
+				if (p.getMinBid()<=maxNumCities) {
+					b=true;
+					currentMarket.remove(p);
+					addPowerPlant();
+				}
+			}
+		}
 	}
 }

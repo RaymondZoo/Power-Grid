@@ -88,9 +88,11 @@ public class TextRunner {
 			// citybuilding
 			for (int i=gs.getPlayerOrder().size()-1;i>=0;i--) {
 				System.out.println("Which city do you want to build to (-1 for none)");
+				Player p=gs.getPlayerOrder().get(i);
 				String cmd=input.nextLine();
 				while(!cmd.equals("-1")) {
 					City c=gs.findCity(cmd);
+					gs.checkPowerPlantSize();
 				}
 			}
 
