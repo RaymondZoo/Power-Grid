@@ -32,7 +32,7 @@ public class GameState {
 
 	@SuppressWarnings({ "unchecked", "resource" })
 	public GameState() throws IOException {
-		marketStep3=false;
+		marketStep3 = false;
 		playerOrder = new ArrayList<Player>();
 		coalMarket = new TreeMap<Integer, ArrayList<String>>();
 		oilMarket = new TreeMap<Integer, ArrayList<String>>();
@@ -363,6 +363,7 @@ public class GameState {
 	public void setNumCities(HashMap<Player, Integer> numCities) {
 		this.numCities = numCities;
 	}
+
 	public boolean getMarketStep3() {
 		return marketStep3;
 	}
@@ -381,7 +382,7 @@ public class GameState {
 			addPowerPlant();
 		} else if (step == 2) {
 			maxHouseInCity++;
-			if (phase == 2) {
+			if (phase == 2 || phase == 4) {
 				this.marketStep3 = true;
 			}
 			if (phase == 5) {
@@ -412,61 +413,61 @@ public class GameState {
 			Collections.sort(currentMarket);
 		}
 	}
-	
+
 	public void restructureMarket() {
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
 		currentMarket.remove(new PowerPlant(1234));
 	}
-	
+
 	public boolean isAuctionDone() {
-		int countPositive=0;
-		for (Player p:decision.keySet()) {
-			if(!decision.get(p)) {
-				if (bids.get(p)>0) {
+		int countPositive = 0;
+		for (Player p : decision.keySet()) {
+			if (!decision.get(p)) {
+				if (bids.get(p) > 0) {
 					countPositive++;
 				}
 			}
 		}
-		return countPositive==1;
+		return countPositive == 1;
 	}
-	
+
 	public void playerDecision(Player p) {
 		decision.put(p, true);
 	}
-	
-	public int totalSize(TreeMap<Integer, ArrayList<String>>market) {
-		int size=0;
-		for (int key:market.keySet()) {
-			size+=market.get(key).size();
+
+	public int totalSize(TreeMap<Integer, ArrayList<String>> market) {
+		int size = 0;
+		for (int key : market.keySet()) {
+			size += market.get(key).size();
 		}
 		return size;
 	}
-	
-	public City findCity(String name) {//incomplete
+
+	public City findCity(String name) {// incomplete
 		return null;
 	}
-	
+
 	public void checkPowerPlantSize() {
-		int maxNumCities=0;
-		for (Player p:numCities.keySet()) {
-			if (numCities.get(p)>maxNumCities) {
-				maxNumCities=numCities.get(p);
+		int maxNumCities = 0;
+		for (Player p : numCities.keySet()) {
+			if (numCities.get(p) > maxNumCities) {
+				maxNumCities = numCities.get(p);
 			}
 		}
-		boolean b=false;
-		for (PowerPlant p:currentMarket) {
-			if (p.getMinBid()<=maxNumCities) {
-				b=true;
+		boolean b = false;
+		for (PowerPlant p : currentMarket) {
+			if (p.getMinBid() <= maxNumCities) {
+				b = true;
 				currentMarket.remove(p);
 				addPowerPlant();
 			}
 		}
 		if (b) {
-			for (PowerPlant p:currentMarket) {
-				if (p.getMinBid()<=maxNumCities) {
-					b=true;
+			for (PowerPlant p : currentMarket) {
+				if (p.getMinBid() <= maxNumCities) {
+					b = true;
 					currentMarket.remove(p);
 					addPowerPlant();
 				}
