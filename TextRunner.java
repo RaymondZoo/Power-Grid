@@ -60,6 +60,9 @@ public class TextRunner {
 				gs.getBids().clear();
 				gs.addPowerPlant();
 			}
+			if (gs.getMarketStep3()) {
+				gs.restructureMarket();
+			}
 
 			// phase 3
 			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
@@ -101,9 +104,7 @@ public class TextRunner {
 
 			// phase 5
 			// poweringstuffs
-			if (gs.getMarketStep3()) {
-				gs.restructureMarket();
-			}
+			
 		}
 	}
 }
