@@ -1,4 +1,4 @@
-
+Name region ConnectionCity/Cost,ConnectionCity/Cost
 
 Seattle p Portland/3,Boise/12,Billings/9
 PortLand p Seattle/3,Boise/13,San_Francisco/24
