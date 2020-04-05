@@ -451,6 +451,10 @@ public class GameState {
 	}
 
 	public City findCity(String name) {// incomplete
+		for (City c:cities) {
+			if (name.equals(c.getName()))
+				return c;
+		}
 		return null;
 	}
 
@@ -497,6 +501,14 @@ public class GameState {
 	}
 
 	public void restockResources() {
-		
+		//unfinished broken
+	}
+	
+	public void addCityBuilt(Player p) {
+		for (Player t:numCities.keySet()) {
+			if (t.getColor().equals(p.getColor())) {
+				numCities.put(t, numCities.get(t)+1);
+			}
+		}
 	}
 }
