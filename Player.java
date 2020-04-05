@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Player{
+public class Player {
 	private ArrayList<PowerPlant> powerList;
 	private int money;
 	private String color;
@@ -51,14 +51,18 @@ public class Player{
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
 	public int getHighestPowerPlant() {
-		int largest=0;
-		for (PowerPlant p:powerList) {
-			if (p.getMinBid()>largest) {
-				largest=p.getMinBid();
+		int largest = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getMinBid() > largest) {
+				largest = p.getMinBid();
 			}
 		}
 		return largest;
+	}
+
+	public void addMoney(int in) {
+		money += in;
 	}
 }
