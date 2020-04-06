@@ -29,6 +29,11 @@ public class GameState {
 	private boolean marketStep3;
 	private HashMap<Player, Integer> numCities;
 	public static final String[] colors = { "blue", "black", "green", "purple", "red", "yellow" };
+	public static final int[] rewards = { 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138,
+			142, 145, 148, 150 };
+	public static final int[] step1Restock = {5, 3, 2, 1};
+	public static final int[] step2Restock = {6, 4, 3, 2};
+	public static final int[] step3Restock = {4, 5, 4, 2};
 
 	@SuppressWarnings({ "unchecked", "resource" })
 	public GameState() throws IOException {
@@ -446,6 +451,10 @@ public class GameState {
 	}
 
 	public City findCity(String name) {// incomplete
+		for (City c:cities) {
+			if (name.equals(c.getName()))
+				return c;
+		}
 		return null;
 	}
 
@@ -471,6 +480,34 @@ public class GameState {
 					currentMarket.remove(p);
 					addPowerPlant();
 				}
+			}
+		}
+	}
+
+	public void marketFix() {
+		if (step != 3) {
+			deck.add(deck.size(), futureMarket.remove(futureMarket.size() - 1));
+			addPowerPlant();
+		} else {
+			currentMarket.remove(0);
+			addPowerPlant();
+		}
+	}
+
+	public void givingMoney(TreeMap<Player, Integer> numCitiesPowered) {
+		for (Player p:numCitiesPowered.keySet()) {
+			p.addMoney(rewards[numCitiesPowered.get(p)]);
+		}
+	}
+
+	public void restockResources() {
+		//unfinished broken
+	}
+	
+	public void addCityBuilt(Player p) {
+		for (Player t:numCities.keySet()) {
+			if (t.getColor().equals(p.getColor())) {
+				numCities.put(t, numCities.get(t)+1);
 			}
 		}
 	}

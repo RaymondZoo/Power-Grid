@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.ArrayList;
 
 public class TextRunner {
@@ -97,14 +98,49 @@ public class TextRunner {
 				Player p = gs.getPlayerOrder().get(i);
 				String cmd = input.nextLine();
 				while (!cmd.equals("-1")) {
-					City c = gs.findCity(cmd); // unfinished
+					City c = gs.findCity(cmd);
+					int cost = 0;
+					if (c != null) {
+						cost = c.leastCost(p);
+						cost += c.getCost();
+						if (p.getMoney() > cost) {
+							p.addMoney(cost * -1);
+							c.addPlayer(p);
+							gs.addCityBuilt(p);
+						}
+					}
 					gs.checkPowerPlantSize();
+					System.out.println("Which city do you want to build to (-1 for none)");
+					cmd = input.nextLine();
 				}
 			}
 
 			// phase 5
 			// poweringstuffs
-			
+			TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
+			for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
+				Player current = gs.getPlayerOrder().get(i);
+				System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+				int index = Integer.parseInt(input.nextLine());
+				int totalCitiesPowered = 0;
+				while (index != -1) {
+					if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
+						totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
+						System.out.println(
+								"Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
+					} else {
+						System.out.println("Unsuccessful.");
+					}
+					System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+					index = Integer.parseInt(input.nextLine());
+				}
+				numCitiesPowered.put(current, totalCitiesPowered);
+			}
+			gs.givingMoney(numCitiesPowered);
+
+			gs.restockResources();
+
+			gs.marketFix();
 		}
 	}
 }

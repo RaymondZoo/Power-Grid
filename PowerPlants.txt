@@ -1,4 +1,4 @@
-cost/listResourcesNeeded/numCitiesPowered
+minCost/listResourcesNeeded/numCitiesPowered
 3/2 oil/1
 4/2 coal/1
 5/2 coal.oil/1
