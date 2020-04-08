@@ -145,7 +145,7 @@ public class GameState {
 		// reading in PowerPlants please check
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
-		Scanner PowerPlantReader = new Scanner(new File(C:\Users\risha\eclipse-workspace\Power Grid New\src));
+		Scanner PowerPlantReader = new Scanner(new File("PowePlants.txt"));
 		while (PowerPlantReader.hasNext()) {
 			String line = PowerPlantReader.nextLine();
 			String[] stats = line.split("/");
