@@ -116,10 +116,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	    {  
 			//System.out.println("enter");
 			if(keyInput.length() >0)
-				state.getTree().add(new BinaryNode(keyInput));
+				//BID
 			keyInput = "";
 	    }
-		else 
+		else if(e.getExtendedKeyCode()>=48&&e.getExtendedKeyCode()<=57)
 			keyInput+=e.getKeyChar();
 		
 		
