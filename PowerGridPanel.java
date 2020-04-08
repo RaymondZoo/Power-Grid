@@ -28,9 +28,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	
 	private GameState game;
 	
+	//Colors
+	public static final Color GREEN = new Color(114, 135, 0);
+	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 	
 	//UIs
-	private boolean START,MAPUI;
+	private boolean MainMenu,MAPUI;
 	
 	
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements instead
@@ -47,7 +50,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		this.height = height;
 		
 		//Initializing each UI
-		START = true;
+		MainMenu = true;
 		MAPUI = false;
 		
 
@@ -59,7 +62,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		((Graphics2D) g).setRenderingHint(
 		        RenderingHints.KEY_TEXT_ANTIALIASING,
 		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		if(START)
+		if(MainMenu)
 		{
 			drawMainMenu(g);
 		}
@@ -76,10 +79,27 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		{
 			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
 			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
+			
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+			g.setColor(TRANSPARENTBLACK);
+			
+			int boxW = 300;
+			int boxL = 100;
+			
+			g.fillRect((1920-boxW)/2, 497, boxW, boxL);
+			
+			g.fillRect((1920-boxW)/2, 700, boxW, boxL);
+			
+			
+			g.setColor(Color.WHITE);
+			
+			g.drawString("START", 890, 555);
+			g.drawString("QUIT", 910, 760);
+			
 		}
 		catch(IOException e)
 		{
-			System.out.println("Cannot find Start image!");
+			System.out.println("Cannot find main menu image!");
 		}
 	}
 	public void drawMAPUI(Graphics g)
@@ -96,6 +116,28 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 	public void mousePressed(MouseEvent e)
 	{
+		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing		
+		if(MainMenu)
+		{
+			int boxW = 300;
+			int boxL = 100;
+			/*
+			g.fillRect((1920-boxW)/2, 497, boxW, boxL);
+			g.fillRect((1920-boxW)/2, 700, boxW, boxL);*/
+			
+			if(e.getX()>=(1920-boxW)/2&&e.getX()<=(1920-boxW)/2+boxW&&e.getY()>=497&&e.getY()<=597) //IF START
+			{
+				MainMenu = false;
+				MAPUI = true;
+			}
+			if(e.getX()>=(1920-boxW)/2&&e.getX()<=(1920-boxW)/2+boxW&&e.getY()>=700&&e.getY()<=800) //IF QUIT
+			{
+				System.exit(0);
+				
+			}
+		}
+		
+		repaint();
 	
 	}
 
