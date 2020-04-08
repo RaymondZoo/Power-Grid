@@ -1,7 +1,7 @@
 cost/listResourcesNeeded/numCitiesPowered
 3/2 oil/1
 4/2 coal/1
-5/2 coal.oil/1
+5/2 coal||oil/1
 6/1 trash/1
 7/3 oil/2
 8/3 coal/2

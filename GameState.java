@@ -21,8 +21,8 @@ public class GameState {
 	private int maxHouseInCity;
 	private PowerPlant auctionCard;
 	private int numberOfPlayers;
-	private TreeMap<Player, Integer> bids;
-	private TreeMap<Player, Boolean> decision;
+	private HashMap<Player, Integer> bids;
+	private HashMap<Player, Boolean> decision;
 	private TreeSet<City> cities;
 	private ArrayList<String> playableColors;
 	private boolean endOfGame;
@@ -30,15 +30,30 @@ public class GameState {
 	private HashMap<Player, Integer> numCities;
 	public static final String[] colors = { "blue", "black", "green", "purple", "red", "yellow" };
 
+	
+	public static GameState gs = null;
+	
+	public static GameState getGamestate() {
+		if ( gs == null) 
+		{
+			gs = new GameState();
+		}
+		return gs;
+	}
+	
 	@SuppressWarnings({ "unchecked", "resource" })
-	public GameState() throws IOException {
+	public GameState() {
+			//throws IOException {
+	
+		try {
 		marketStep3=false;
 		playerOrder = new ArrayList<Player>();
 		coalMarket = new TreeMap<Integer, ArrayList<String>>();
 		oilMarket = new TreeMap<Integer, ArrayList<String>>();
 		trashMarket = new TreeMap<Integer, ArrayList<String>>();
 		nuclearMarket = new TreeMap<Integer, String>();
-		for (int i = 8; i >= 0; i++) {
+		//filling in markets
+		for (int i = 8; i >= 0; i--) {
 			for (int j = 0; j < 3; j++) {
 				if (i >= 3) {
 					ArrayList<String> storage;
@@ -73,7 +88,7 @@ public class GameState {
 				coalMarket.put(i, storage);
 			}
 		}
-		for (int i = 16; i >= 12; i++) {
+		for (int i = 16; i >= 12; i--) {
 			nuclearMarket.put(i, "nuclear");
 		}
 
@@ -84,8 +99,8 @@ public class GameState {
 		step = 1;
 		maxHouseInCity = step;
 		numberOfPlayers = 4;
-		bids = new TreeMap<Player, Integer>();
-		decision = new TreeMap<Player, Boolean>();
+		bids = new HashMap<Player, Integer>();
+		decision = new HashMap<Player, Boolean>();
 		cities = new TreeSet<City>();
 		playableColors = new ArrayList<String>();
 		endOfGame = false;
@@ -108,7 +123,7 @@ public class GameState {
 		// reading in PowerPlants please check
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
-		Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
+		Scanner PowerPlantReader = new Scanner(new File(C:\Users\risha\eclipse-workspace\Power Grid New\src));
 		while (PowerPlantReader.hasNext()) {
 			String line = PowerPlantReader.nextLine();
 			String[] stats = line.split("/");
@@ -132,9 +147,9 @@ public class GameState {
 			}
 
 			if (minBid <= 15) {
-				plug.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
+				plug.add(new PowerPlant(minBid, cost, numCitiesPowered));
 			} else {
-				socket.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
+				socket.add(new PowerPlant(minBid, cost, numCitiesPowered));
 			}
 			Collections.shuffle(plug);
 			Collections.shuffle(socket);
@@ -147,7 +162,6 @@ public class GameState {
 			PowerPlant topCard = plug.remove(0);
 
 			plug.remove(0);
-
 			socket.remove(0);
 			socket.remove(0);
 			socket.remove(0);
@@ -165,43 +179,12 @@ public class GameState {
 			for (int i = 0; i < 4; i++) {
 				futureMarket.add(tempList.remove(i));
 			}
+			
 		}
-	}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
-	public boolean phaseDone() {
-		boolean b = true;
-		for (Player p : decision.keySet()) {
-			b = decision.get(p);
-		}
-		return b;
-	}
-
-	public void determinePlayerOrder() {
-		for (int i = 1; i < playerOrder.size(); ++i) {
-			Player key = playerOrder.get(i);
-			int j = i - 1;
-			while (j >= 0 && isGreater(playerOrder.get(j), key)) {
-				playerOrder.set(j + 1, playerOrder.get(j));
-				j = j - 1;
-			}
-			playerOrder.set(j + 1, key);
-		}
-	}
-
-	public boolean isGreater(Player p1, Player p2) {
-		int p1num = numCities.get(p1);
-		int p2num = numCities.get(p2);
-		if (p1num > p2num) {
-			return true;
-		} else if (p1num < p2num) {
-			return false;
-		} else {
-			if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 	}
 
 	public Scanner getInput() {
@@ -316,15 +299,15 @@ public class GameState {
 		this.numberOfPlayers = numberOfPlayers;
 	}
 
-	public TreeMap<Player, Integer> getBids() {
+	public HashMap<Player, Integer> getBids() {
 		return bids;
 	}
 
-	public void setBids(TreeMap<Player, Integer> bids) {
+	public void setBids(HashMap<Player, Integer> bids) {
 		this.bids = bids;
 	}
 
-	public TreeMap<Player, Boolean> getDecision() {
+	public HashMap<Player, Boolean> getDecision() {
 		return decision;
 	}
 
@@ -366,11 +349,45 @@ public class GameState {
 	public boolean getMarketStep3() {
 		return marketStep3;
 	}
-
 	public void nextPhase() {
 		phase++;
 		if (phase == 6) {
 			phase = 1;
+		}
+	}
+	public boolean phaseDone() {
+		boolean b = true;
+		for (Player p : decision.keySet()) {
+			b = decision.get(p);
+		}
+		return b;
+	}
+
+	public void determinePlayerOrder() {
+		for (int i = 1; i < playerOrder.size(); ++i) {
+			Player key = playerOrder.get(i);
+			int j = i - 1;
+			while (j >= 0 && isGreater(playerOrder.get(j), key)) {
+				playerOrder.set(j + 1, playerOrder.get(j));
+				j = j - 1;
+			}
+			playerOrder.set(j + 1, key);
+		}
+	}
+
+	public boolean isGreater(Player p1, Player p2) {
+		int p1num = numCities.get(p1);
+		int p2num = numCities.get(p2);
+		if (p1num > p2num) {
+			return true;
+		} else if (p1num < p2num) {
+			return false;
+		} else {
+			if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 

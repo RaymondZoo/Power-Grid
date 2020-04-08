@@ -1,11 +1,20 @@
 import java.io.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import java.util.TreeMap;
+import java.util.Iterator;
 public class TextRunner {
-	public static void main(String[] args) throws IOException {
-		Scanner input = new Scanner(System.in); // player input
-		GameState gs = new GameState();
+	
+	static 	GameState gs = null;
+	
+
+	
+	static Scanner input = new Scanner(System.in); // player input
+	public static void main(String[] args) throws IOException 
+	{
+		gs = GameState.getGamestate();
+		
 		int turn = 0;
 
 		System.out.println("Enter Playable Colors (4)");
@@ -52,9 +61,29 @@ public class TextRunner {
 				}
 				System.out.println(auctionWinner.getColor()+" has won the auction for "+gs.getAuctionCard().toString()+ " for "+minPrice);
 				gs.setAuctionCard(null);
+			
 				
 			}
+			System.out.println("Now it's time for resource selection");
+			for(int i = 1;i<=4;i++)
+			{
+				
+				resourceSelection(i);
+				System.out.println("Are You Done with Purchasing Reosurces?");
+				String answer = input.nextLine();
+				if(answer.equals("yes"))
+				{
+					System.out.println("Ok...Moving on to next Player");
+				}
+				else if(answer.equals("no"))
+				{
+					resourceSelection(i);
 
+				}		
+			}
+			
+		}
+		
 			// phase 3
 			// resources
 
@@ -67,5 +96,91 @@ public class TextRunner {
 				gs.restructureMarket();
 			}
 		}
+	public static void resourceSelection( int playerNum)
+	{
+		String[] resources = {"coal", "oil", "trash", "nuclear"};	
+		System.out.println("Player " + playerNum + "'s turn. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear");
+		int numResource = input.nextInt();
+		System.out.println("How much of " + resources[numResource] + "do you want");
+		int numReq = input.nextInt();
+		TreeMap <Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
+		TreeMap <Integer,String> nuclearMarket = new TreeMap<Integer,String>();
+		String resource = resources[numResource];
+		if(resource.equals("coal")){
+			market = gs.getCoalMarket();
+			}
+		else if(resource.equals("oil")){
+			market = gs.getOilMarket();
+			}	
+		else if(resource.equals("trash")){
+			market = gs.getTrashMarket();
+		}
+		else if(resource.equals("nuclear")) {
+			nuclearMarket = gs.getNuclearMarket();
+		}
+		int numCollectedResources=0;
+		
+		while(numCollectedResources!=numReq) 
+		{
+				if(resource.equals("coal")||resource.equals("oil")
+						||resource.equals("nuclear"))
+				{		
+					Iterator<Integer> iter = market.keySet().iterator();
+						while(iter.hasNext())
+						{			
+							int key = iter.next();
+							int size = market.get(key).size();
+							if(size>0)
+							{
+								String req = market.get(key).get(0);
+								for(int w = 0;w<=size;w++)
+								{
+									
+									market.get(key).remove(req);
+									numCollectedResources++;
+									int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
+									gs.getPlayerOrder().get(playerNum).subtractMoney(key);
+									if(gs.getPlayerOrder().get(playerNum).getMoney()<0)
+									{
+										System.out.println("Sorry Can't Afford These Resources");
+										gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
+										break;
+									}
+									if(numCollectedResources==numReq)
+										break;
+								}
+							}
+						}	
+					}
+				else if(resource.equals("nuclear")) 
+				{
+					Iterator<Integer> iter = nuclearMarket.keySet().iterator();
+					if(nuclearMarket.keySet().size()>=numReq)
+					{
+						while(iter.hasNext())
+						{
+							int key = iter.next();
+							nuclearMarket.put(key, "");
+							numCollectedResources++;
+							int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
+							gs.getPlayerOrder().get(playerNum).subtractMoney(key);
+							if(gs.getPlayerOrder().get(playerNum).getMoney()<0)
+							{
+								System.out.println("Sorry Can't Afford These Resources");
+								gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
+								break;
+							}
+							if(numCollectedResources==numReq)
+								break;
+						}
+					}
+				}
+				if(numCollectedResources<numReq)
+				{
+					System.out.println("Sorry Market Doesn't have enough resources");
+					break;
+				}
+		}
+		
 	}
 }

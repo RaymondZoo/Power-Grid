@@ -41,16 +41,17 @@ public class PowerPlant implements Comparable{
 		return false;
 	}
 	public void addResources(ArrayList<String> resources) {
+
 		// if the plant is green
 		if (cost.size() == 0) {
 			return;
 		}
-		if(isHybrid())
+		if(cost.get(0).contains("||"))
 		{
-			String firstResource = cost.get(0).substring(0, cost.get(0).indexOf("."));
-			String secondResource =  cost.get(0).substring(cost.get(0).indexOf("."), cost.get(0).length());
+			String firstResource = cost.get(0).substring(0, cost.get(0).indexOf("||"));
+			String secondResource =  cost.get(0).substring(cost.get(0).indexOf("||")+1, cost.get(0).length());
 			int index = 0;
-			while(!hybridFull())
+			while(!isFull())
 			{
 				if(resources.get(index).equals(firstResource)||resources.get(index).equals(secondResource)){
 					storage.add(resources.get(index));
@@ -71,39 +72,7 @@ public class PowerPlant implements Comparable{
 	public boolean isFull() {
 		return storage.size() >= (cost.size() * 2);
 	}
-	public boolean hybridFull()
-	{
-		String firstResource = cost.get(0).substring(0, cost.get(0).indexOf("."));
-		int numCostFirstResource = 0;
-		String secondResource =  cost.get(0).substring(cost.get(0).indexOf("."), cost.get(0).length());
-		int numCostSecondResource = 0;
-		//Figuring out how many of each resource the cost asks for
-		for(String resource : cost){
-			if(firstResource.equals(resource)){
-				numCostFirstResource++;
-			}
-			else if(secondResource.equals(resource)){
-				numCostSecondResource++;
-			}
-		}
-		//The number of resources in storage for each specific resource
-		int numStorageFirstResource = 0;
-		int numStorageSecondResource = 0;
-		for(String resource : storage){
-			if(firstResource.equals(resource)){
-				numStorageFirstResource++;
-			}
-			else if(secondResource.equals(resource)){
-				numStorageSecondResource++;
-			}
-		}
-		if(numStorageFirstResource<=numCostFirstResource && numStorageSecondResource<=numCostFirstResource)
-		{
-			return true;
-		}	
-		return false;
-	}
-
+	
 	public boolean burnResources(ArrayList<String> resources) {
 		// green PowerPlant
 		if (cost.size() == 0) {
