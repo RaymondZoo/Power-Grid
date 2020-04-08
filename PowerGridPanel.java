@@ -24,6 +24,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	
 	private int width;
 	private int height;
+	private String keyInput;
 	
 	private GameState game;
 	
@@ -41,7 +42,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		setLayout(null);
 		setSize(width, height);
 		
-		game = new GameState();
+		//game = new GameState();
 		this.width = width;
 		this.height = height;
 		
@@ -73,7 +74,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		try
 		{
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/BestSoFar.jpg"));
+			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
 			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
 		}
 		catch(IOException e)
@@ -90,7 +91,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 		catch(IOException e)
 		{
-			System.out.println("Cannot find Start image!");
+			System.out.println("Cannot find Map image!");
 		}
 	}
 	public void mousePressed(MouseEvent e)
@@ -105,6 +106,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void keyTyped(KeyEvent e) 
 	{
+		if(e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8)
+	    {  
+			//System.out.println("backspace");
+			if(keyInput.length()>=1)
+				keyInput = keyInput.substring(0, keyInput.length()-1);
+	    }
+		else if(e.getExtendedKeyCode() == KeyEvent.VK_ENTER || e.getExtendedKeyCode() == 10)
+	    {  
+			//System.out.println("enter");
+			if(keyInput.length() >0)
+				state.getTree().add(new BinaryNode(keyInput));
+			keyInput = "";
+	    }
+		else 
+			keyInput+=e.getKeyChar();
+		
+		
+		repaint();
 		
 	}
 
