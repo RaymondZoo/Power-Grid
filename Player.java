@@ -66,5 +66,21 @@ public class Player {
 		this.color = color;
 	}
 
+<<<<<<< HEAD
 	
+=======
+	public int getHighestPowerPlant() {
+		int largest = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getMinBid() > largest) {
+				largest = p.getMinBid();
+			}
+		}
+		return largest;
+	}
+
+	public void addMoney(int in) {
+		money += in;
+	}
+>>>>>>> 402b0be50b2bb50709daee86c56f66ddf73ccfb3
 }

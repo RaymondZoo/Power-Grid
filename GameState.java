@@ -29,6 +29,11 @@ public class GameState {
 	private boolean marketStep3;
 	private HashMap<Player, Integer> numCities;
 	public static final String[] colors = { "blue", "black", "green", "purple", "red", "yellow" };
+	public static final int[] rewards = { 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138,
+			142, 145, 148, 150 };
+	public static final int[] step1Restock = {5, 3, 2, 1};
+	public static final int[] step2Restock = {6, 4, 3, 2};
+	public static final int[] step3Restock = {4, 5, 4, 2};
 
 	
 	public static GameState gs = null;
@@ -42,11 +47,16 @@ public class GameState {
 	}
 	
 	@SuppressWarnings({ "unchecked", "resource" })
+<<<<<<< HEAD
 	public GameState() {
 			//throws IOException {
 	
 		try {
 		marketStep3=false;
+=======
+	public GameState() throws IOException {
+		marketStep3 = false;
+>>>>>>> 402b0be50b2bb50709daee86c56f66ddf73ccfb3
 		playerOrder = new ArrayList<Player>();
 		coalMarket = new TreeMap<Integer, ArrayList<String>>();
 		oilMarket = new TreeMap<Integer, ArrayList<String>>();
@@ -346,6 +356,7 @@ public class GameState {
 	public void setNumCities(HashMap<Player, Integer> numCities) {
 		this.numCities = numCities;
 	}
+
 	public boolean getMarketStep3() {
 		return marketStep3;
 	}
@@ -398,7 +409,7 @@ public class GameState {
 			addPowerPlant();
 		} else if (step == 2) {
 			maxHouseInCity++;
-			if (phase == 2) {
+			if (phase == 2 || phase == 4) {
 				this.marketStep3 = true;
 			}
 			if (phase == 5) {
@@ -429,23 +440,97 @@ public class GameState {
 			Collections.sort(currentMarket);
 		}
 	}
-	
+
 	public void restructureMarket() {
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
 		currentMarket.remove(new PowerPlant(1234));
 	}
-	
+
 	public boolean isAuctionDone() {
-		int countPositive=0;
-		for (Player p:decision.keySet()) {
-			if(!decision.get(p)) {
-				if (bids.get(p)>0) {
+		int countPositive = 0;
+		for (Player p : decision.keySet()) {
+			if (!decision.get(p)) {
+				if (bids.get(p) > 0) {
 					countPositive++;
 				}
 			}
 		}
-		return countPositive==1;
+		return countPositive == 1;
+	}
+
+	public void playerDecision(Player p) {
+		decision.put(p, true);
+	}
+
+	public int totalSize(TreeMap<Integer, ArrayList<String>> market) {
+		int size = 0;
+		for (int key : market.keySet()) {
+			size += market.get(key).size();
+		}
+		return size;
+	}
+
+	public City findCity(String name) {// incomplete
+		for (City c:cities) {
+			if (name.equals(c.getName()))
+				return c;
+		}
+		return null;
+	}
+
+	public void checkPowerPlantSize() {
+		int maxNumCities = 0;
+		for (Player p : numCities.keySet()) {
+			if (numCities.get(p) > maxNumCities) {
+				maxNumCities = numCities.get(p);
+			}
+		}
+		boolean b = false;
+		for (PowerPlant p : currentMarket) {
+			if (p.getMinBid() <= maxNumCities) {
+				b = true;
+				currentMarket.remove(p);
+				addPowerPlant();
+			}
+		}
+		if (b) {
+			for (PowerPlant p : currentMarket) {
+				if (p.getMinBid() <= maxNumCities) {
+					b = true;
+					currentMarket.remove(p);
+					addPowerPlant();
+				}
+			}
+		}
+	}
+
+	public void marketFix() {
+		if (step != 3) {
+			deck.add(deck.size(), futureMarket.remove(futureMarket.size() - 1));
+			addPowerPlant();
+		} else {
+			currentMarket.remove(0);
+			addPowerPlant();
+		}
+	}
+
+	public void givingMoney(TreeMap<Player, Integer> numCitiesPowered) {
+		for (Player p:numCitiesPowered.keySet()) {
+			p.addMoney(rewards[numCitiesPowered.get(p)]);
+		}
+	}
+
+	public void restockResources() {
+		//unfinished broken
+	}
+	
+	public void addCityBuilt(Player p) {
+		for (Player t:numCities.keySet()) {
+			if (t.getColor().equals(p.getColor())) {
+				numCities.put(t, numCities.get(t)+1);
+			}
+		}
 	}
 }

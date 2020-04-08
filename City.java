@@ -80,4 +80,10 @@ public class City {
 	public boolean hasPlayer(Player p) {
 		return getPlayersAtCity().contains(p);
 	}
+	public void addPlayer(Player p) {
+		playersAtCity.add(p);
+	}
+	public int getCost() {
+		return 10+(5*playersAtCity.size());
+	}
 }
