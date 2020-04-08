@@ -129,6 +129,18 @@ public class GameState {
 			decision.put(p, false);
 			bids.put(p, 0);
 		}
+		
+		//adding in cities
+		Scanner cityReader = new Scanner(new File("Cities.txt"));
+		cityReader.nextLine();
+		cityReader.nextLine();
+		for(int x = 0; x < 6; x++)
+		{
+			for(int y = 0; y < 7; y++)
+			{
+				City c = new City(cityReader.next(), cityReader.next());
+			}
+		}
 
 		// reading in PowerPlants please check
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
