@@ -24,6 +24,7 @@ public class Player {
 		}
 		if (powerList.size() < 3 && money > cost) {
 			powerList.add(p);
+			money-=cost;
 			return;
 		}
 	}
