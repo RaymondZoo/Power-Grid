@@ -29,7 +29,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private GameState game;
 	
 	//Colors
-	public static final Color GREEN = new Color(114, 135, 0);
+	public static final Color GREEN = new Color(17,59,8);
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 	
 	//UIs
@@ -66,6 +66,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		{
 			drawMainMenu(g);
 		}
+		else
 		else if(MAPUI)
 		{
 			drawMAPUI(g);
@@ -107,7 +108,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		try
 		{
 			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/BestSoFar.jpg"));
-			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
+			g.setColor(GREEN);
+			g.fillRect(0, 0, width, height);
+			g.drawImage(mainMenuBackground, 0, 0, 1535, 1080, null);
 		}
 		catch(IOException e)
 		{
