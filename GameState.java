@@ -1,10 +1,13 @@
 import java.io.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class GameState {
 	private Scanner input;
@@ -28,6 +31,8 @@ public class GameState {
 	private boolean endOfGame;
 	private boolean marketStep3;
 	private HashMap<Player, Integer> numCities;
+	private HashMap<City, ArrayList<String>> listOfLinks;
+	private ArrayList<City> listOfCities;
 	public static final String[] colors = { "blue", "black", "green", "purple", "red", "yellow" };
 	public static final int[] rewards = { 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138,
 			142, 145, 148, 150 };
@@ -47,16 +52,12 @@ public class GameState {
 	}
 	
 	@SuppressWarnings({ "unchecked", "resource" })
-<<<<<<< HEAD
 	public GameState() {
 			//throws IOException {
 	
 		try {
 		marketStep3=false;
-=======
-	public GameState() throws IOException {
 		marketStep3 = false;
->>>>>>> 402b0be50b2bb50709daee86c56f66ddf73ccfb3
 		playerOrder = new ArrayList<Player>();
 		coalMarket = new TreeMap<Integer, ArrayList<String>>();
 		oilMarket = new TreeMap<Integer, ArrayList<String>>();
@@ -115,6 +116,8 @@ public class GameState {
 		playableColors = new ArrayList<String>();
 		endOfGame = false;
 		numCities = new HashMap<Player, Integer>();
+		listOfLinks = new HashMap<City, ArrayList<String>>();
+		listOfCities = new ArrayList<City>();
 
 		// adding in players
 		ArrayList<String> colorList = new ArrayList<String>();
@@ -138,10 +141,41 @@ public class GameState {
 		{
 			for(int y = 0; y < 7; y++)
 			{
-				City c = new City(cityReader.next(), cityReader.next());
+				String line = cityReader.nextLine();
+				String[] citiesAndLinks = line.split(" ");
+				City c = new City(citiesAndLinks[0], citiesAndLinks[1]);
+				ArrayList<String> links = new ArrayList<String>();
+				for(int i = 2;i<citiesAndLinks.length;i++)
+				{
+					links.add(citiesAndLinks[i].substring(0, citiesAndLinks[i].indexOf(',')));
+				}
+				listOfLinks.put(c, links);
+				listOfCities.add(c);
 			}
 		}
-
+		//setting up cities
+		Set<City> keySet = listOfLinks.keySet();
+		Iterator<City> iter = keySet.iterator();
+		while(iter.hasNext())
+		{
+			City current = iter.next();
+			ArrayList<String> links = listOfLinks.get(current);
+			for(int i = 0;i<links.size();i++)
+			{
+				String val = links.get(i);
+				String toSearchFor = val.substring(0, val.indexOf("/"));
+				int cost = Integer.parseInt(val.substring(val.indexOf("/")+1, val.length()));
+				City linked = null;
+				for(int x = 0;x<listOfCities.size();x++)
+				{
+					if(listOfCities.get(i).getName().equalsIgnoreCase(toSearchFor))
+					{
+						linked = listOfCities.get(i);
+					}
+				}
+				current.getEdges().put(linked, cost);
+			}
+		}
 		// reading in PowerPlants please check
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
@@ -333,7 +367,7 @@ public class GameState {
 		return decision;
 	}
 
-	public void setDecision(TreeMap<Player, Boolean> decision) {
+	public void setDecision(HashMap<Player, Boolean> decision) {
 		this.decision = decision;
 	}
 

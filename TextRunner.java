@@ -66,17 +66,14 @@ public class TextRunner {
 				System.out.println(auctionWinner.getColor() + " has won the auction for "
 						+ gs.getAuctionCard().toString() + " for " + minPrice + ".");
 				gs.setAuctionCard(null);
-<<<<<<< HEAD
 			
 				
-=======
 				gs.playerDecision(auctionWinner);
 				gs.getBids().clear();
 				gs.addPowerPlant();
 			}
 			if (gs.getMarketStep3()) {
 				gs.restructureMarket();
->>>>>>> 402b0be50b2bb50709daee86c56f66ddf73ccfb3
 			}
 			System.out.println("Now it's time for resource selection");
 			for(int i = 1;i<=4;i++)
