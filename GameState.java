@@ -133,25 +133,35 @@ public class GameState {
 			bids.put(p, 0);
 		}
 		
-		//adding in cities
+		//reading in cities
 		Scanner cityReader = new Scanner(new File("Cities.txt"));
-		cityReader.nextLine();
-		cityReader.nextLine();
-		for(int x = 0; x < 6; x++)
+		
+		
+		while (cityReader.hasNextLine())
 		{
-			for(int y = 0; y < 7; y++)
+			String line = cityReader.nextLine();
+			if (line == null || line.isEmpty()) 
 			{
-				String line = cityReader.nextLine();
-				String[] citiesAndLinks = line.split(" ");
-				City c = new City(citiesAndLinks[0], citiesAndLinks[1]);
-				ArrayList<String> links = new ArrayList<String>();
-				for(int i = 2;i<citiesAndLinks.length;i++)
-				{
-					links.add(citiesAndLinks[i].substring(0, citiesAndLinks[i].indexOf(',')));
-				}
-				listOfLinks.put(c, links);
-				listOfCities.add(c);
+				continue;
 			}
+			String[] citiesAndLinks = null;
+			City c  = null;
+			
+			try {
+			// line = cityReader.nextLine();
+			citiesAndLinks = line.split(" ");
+			c = new City(citiesAndLinks[0], citiesAndLinks[1]);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			ArrayList<String> links = new ArrayList<String>();
+			for(int i = 2;i<citiesAndLinks.length;i++)
+			{
+				links.add(citiesAndLinks[i].substring(0, citiesAndLinks[i].length()));
+			}
+			listOfLinks.put(c, links);
+			listOfCities.add(c);
+		
 		}
 		//setting up cities
 		Set<City> keySet = listOfLinks.keySet();
@@ -164,7 +174,16 @@ public class GameState {
 			{
 				String val = links.get(i);
 				String toSearchFor = val.substring(0, val.indexOf("/"));
-				int cost = Integer.parseInt(val.substring(val.indexOf("/")+1, val.length()));
+				
+				int cost = 0;
+				try {
+					
+					val = val.replace(",","");
+					
+					cost = Integer.parseInt(val.substring(val.indexOf("/")+1, val.length()));
+					} catch (Exception e) {
+						System.out.println (e);
+					}
 				City linked = null;
 				for(int x = 0;x<listOfCities.size();x++)
 				{
@@ -180,8 +199,17 @@ public class GameState {
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
 		Scanner PowerPlantReader = new Scanner(new File("PowePlants.txt"));
-		while (PowerPlantReader.hasNext()) {
+		if (PowerPlantReader.hasNext()) 
+		{
+			PowerPlantReader.next();
+		}
+		while (PowerPlantReader.hasNextLine()) {
 			String line = PowerPlantReader.nextLine();
+			if (line == null || line.isEmpty())
+			{
+				continue;
+			}
+			
 			String[] stats = line.split("/");
 			int minBid = Integer.parseInt(stats[0]);
 			int numCitiesPowered = Integer.parseInt(stats[2]);
@@ -198,7 +226,8 @@ public class GameState {
 			String[] costStuff = costLine.split(" ");
 			int num = Integer.parseInt(costStuff[0]);
 			ArrayList<String> cost = new ArrayList<String>();
-			for (int n = 0; n < num; n++) {
+			for (int n = 0; n < num; n++) 
+			{
 				cost.add(costStuff[1]);
 			}
 
@@ -213,9 +242,16 @@ public class GameState {
 			// setting up current and future market
 			ArrayList<PowerPlant> tempList = new ArrayList<PowerPlant>();
 			for (int i = 0; i < 8; i++) {
-				tempList.add(plug.remove(i));
+				if (plug!=null && !plug.isEmpty())
+				{
+					tempList.add(plug.remove(i));
+				}
 			}
-			PowerPlant topCard = plug.remove(0);
+			PowerPlant topCard = null;
+			if (plug!=null && !plug.isEmpty())
+			{
+				topCard = plug.remove(0);
+			}
 
 			plug.remove(0);
 			socket.remove(0);
@@ -453,12 +489,16 @@ public class GameState {
 			maxHouseInCity++;
 			currentMarket.remove(0);
 			addPowerPlant();
-		} else if (step == 2) {
+		} 
+		else if (step == 2) 
+		{
 			maxHouseInCity++;
-			if (phase == 2 || phase == 4) {
+			if (phase == 2 || phase == 4) 
+			{
 				this.marketStep3 = true;
 			}
-			if (phase == 5) {
+			if (phase == 5) 
+			{
 				restructureMarket();
 			}
 		}

@@ -66,7 +66,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		{
 			drawMainMenu(g);
 		}
-		else
 		else if(MAPUI)
 		{
 			drawMAPUI(g);
@@ -171,7 +170,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		repaint();
 		
 	}
-
 	public void keyPressed(KeyEvent e) 
 	{
 		

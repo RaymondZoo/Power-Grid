@@ -6,19 +6,19 @@ import java.util.TreeMap;
 public class City {
 	private ArrayList<Player> playersAtCity;
 	private String zoneColor;
-	private TreeMap<City, Integer> edges;
+	private HashMap<City, Integer> edges;
 	private String name;
 	
 	public City(String name, String zoneColor) {
 		this.name=name;
 		this.zoneColor=zoneColor;
 		playersAtCity=new ArrayList<Player>();
-		edges=new TreeMap<City, Integer>();
+		edges=new HashMap<City, Integer>();
 	}
 	public City() {
 		playersAtCity=new ArrayList<Player>();
 		zoneColor="";
-		edges=new TreeMap<City, Integer>();
+		edges=new HashMap<City, Integer>();
 		name="";
 	}
 	public int leastCost(Player p) {
@@ -65,10 +65,10 @@ public class City {
 	public void setZoneColor(String zoneColor) {
 		this.zoneColor = zoneColor;
 	}
-	public TreeMap<City, Integer> getEdges() {
+	public HashMap<City, Integer> getEdges() {
 		return edges;
 	}
-	public void setEdges(TreeMap<City, Integer> edges) {
+	public void setEdges(HashMap<City, Integer> edges) {
 		this.edges = edges;
 	}
 	public String getName() {
