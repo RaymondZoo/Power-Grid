@@ -135,7 +135,8 @@ public class GameState {
 		
 		//reading in cities
 		Scanner cityReader = new Scanner(new File("Cities.txt"));
-		
+		cityReader.nextLine();
+		cityReader.nextLine();
 		
 		while (cityReader.hasNextLine())
 		{
