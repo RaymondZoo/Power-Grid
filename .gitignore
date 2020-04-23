@@ -3,3 +3,10 @@
 UI/.DS_Store
 UI/.DS_Store
 .DS_Store
+/City.class
+/GameState.class
+/Player.class
+/PowerGridFrame.class
+/PowerGridPanel.class
+/PowerPlant.class
+/TextRunner.class
