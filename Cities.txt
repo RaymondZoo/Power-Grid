@@ -1,0 +1,49 @@
+Name region ConnectionCity/Cost,ConnectionCity/Cost
+
+Seattle purple Portland/3,Boise/12,Billings/9
+PortLand purple Seattle/3,Boise/13,San_Francisco/24
+Boise purple Portland/13,Seattle/12,Billings/12,Salt_Lake_City/8,San_Francisco/27
+Billings purple Seattle/0,Boise/12,Cheyenne/9,Fargo/17,Minneapolis/18
+Cheyenne purple Denver/0,Billings/9,Minneapolis/18,Omaha/14
+Denver purple Cheyenne/0,Salt_Lake_City/21,Santa_Fe/13,Kansas_City/16
+Omaha purple Kansas_City/5,Cheyenne/14,Minneapolis/8,Chicago/13
+
+San_Francisco blue Portland/24,Boise/23,Salt_Lake_City/27,Las_Vegas/14,Los_Angeles/9
+Los_Angeles blue San_Francisco/9,Las_Vegas/9,San_Diego/3
+San_Diego blue Los_Angeles/3,Las_Vegas/9,Phoenix/14
+Phoenix blue San_Diego/14,Las_Vegas/15,Santa_Fe/18
+Las_Vegas blue San_Francisco/14,Los_Angeles/9,San_Diego/9,Phoenix/15,Santa_Fe/27,Salt_Lake_City/18
+Salt_Lake_City blue Boise/8,San_Francisco/27,Las_Vegas/18,Santa_Fe/28,Denver/21
+Santa_Fe blue Salt_Lake_City/28,Las_Vegas/27,Phoenix/18,Houston/21,Dallas/16,Oklahoma_City/15,Kansas_City/16,Denver/13
+
+Kansas_City red Omaha/5,Denver/16,Santa_Fe/16,Oklahoma_City/8,Memphis/12,St._Louis/6,Chicago/8
+Oklahoma_City red Santa_Fe/15,Dallas/3,Memphis/14,Kansas_City/8
+Dallas red Oklahoma_City/3,Santa_Fe/16,Houston/5,New_Orleans/12,Memphis/12
+Houston red Santa_Fe/21,Dallas/5,New_Orleans/8
+New_Orleans red Houston/8,Dallas/12,Memphis/7,Birmingham/11,Jacksonville/16
+Memphis red St._Louis/7,Kansas_City/12,Oklahoma_City/14,Dallas/12,New_Orleans/7,Birmingham/6
+Birmingham red Memphis/6,New_Orleans/11,Jacksonville/9,Atlanta/3
+
+Fargo yellow Billings/17,Minneapolis/6,Duluth/6
+Duluth yellow Fargo/6,Minneapolis/5,Chicago/12,Detroit/15
+Minneapolis yellow Fargo/6,Billings/18,Cheyenne/18,Omaha/8,Chicago/8,Duluth/5
+Chicago yellow Duluth/12,Minneapolis/8,Omaha/13,Kansas_City/8,St._Louis/10,Cincinnati/7,Detroit/7
+St._Louis yellow Kansas_City/6,Memphis/7,Cincinnati/12,Chicago/10,Atlanta/12
+Cincinnati yellow Chicago/7,St._Louis/12,Knoxville/6,Pittsburgh/7,Detroit/4
+Knoxville yellow Cincinnati/6,Atlanta/5
+
+Atlanta green Birmingham/3,Savannah/7,Raleigh/7,Knoxville/5
+Tampa green Jacksonville/4,Miami/4
+Miami green Tampa/4
+Jacksonville green Tampa/4,New_Orleans/16,Birmingham/9,Savannah/0
+Savannah green Jacksonville/0,Atlanta/7,Raleigh/7
+Raleigh green Savannah/7,Atlanta/7,Pittsburgh/7,Norfolk/3
+Norfolk green Washington_D.C./5,Raleigh/3
+
+Detroit brown Duluth/15,Chicago/7,Cincinnati/4,Pittsburgh/6,Buffalo/7
+Pittsburgh brown Detroit/6,Cincinnati/7,Raleigh/7,Washington_D.C./6,Buffalo/7
+Buffalo brown Detroit/7,Pittsburgh/7,New_York/8
+Washington_D.C. brown Pittsburgh/6,Philadelphia/3,Norfolk/5
+Philadelphia brown Washington_D.C./3,New_York/0
+New_York brown Philadelphia/0,Buffalo/8,Boston/3
+Boston brown New_York/3
