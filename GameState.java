@@ -199,7 +199,7 @@ public class GameState {
 		// reading in PowerPlants please check
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
-		Scanner PowerPlantReader = new Scanner(new File("PowePlants.txt"));
+		Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
 		if (PowerPlantReader.hasNext()) 
 		{
 			PowerPlantReader.next();
