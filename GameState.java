@@ -200,10 +200,7 @@ public class GameState {
 		ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 		ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
 		Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
-		if (PowerPlantReader.hasNext()) 
-		{
-			PowerPlantReader.next();
-		}
+		PowerPlantReader.next();
 		while (PowerPlantReader.hasNextLine()) {
 			String line = PowerPlantReader.nextLine();
 			if (line == null || line.isEmpty())
