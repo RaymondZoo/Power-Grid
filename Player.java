@@ -27,18 +27,17 @@ public class Player {
 			return;
 		}
 	}
-	public int getHighestPowerPlant()
-	{
+
+	public int getHighestPowerPlant() {
 		int max = Integer.MIN_VALUE;
-		for(PowerPlant plant : powerList)
-		{
-			if(plant.getMinBid()>max)
-			{
+		for (PowerPlant plant : powerList) {
+			if (plant.getMinBid() > max) {
 				max = plant.getMinBid();
 			}
 		}
 		return max;
 	}
+
 	public ArrayList<PowerPlant> getPowerList() {
 		return powerList;
 	}
@@ -50,10 +49,11 @@ public class Player {
 	public int getMoney() {
 		return money;
 	}
-	public void subtractMoney(int amount)
-	{
+
+	public void subtractMoney(int amount) {
 		money = money - amount;
 	}
+
 	public void setMoney(int money) {
 		this.money = money;
 	}
@@ -65,9 +65,6 @@ public class Player {
 	public void setColor(String color) {
 		this.color = color;
 	}
-
-	
-
 
 	public void addMoney(int in) {
 		money += in;

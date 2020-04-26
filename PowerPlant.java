@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+
 //Note: Resources are fully lowercase (oil, coal, nuclear, trash)
-public class PowerPlant implements Comparable{
+public class PowerPlant implements Comparable {
 	private ArrayList<String> cost;
 	private ArrayList<String> storage;
 	int minBid, numCitiesPowered;
@@ -11,7 +12,7 @@ public class PowerPlant implements Comparable{
 		minBid = 0;
 		numCitiesPowered = 0;
 	}
-	
+
 	public PowerPlant(int minBid) {
 		cost = new ArrayList<String>();
 		storage = new ArrayList<String>();
@@ -25,35 +26,33 @@ public class PowerPlant implements Comparable{
 		this.minBid = minBid;
 		this.numCitiesPowered = numCitiesPowered;
 	}
-	
+
 	public PowerPlant(int minBid, ArrayList<String> cost, int numCitiesPowered) {
 		this.cost = cost;
 		this.storage = new ArrayList<String>();
 		this.minBid = minBid;
 		this.numCitiesPowered = numCitiesPowered;
 	}
-	public boolean isHybrid()
-	{
-		if(cost.get(0).contains("."))
-		{
+
+	public boolean isHybrid() {
+		if (cost.get(0).contains(".")) {
 			return true;
 		}
 		return false;
 	}
+
 	public void addResources(ArrayList<String> resources) {
 
 		// if the plant is green
 		if (cost.size() == 0) {
 			return;
 		}
-		if(cost.get(0).contains("||"))
-		{
+		if (cost.get(0).contains("||")) {
 			String firstResource = cost.get(0).substring(0, cost.get(0).indexOf("||"));
-			String secondResource =  cost.get(0).substring(cost.get(0).indexOf("||")+1, cost.get(0).length());
+			String secondResource = cost.get(0).substring(cost.get(0).indexOf("||") + 1, cost.get(0).length());
 			int index = 0;
-			while(!isFull())
-			{
-				if(resources.get(index).equals(firstResource)||resources.get(index).equals(secondResource)){
+			while (!isFull()) {
+				if (resources.get(index).equals(firstResource) || resources.get(index).equals(secondResource)) {
 					storage.add(resources.get(index));
 				}
 				++index;
@@ -62,10 +61,10 @@ public class PowerPlant implements Comparable{
 		int index = 0;
 
 		while (!isFull()) {
-		while (storage.size() <= cost.size()*2) {
-			if (cost.get(0).contains(resources.get(index))) {
-				
-			}
+			while (storage.size() <= cost.size() * 2) {
+				if (cost.get(0).contains(resources.get(index))) {
+
+				}
 				storage.add(resources.get(index));
 			}
 			++index;
@@ -75,7 +74,7 @@ public class PowerPlant implements Comparable{
 	public boolean isFull() {
 		return storage.size() >= (cost.size() * 2);
 	}
-	
+
 	public boolean burnResources(ArrayList<String> resources) {
 		// green PowerPlant
 		if (cost.size() == 0) {
@@ -91,7 +90,7 @@ public class PowerPlant implements Comparable{
 			if (!specialRemove(resources, s))
 				return false;
 		}
-		for(String s: cost) {
+		for (String s : cost) {
 			specialRemove(storage, s);
 		}
 		return true;
@@ -141,12 +140,12 @@ public class PowerPlant implements Comparable{
 	}
 
 	public int compareTo(Object arg0) {
-		PowerPlant toComp= (PowerPlant)arg0;
-		return toComp.getMinBid()-getMinBid();
+		PowerPlant toComp = (PowerPlant) arg0;
+		return toComp.getMinBid() - getMinBid();
 	}
-	
+
 	public String toString() {
-		return "Number: "+minBid+". Cost"+cost.toString()+" powers "+numCitiesPowered+" cities.";
+		return "Number: " + minBid + ". Cost" + cost.toString() + " powers " + numCitiesPowered + " cities.";
 	}
 
 }

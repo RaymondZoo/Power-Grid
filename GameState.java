@@ -197,6 +197,7 @@ public class GameState {
 			while (PowerPlantReader.hasNextLine()) {
 				String line = PowerPlantReader.nextLine();
 				if (line == null || line.isEmpty()) {
+					System.out.println("Empty Line");
 					continue;
 				}
 
@@ -204,11 +205,12 @@ public class GameState {
 				int minBid = Integer.parseInt(stats[0]);
 				int numCitiesPowered = Integer.parseInt(stats[2]);
 				String costLine = stats[1];
-				
+
 				// adding if no cost
 				if (costLine.contains("green")) {
 					if (minBid <= 15) {
 						plug.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
+						System.out.println("Added to Plug");
 					} else {
 						socket.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
 					}
@@ -224,44 +226,44 @@ public class GameState {
 
 					if (minBid <= 15) {
 						plug.add(new PowerPlant(minBid, cost, numCitiesPowered));
+						System.out.println("Added to Plug");
 					} else {
 						socket.add(new PowerPlant(minBid, cost, numCitiesPowered));
 					}
 				}
-				Collections.shuffle(plug);
-				Collections.shuffle(socket);
+			}
+			Collections.shuffle(plug);
+			Collections.shuffle(socket);
 
-				// setting up current and future market
-				ArrayList<PowerPlant> tempList = new ArrayList<PowerPlant>();
-				for (int i = 0; i < 8; i++) {
-					if (plug != null && !plug.isEmpty()) {
-						tempList.add(plug.remove(i));
-					}
-				}
-				PowerPlant topCard = null;
+			// setting up current and future market
+			ArrayList<PowerPlant> tempList = new ArrayList<PowerPlant>();
+			for (int i = 0; i < 8; i++) {
 				if (plug != null && !plug.isEmpty()) {
-					topCard = plug.remove(0);
+					tempList.add(plug.remove(0));
 				}
+			}
+			PowerPlant topCard = null;
+			if (plug != null && !plug.isEmpty()) {
+				topCard = plug.remove(0);
+			}
 
-				plug.remove(0);
-				socket.remove(0);
-				socket.remove(0);
-				socket.remove(0);
+			plug.remove(0);
+			socket.remove(0);
+			socket.remove(0);
+			socket.remove(0);
 
-				socket.addAll(plug);
-				Collections.shuffle(socket);
-				socket.add(0, topCard);
-				socket.add(socket.size(), new PowerPlant(1234));
-				deck.addAll(socket);
+			socket.addAll(plug);
+			Collections.shuffle(socket);
+			socket.add(0, topCard);
+			socket.add(socket.size(), new PowerPlant(1234));
+			deck.addAll(socket);
 
-				Collections.sort(tempList);
-				for (int i = 0; i < 4; i++) {
-					currentMarket.add(tempList.remove(i));
-				}
-				for (int i = 0; i < 4; i++) {
-					futureMarket.add(tempList.remove(i));
-				}
-
+			Collections.sort(tempList);
+			for (int i = 0; i < 4; i++) {
+				currentMarket.add(tempList.remove(tempList.size() - 1));
+			}
+			for (int i = 0; i < 4; i++) {
+				futureMarket.add(tempList.remove(tempList.size() - 1));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -526,7 +528,7 @@ public class GameState {
 		int countPositive = 0;
 		for (Player p : decision.keySet()) {
 			if (!decision.get(p)) {
-				if (bids.get(p) > 0) {
+				if (p != null && bids.get(p) >= 0) {
 					countPositive++;
 				}
 			}
@@ -606,5 +608,9 @@ public class GameState {
 				numCities.put(t, numCities.get(t) + 1);
 			}
 		}
+	}
+
+	public void randomizePlayerOrder() {
+		Collections.shuffle(playerOrder);
 	}
 }
