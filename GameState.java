@@ -197,7 +197,6 @@ public class GameState {
 			while (PowerPlantReader.hasNextLine()) {
 				String line = PowerPlantReader.nextLine();
 				if (line == null || line.isEmpty()) {
-					System.out.println("Empty Line");
 					continue;
 				}
 
@@ -210,7 +209,6 @@ public class GameState {
 				if (costLine.contains("green")) {
 					if (minBid <= 15) {
 						plug.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
-						System.out.println("Added to Plug");
 					} else {
 						socket.add(new PowerPlant(minBid, new ArrayList<String>(), numCitiesPowered));
 					}
@@ -226,7 +224,6 @@ public class GameState {
 
 					if (minBid <= 15) {
 						plug.add(new PowerPlant(minBid, cost, numCitiesPowered));
-						System.out.println("Added to Plug");
 					} else {
 						socket.add(new PowerPlant(minBid, cost, numCitiesPowered));
 					}

@@ -25,7 +25,6 @@ public class TextRunner {
 		while (!gs.isEndOfGame()) {
 			// phase 1
 			if (turn1) {
-				turn1 = false;
 				gs.randomizePlayerOrder();
 			} else {
 				gs.determinePlayerOrder();
@@ -37,31 +36,101 @@ public class TextRunner {
 			System.out.println("Future Market: " + gs.getFutureMarket());
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
 			tempPlayers.addAll(gs.getPlayerOrder());
+			System.out.println(tempPlayers);
+			int minPrice = 0;
+			while (!tempPlayers.isEmpty()) {
+				System.out.println(tempPlayers.get(0).getColor()
+						+ ", choose the index of the powerPlant to start auction on (0-3), -1 to pass");
+				int index = Integer.parseInt(input.nextLine());
+				if (index==-1&&turn1) {
+					while (index==-1) {
+						System.out.println(tempPlayers.get(0).getColor()
+								+ ", choose the index of the powerPlant to start auction on (0-3). You cannot pass b/c it's turn 1");
+						index = Integer.parseInt(input.nextLine());
+					}
+				}
+				if (index==-1) {
+					gs.getDecision().put(tempPlayers.get(0), true);
+					tempPlayers.remove(tempPlayers.get(0));
+				}
+				else {
+					gs.setAuctionCard(gs.getCurrentMarket().get(index));
+					minPrice = gs.getCurrentMarket().get(index).getMinBid();
+					int i=0;
+					ArrayList<Player>auctionPlayers=new ArrayList<Player>();
+					Boolean firstBid=true;
+					auctionPlayers.addAll(tempPlayers);
+					while (!(auctionPlayers.size()==1)) {
+						System.out.println(auctionPlayers);
+						if (firstBid) {
+							System.out.println(auctionPlayers.get(i).getColor()+" starts bidding at "+minPrice);
+							firstBid=false;
+						}
+						else {
+							System.out.println(auctionPlayers.get(i).getColor()
+									+ ", how much do you want to bid on this powerplant (-1 to pass)? "
+									+ gs.getAuctionCard().toString()+". Current Bid is "+minPrice);
+							int bid = Integer.parseInt(input.nextLine());
+							if (bid<=minPrice) {
+								System.out.println("Too Low");
+								auctionPlayers.remove(i);
+								i--;
+								if (i==-1) {
+									i=auctionPlayers.size()-1;
+								}
+							}
+							else {
+								minPrice=bid;
+								System.out.println(auctionPlayers.get(i).getColor()+" bids "+minPrice);
+							}
+						}
+						i++;
+						if (i == auctionPlayers.size()) {
+							i = 0;
+						}
+					}
+					System.out.println(auctionPlayers.get(0).getColor() + " has won the auction for "
+							+ gs.getAuctionCard().toString() + " for " + minPrice + ".");
+					tempPlayers.removeAll(auctionPlayers);
+					System.out.println("Current Market: " + gs.getCurrentMarket());
+					System.out.println("Future Market: " + gs.getFutureMarket());
+					gs.setAuctionCard(null);
+				}
+				
+			}
+			
+			/*System.out.println("Current Market: " + gs.getCurrentMarket());
+			System.out.println("Future Market: " + gs.getFutureMarket());
+			ArrayList<Player> tempPlayers = new ArrayList<Player>();
+			tempPlayers.addAll(gs.getPlayerOrder());
 			int minPrice = 0;
 			while (!gs.phaseDone()) {
 				System.out.println(tempPlayers.get(0).getColor()
-						+ ", choose the index of the powerPlant to start auction on (0-3)");
+						+ ", choose the index of the powerPlant to start auction on (0-3), -1 to pass");
 				int index = Integer.parseInt(input.nextLine());
 				gs.setAuctionCard(gs.getCurrentMarket().get(index));
 				minPrice = gs.getCurrentMarket().get(index).getMinBid();
 				int i = 0;
 				while (!gs.isAuctionDone()) {
-					System.out.println(tempPlayers.get(i).getColor()
-							+ ", how much do you want to bid on this powerplant (-1 to pass)?"
-							+ gs.getAuctionCard().toString());
-					System.out.println("Current Bid: " + minPrice);
-					int bid = Integer.parseInt(input.nextLine());
-					if (bid < minPrice) {
-						gs.getBids().put(tempPlayers.get(i), -1);
-					} else {
-						minPrice = bid;
-						gs.getBids().put(tempPlayers.get(i), bid);
+					if (gs.getBids().get(tempPlayers.get(i)) != -1) {
+						System.out.println(tempPlayers.get(i).getColor()
+								+ ", how much do you want to bid on this powerplant (-1 to pass)?"
+								+ gs.getAuctionCard().toString());
+						System.out.println("Current Bid: " + minPrice);
+						int bid = Integer.parseInt(input.nextLine());
+						if (bid < minPrice) {
+							gs.getBids().put(tempPlayers.get(i), -1);
+						} else {
+							minPrice = bid;
+							gs.getBids().put(tempPlayers.get(i), bid);
+						}
 					}
 					i++;
 					if (i == 4) {
 						i = 0;
 					}
 				}
+
 				Player auctionWinner = null;
 				for (Player p : gs.getBids().keySet()) {
 					if (gs.getBids().get(p) != -1) {
@@ -75,7 +144,8 @@ public class TextRunner {
 				gs.playerDecision(auctionWinner);
 				gs.getBids().clear();
 				gs.addPowerPlant();
-			}
+			}*/
+			
 			if (gs.getMarketStep3()) {
 				gs.restructureMarket();
 			}
