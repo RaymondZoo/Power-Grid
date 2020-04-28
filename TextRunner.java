@@ -36,7 +36,6 @@ public class TextRunner {
 			System.out.println("Future Market: " + gs.getFutureMarket());
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
 			tempPlayers.addAll(gs.getPlayerOrder());
-			System.out.println(tempPlayers);
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
 				System.out.println(tempPlayers.get(0).getColor()
@@ -61,7 +60,6 @@ public class TextRunner {
 					Boolean firstBid=true;
 					auctionPlayers.addAll(tempPlayers);
 					while (!(auctionPlayers.size()==1)) {
-						System.out.println(auctionPlayers);
 						if (firstBid) {
 							System.out.println(auctionPlayers.get(i).getColor()+" starts bidding at "+minPrice);
 							firstBid=false;
@@ -72,7 +70,6 @@ public class TextRunner {
 									+ gs.getAuctionCard().toString()+". Current Bid is "+minPrice);
 							int bid = Integer.parseInt(input.nextLine());
 							if (bid<=minPrice) {
-								System.out.println("Too Low");
 								auctionPlayers.remove(i);
 								i--;
 								if (i==-1) {
@@ -92,6 +89,8 @@ public class TextRunner {
 					System.out.println(auctionPlayers.get(0).getColor() + " has won the auction for "
 							+ gs.getAuctionCard().toString() + " for " + minPrice + ".");
 					tempPlayers.removeAll(auctionPlayers);
+					gs.getCurrentMarket().remove(gs.getAuctionCard());
+					gs.addPowerPlant();
 					System.out.println("Current Market: " + gs.getCurrentMarket());
 					System.out.println("Future Market: " + gs.getFutureMarket());
 					gs.setAuctionCard(null);
