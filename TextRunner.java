@@ -51,7 +51,7 @@ public class TextRunner {
 							+ gs.getAuctionCard().toString());
 					System.out.println("Current Bid: " + minPrice);
 					int bid = Integer.parseInt(input.nextLine());
-					if (bid <= minPrice) {
+					if (bid < minPrice) {
 						gs.getBids().put(tempPlayers.get(i), -1);
 					} else {
 						minPrice = bid;
