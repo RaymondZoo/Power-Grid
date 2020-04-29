@@ -238,7 +238,6 @@ public class TextRunner {
 				System.out.println("Sorry You don't have that much money & the market doesn't have enough resource");
 			gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
 			gs.setMarket(resource, originalMarket);
-			System.out.println("");
 		}
 		
 		System.out.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney()+ " dollars");
