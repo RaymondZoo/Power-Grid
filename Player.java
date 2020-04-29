@@ -17,12 +17,12 @@ public class Player {
 		this.color = color;
 	}
 
-	public void addPowerPlant(PowerPlant p, int cost) {
+	public void addPowerPlant(PowerPlant p) {
 		if (powerList.size() >= 3) {
 			// call method to force the player to remove a powerplant
-			addPowerPlant(p, cost);
+			addPowerPlant(p);
 		}
-		if (powerList.size() < 3 && money > cost) {
+		else {
 			powerList.add(p);
 			return;
 		}
