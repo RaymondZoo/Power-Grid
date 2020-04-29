@@ -15,7 +15,7 @@ public class GameState {
 	private TreeMap<Integer, ArrayList<String>> coalMarket;
 	private TreeMap<Integer, ArrayList<String>> oilMarket;
 	private TreeMap<Integer, ArrayList<String>> trashMarket;
-	private TreeMap<Integer, String> nuclearMarket;
+	private TreeMap<Integer, ArrayList<String>> nuclearMarket;
 	private ArrayList<PowerPlant> deck;
 	private ArrayList<PowerPlant> currentMarket;
 	private ArrayList<PowerPlant> futureMarket;
@@ -60,9 +60,9 @@ public class GameState {
 			coalMarket = new TreeMap<Integer, ArrayList<String>>();
 			oilMarket = new TreeMap<Integer, ArrayList<String>>();
 			trashMarket = new TreeMap<Integer, ArrayList<String>>();
-			nuclearMarket = new TreeMap<Integer, String>();
+			nuclearMarket = new TreeMap<Integer, ArrayList<String>>();
 			// filling in markets
-			for (int i = 8; i >= 0; i--) {
+			for (int i = 8; i >= 1; i--) {
 				for (int j = 0; j < 3; j++) {
 					if (i >= 3) {
 						ArrayList<String> storage;
@@ -75,7 +75,7 @@ public class GameState {
 						}
 						oilMarket.put(i, storage);
 					}
-					if (i >= 6) {
+					if (i >= 7) {
 						ArrayList<String> storage;
 						if (trashMarket.keySet().contains(i)) {
 							storage = trashMarket.get(i);
@@ -97,8 +97,12 @@ public class GameState {
 					coalMarket.put(i, storage);
 				}
 			}
+			ArrayList<String> nuclearWord = null;
+			
 			for (int i = 16; i >= 12; i--) {
-				nuclearMarket.put(i, "nuclear");
+				nuclearWord = new ArrayList<String>();
+				nuclearWord.add("nuclear");
+				nuclearMarket.put(i, nuclearWord);
 			}
 
 			deck = new ArrayList<PowerPlant>();
@@ -308,11 +312,11 @@ public class GameState {
 		this.trashMarket = trashMarket;
 	}
 
-	public TreeMap<Integer, String> getNuclearMarket() {
+	public TreeMap<Integer, ArrayList<String>> getNuclearMarket() {
 		return nuclearMarket;
 	}
 
-	public void setNuclearMarket(TreeMap<Integer, String> nuclearMarket) {
+	public void setNuclearMarket(TreeMap<Integer, ArrayList<String>> nuclearMarket) {
 		this.nuclearMarket = nuclearMarket;
 	}
 
@@ -609,5 +613,31 @@ public class GameState {
 
 	public void randomizePlayerOrder() {
 		Collections.shuffle(playerOrder);
+	}
+	
+	public TreeMap<Integer,ArrayList<String>> getMarket(String resourceType) 
+	{
+		if ("coal".equalsIgnoreCase(resourceType)) 
+			return coalMarket;
+		else if ("oil".equalsIgnoreCase(resourceType))
+			return oilMarket;
+		else if ("trash".equalsIgnoreCase(resourceType))
+			return trashMarket;
+		else if ("nuclear".equalsIgnoreCase(resourceType))
+			return nuclearMarket;	
+		
+		return null;
+	}
+	
+	public void setMarket(String resourceType, TreeMap<Integer,ArrayList<String>> newMarket) 
+	{
+		if ("coal".equalsIgnoreCase(resourceType)) 
+			this.setCoalMarket(newMarket);
+		else if ("oil".equalsIgnoreCase(resourceType))
+			this.setOilMarket(newMarket);
+		else if ("trash".equalsIgnoreCase(resourceType))
+			this.setTrashMarket(newMarket);
+		else if ("nuclear".equalsIgnoreCase(resourceType))
+			this.setNuclearMarket(newMarket);	
 	}
 }
