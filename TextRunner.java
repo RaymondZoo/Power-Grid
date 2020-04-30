@@ -32,7 +32,7 @@ public class TextRunner {
 
 			// phase 2
 			// auction
-			//gs.rearrangeMarket();
+			gs.rearrangeMarket();
 			System.out.println("Current Market: " + gs.getCurrentMarket());
 			System.out.println("Future Market: " + gs.getFutureMarket());
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
@@ -102,7 +102,7 @@ public class TextRunner {
 					gs.getCurrentMarket().remove(gs.getAuctionCard());
 					gs.addPowerPlant();
 					auctionPlayers.get(0).addPowerPlant(gs.getAuctionCard());
-					//gs.rearrangeMarket();
+					gs.rearrangeMarket();
 					System.out.println("Current Market: " + gs.getCurrentMarket());
 					System.out.println("Future Market: " + gs.getFutureMarket());
 					gs.setAuctionCard(null);
