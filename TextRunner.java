@@ -189,6 +189,10 @@ public class TextRunner {
 		gs.restockResources();
 
 		gs.marketFix();
+		
+		if (turn1) {
+			turn1=false;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
