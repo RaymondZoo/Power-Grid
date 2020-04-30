@@ -628,7 +628,18 @@ public class GameState {
 		
 		return null;
 	}
-	
+	public void rearrangeMarket()
+	{
+		currentMarket.addAll(futureMarket);
+		futureMarket.clear();
+		Collections.sort(currentMarket);
+		for(int i = 4;i<currentMarket.size();i++)
+		{
+			futureMarket.add(currentMarket.get(i));
+		}
+		currentMarket.removeAll(futureMarket);
+		
+	}
 	public void setMarket(String resourceType, TreeMap<Integer,ArrayList<String>> newMarket) 
 	{
 		if ("coal".equalsIgnoreCase(resourceType)) 

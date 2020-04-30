@@ -32,6 +32,7 @@ public class TextRunner {
 
 			// phase 2
 			// auction
+			//gs.rearrangeMarket();
 			System.out.println("Current Market: " + gs.getCurrentMarket());
 			System.out.println("Future Market: " + gs.getFutureMarket());
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
@@ -101,6 +102,7 @@ public class TextRunner {
 					gs.getCurrentMarket().remove(gs.getAuctionCard());
 					gs.addPowerPlant();
 					auctionPlayers.get(0).addPowerPlant(gs.getAuctionCard());
+					//gs.rearrangeMarket();
 					System.out.println("Current Market: " + gs.getCurrentMarket());
 					System.out.println("Future Market: " + gs.getFutureMarket());
 					gs.setAuctionCard(null);
@@ -130,14 +132,15 @@ public class TextRunner {
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
 				if (answer.equals("yes")) {
-					System.out.println("Ok. Moving on to next Player");
+					if(i!=3)
+						System.out.println("Ok. Moving on to next Player");
 				} else if (answer.equals("no")) {
 					resourceSelection(i);
 
 				}
 			}
 
-		}
+		
 
 		// phase 4
 		// citybuilding
@@ -161,6 +164,7 @@ public class TextRunner {
 				System.out.println("Which city do you want to build to (-1 for none)");
 				cmd = input.nextLine();
 			}
+		
 		}
 
 		// phase 5
@@ -189,6 +193,7 @@ public class TextRunner {
 		gs.restockResources();
 
 		gs.marketFix();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
