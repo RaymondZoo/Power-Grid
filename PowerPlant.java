@@ -141,7 +141,7 @@ public class PowerPlant implements Comparable {
 
 	public int compareTo(Object arg0) {
 		PowerPlant toComp = (PowerPlant) arg0;
-		return toComp.getMinBid() - getMinBid();
+		return getMinBid()- toComp.getMinBid();
 	}
 
 	public String toString() {

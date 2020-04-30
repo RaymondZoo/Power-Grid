@@ -191,7 +191,7 @@ public class GameState {
 					current.getEdges().put(linked, cost);
 				}
 			}
-			// reading in PowerPlants please check
+			// reading in PowerPlants 
 			ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 			ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
 			Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
@@ -260,11 +260,12 @@ public class GameState {
 			deck.addAll(socket);
 
 			Collections.sort(tempList);
+			System.out.println(tempList);
 			for (int i = 0; i < 4; i++) {
-				currentMarket.add(tempList.remove(tempList.size() - 1));
+				currentMarket.add(tempList.remove(0));
 			}
 			for (int i = 0; i < 4; i++) {
-				futureMarket.add(tempList.remove(tempList.size() - 1));
+				futureMarket.add(tempList.remove(0));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
