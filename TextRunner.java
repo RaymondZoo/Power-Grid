@@ -193,6 +193,12 @@ public class TextRunner {
 		gs.restockResources();
 
 		gs.marketFix();
+<<<<<<< HEAD
+=======
+		
+		if (turn1) {
+			turn1=false;
+>>>>>>> branch 'master' of https://github.com/RaymondZoo/Power-Grid.git
 		}
 	}
 
