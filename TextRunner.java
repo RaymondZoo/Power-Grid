@@ -16,11 +16,17 @@ public class TextRunner {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
 		ArrayList<String> playableColors = new ArrayList<String>();
-		System.out.println("Enter Playable Colors (4), seperate lines");
+		//System.out.println("Enter Playable Colors (4), seperate lines");
+
+		//for (int i = 0; i < 4; i++) {
+			//playableColors.add(input.nextLine());
+		//}
 		
-		for (int i = 0; i < 4; i++) {
-			playableColors.add(input.nextLine());
-		}
+		System.out.println("Temp: Playable Colors are green, blue, purple, red");
+		playableColors.add("green");
+		playableColors.add("red");
+		playableColors.add("purple");
+		playableColors.add("blue");
 
 		while (!gs.isEndOfGame()) {
 			// phase 1
@@ -38,7 +44,7 @@ public class TextRunner {
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
 			tempPlayers.addAll(gs.getPlayerOrder());
 
-			//System.out.println(tempPlayers);
+			// System.out.println(tempPlayers);
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
 				System.out.println(tempPlayers.get(0).getColor()
@@ -61,8 +67,8 @@ public class TextRunner {
 					ArrayList<Player> auctionPlayers = new ArrayList<Player>();
 					Boolean firstBid = true;
 					auctionPlayers.addAll(tempPlayers);
-					while (!(auctionPlayers.size()==1)) {
-						//System.out.println(auctionPlayers);
+					while (!(auctionPlayers.size() == 1)) {
+						// System.out.println(auctionPlayers);
 						if (firstBid) {
 							System.out.println(auctionPlayers.get(i).getColor() + " starts bidding at " + minPrice);
 							firstBid = false;
@@ -77,7 +83,7 @@ public class TextRunner {
 											+ ", how much do you want to bid on this powerplant (-1 to pass)? "
 											+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice
 											+ ". You don't have enough money for the previous bid");
-									bid=Integer.parseInt(input.nextLine());
+									bid = Integer.parseInt(input.nextLine());
 								}
 							}
 							if (bid <= minPrice) {
@@ -115,7 +121,7 @@ public class TextRunner {
 
 			// Phase 3
 			// Resource Buying
-			
+
 			System.out.println("Now it's time for resource selection");
 			for (int i = 0; i <= 3; i++) {
 
@@ -132,7 +138,7 @@ public class TextRunner {
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
 				if (answer.equals("yes")) {
-					if(i!=3)
+					if (i != 3)
 						System.out.println("Ok. Moving on to next Player");
 				} else if (answer.equals("no")) {
 					resourceSelection(i);
@@ -140,95 +146,95 @@ public class TextRunner {
 				}
 			}
 
-		
-
-		// phase 4
-		// citybuilding
-		for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
-			System.out.println("Which city do you want to build to (-1 for none)");
-			Player p = gs.getPlayerOrder().get(i);
-			String cmd = input.nextLine();
-			while (!cmd.equals("-1")) {
-				City c = gs.findCity(cmd);
-				int cost = 0;
-				if (c != null) {
-					cost = c.leastCost(p);
-					cost += c.getCost();
-					if (p.getMoney() > cost) {
-						p.addMoney(cost * -1);
-						c.addPlayer(p);
-						gs.addCityBuilt(p);
-					}
-				}
-				gs.checkPowerPlantSize();
+			// phase 4
+			// citybuilding
+			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
 				System.out.println("Which city do you want to build to (-1 for none)");
-				cmd = input.nextLine();
-			}
-		
-		}
-
-		// phase 5
-		// poweringstuffs
-		TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
-		for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
-			Player current = gs.getPlayerOrder().get(i);
-			System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
-			int index = Integer.parseInt(input.nextLine());
-			int totalCitiesPowered = 0;
-			while (index != -1) {
-				if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
-					totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
-					System.out.println(
-							"Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
-				} else {
-					System.out.println("Unsuccessful.");
+				Player p = gs.getPlayerOrder().get(i);
+				String cmd = input.nextLine();
+				while (!cmd.equals("-1")) {
+					City c = gs.findCity(cmd);
+					int cost = 0;
+					if (c != null) {
+						cost = c.leastCost(p);
+						cost += c.getCost();
+						if (p.getMoney() > cost) {
+							p.addMoney(cost * -1);
+							c.addPlayer(p);
+							gs.addCityBuilt(p);
+						}
+					}
+					gs.checkPowerPlantSize();
+					System.out.println("Which city do you want to build to (-1 for none)");
+					cmd = input.nextLine();
 				}
-				System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
-				index = Integer.parseInt(input.nextLine());
+
 			}
-			numCitiesPowered.put(current, totalCitiesPowered);
-		}
-		gs.givingMoney(numCitiesPowered);
 
-		gs.restockResources();
+			// phase 5
+			// poweringstuffs
+			TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
+			for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
+				Player current = gs.getPlayerOrder().get(i);
+				System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+				int index = Integer.parseInt(input.nextLine());
+				int totalCitiesPowered = 0;
+				int numCitiesOwned = gs.getNumCities().get(current);
+				while (index != -1) {
+					if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
+						totalCitiesPowered += Math.min(current.getPowerList().get(index).getNumCitiesPowered(),
+								numCitiesOwned);
+						numCitiesOwned = numCitiesOwned
+								- Math.min(current.getPowerList().get(index).getNumCitiesPowered(), numCitiesOwned);
+						System.out.println(
+								"Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
+					} else {
+						System.out.println("Unsuccessful.");
+					}
+					System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+					index = Integer.parseInt(input.nextLine());
+				}
+				numCitiesPowered.put(current, totalCitiesPowered);
+			}
+			gs.givingMoney(numCitiesPowered);
 
-		gs.marketFix();
+			gs.restockResources();
 
-		if (turn1) {
-			turn1=false;
+			gs.marketFix();
+
+			if (turn1) {
+				turn1 = false;
+			}
 		}
-		}
- 
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void resourceSelection(int playerNum) 
-	{
-	
+	public static void resourceSelection(int playerNum) {
+
 		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
 		String[] resources = { "coal", "oil", "trash", "nuclear" };
-		System.out.println("Player " + (playerNum+1) + "'s turn. You have " + originalMoney + 
-		" dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear");
+		System.out.println("Player " + (playerNum + 1) + "'s turn. You have " + originalMoney
+				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear");
 		int numResource = input.nextInt();
 		System.out.println("How much of " + resources[numResource] + " do you want");
 		int numReq = input.nextInt();
 		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
 		String resource = resources[numResource];
-		
+
 		market = gs.getMarket(resource);
 
 		TreeMap<Integer, ArrayList<String>> originalMarket;
 		originalMarket = copyMarket(market);
-		
+
 		int numCollectedResources = 0;
 		Iterator<Integer> iter = market.keySet().iterator();
 		while (iter.hasNext()) {
 			int key = iter.next();
-			int size = market.get(key).size();	
+			int size = market.get(key).size();
 			if (size > 0) {
 				for (int w = 0; w < size; w++) {
-					ArrayList<String> tempList =market.get(key);
+					ArrayList<String> tempList = market.get(key);
 					tempList.remove(0);
 					numCollectedResources++;
 					gs.getPlayerOrder().get(playerNum).subtractMoney(key);
@@ -236,41 +242,38 @@ public class TextRunner {
 						break;
 				}
 			}
-			if(numCollectedResources == numReq)
+			if (numCollectedResources == numReq)
 				break;
-		}	
-		if (numCollectedResources < numReq||gs.getPlayerOrder().get(playerNum).getMoney()<0)
-		{
-			if(numCollectedResources<numReq)
+		}
+		if (numCollectedResources < numReq || gs.getPlayerOrder().get(playerNum).getMoney() < 0) {
+			if (numCollectedResources < numReq)
 				System.out.println("Sorry Market Doesn't have enough resources");
-			else if(gs.getPlayerOrder().get(playerNum).getMoney()<0)
+			else if (gs.getPlayerOrder().get(playerNum).getMoney() < 0)
 				System.out.println("Sorry You don't have that much money");
-			else if(numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney()<0)
+			else if (numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney() < 0)
 				System.out.println("Sorry You don't have that much money & the market doesn't have enough resource");
 			gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
 			gs.setMarket(resource, originalMarket);
 		}
-		
-		System.out.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney()+ " dollars");
+
+		System.out
+				.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
 	}
-	
-	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) 
-	{
+
+	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
 		TreeMap<Integer, ArrayList<String>> newMarket = new TreeMap<Integer, ArrayList<String>>();
 		Iterator<Integer> itr = market.keySet().iterator();
-		while (itr.hasNext()) 
-		{
-			
+		while (itr.hasNext()) {
+
 			int key = itr.next();
 			ArrayList<String> list = new ArrayList<String>();
 			ArrayList<String> listFromMarket = market.get(key);
-			for (int i=0;i<listFromMarket.size();i++) 
-			{
+			for (int i = 0; i < listFromMarket.size(); i++) {
 				list.add(listFromMarket.get(i));
 			}
 			newMarket.put(key, list);
 		}
-		
+
 		return newMarket;
 	}
 }

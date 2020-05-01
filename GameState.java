@@ -599,11 +599,7 @@ public class GameState {
 			p.addMoney(rewards[numCitiesPowered.get(p)]);
 		}
 	}
-
-	public void restockResources() {
-		// unfinished broken
-	}
-
+	
 	public void addCityBuilt(Player p) {
 		for (Player t : numCities.keySet()) {
 			if (t.getColor().equals(p.getColor())) {
@@ -651,5 +647,10 @@ public class GameState {
 			this.setTrashMarket(newMarket);
 		else if ("nuclear".equalsIgnoreCase(resourceType))
 			this.setNuclearMarket(newMarket);	
+	}
+
+	public void restockResources() {
+		// TODO Auto-generated method stub
+		
 	}
 }
