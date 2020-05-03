@@ -135,7 +135,7 @@ public class TextRunner {
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
 				resourceSelection(i);
-				System.out.println("Are You Done with Purchasing Reosurces?");
+				System.out.println("Are You Done with Purchasing Resources?");
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
 				if (answer.equals("yes")) {
@@ -162,17 +162,23 @@ public class TextRunner {
 						City c = gs.findCity(cmd);
 						int cost = 0;
 						if (c != null) {
-							cost = c.leastCost(p);
-							cost += c.getCost();
-							if (p.getMoney() > cost) {
-								p.addMoney(cost * -1);
-								c.addPlayer(p);
-								gs.addCityBuilt(p);
+							if (gs.getNumCities().get(p) == 0) {
+								cost = c.getCost();
+							} else {
+								cost = c.leastCost(p);
+								cost += c.getCost();
+								if (p.getMoney() > cost) {
+									p.addMoney(cost * -1);
+									c.addPlayer(p);
+									gs.addCityBuilt(p);
+								}
 							}
+							System.out.println("Cost: " + cost);
+							gs.checkPowerPlantSize();
+							System.out.println(gs.getPlayerOrder().get(i).getColor()
+									+ ": Which city do you want to build to (-1 for none)");
+							cmd = input.nextLine();
 						}
-						gs.checkPowerPlantSize();
-						System.out.println("Which city do you want to build to (-1 for none)");
-						cmd = input.nextLine();
 					}
 				}
 
@@ -183,7 +189,8 @@ public class TextRunner {
 			TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
 			for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
 				Player current = gs.getPlayerOrder().get(i);
-				System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+				System.out.println(current.getColor()
+						+ ": choose a powerplant to burn resources from for power. (index 0-2). -1 to quit");
 				int index = Integer.parseInt(input.nextLine());
 				int totalCitiesPowered = 0;
 				int numCitiesOwned = gs.getNumCities().get(current);
@@ -222,8 +229,9 @@ public class TextRunner {
 		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
 		String[] resources = { "coal", "oil", "trash", "nuclear" };
 		System.out.println(gs.getPlayerOrder().get(playerNum).getColor() + "'s turn. You have " + originalMoney
-				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear");
+				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear, -1 to pass");
 		int numResource = input.nextInt();
+		if (numResource !=-1) {
 		System.out.println("How much of " + resources[numResource] + " do you want");
 		int numReq = input.nextInt();
 		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
@@ -275,6 +283,7 @@ public class TextRunner {
 
 		System.out
 				.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
+		}
 	}
 
 	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
