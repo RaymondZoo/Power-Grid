@@ -69,4 +69,42 @@ public class Player {
 	public void addMoney(int in) {
 		money += in;
 	}
+	
+	public int getMaxCoal() {
+		int maxCoal=0;
+		for (PowerPlant p:powerList) {
+			if (p.getCost().contains("coal")) {
+				maxCoal+=p.getCost().size();
+			}
+		}
+		return maxCoal;
+	}
+	public int getMaxOil() {
+		int maxOil=0;
+		for (PowerPlant p:powerList) {
+			if (p.getCost().contains("oil")) {
+				maxOil+=p.getCost().size();
+			}
+		}
+		return maxOil;
+	}
+	public int getMaxNuclear() {
+		int maxNuclear=0;
+		for (PowerPlant p:powerList) {
+			if (p.getCost().contains("nuclear")) {
+				maxNuclear+=p.getCost().size();
+			}
+		}
+		return maxNuclear;
+	}
+	public int getMaxTrash() {
+		int maxTrash=0;
+		for (PowerPlant p:powerList) {
+			if (p.getCost().contains("trash")) {
+				maxTrash+=p.getCost().size();
+			}
+		}
+		return maxTrash;
+	}
+	
 }

@@ -104,6 +104,7 @@ public class TextRunner {
 					}
 					System.out.println(auctionPlayers.get(0).getColor() + " has won the auction for "
 							+ gs.getAuctionCard().toString() + " for " + minPrice + ".");
+					auctionPlayers.get(0).subtractMoney(minPrice);
 					tempPlayers.removeAll(auctionPlayers);
 					gs.getCurrentMarket().remove(gs.getAuctionCard());
 					gs.addPowerPlant();
@@ -214,7 +215,7 @@ public class TextRunner {
 
 		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
 		String[] resources = { "coal", "oil", "trash", "nuclear" };
-		System.out.println("Player " + (playerNum + 1) + "'s turn. You have " + originalMoney
+		System.out.println(gs.getPlayerOrder().get(playerNum).getColor() + "'s turn. You have " + originalMoney
 				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear");
 		int numResource = input.nextInt();
 		System.out.println("How much of " + resources[numResource] + " do you want");
@@ -252,6 +253,20 @@ public class TextRunner {
 				System.out.println("Sorry You don't have that much money");
 			else if (numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney() < 0)
 				System.out.println("Sorry You don't have that much money & the market doesn't have enough resource");
+			else if (numResource==0||gs.getPlayerOrder().get(playerNum).getMaxCoal()<numReq) {
+				System.out.println("You don't have enough space for this resource buy");
+			}
+			else if (numResource==1||gs.getPlayerOrder().get(playerNum).getMaxOil()<numReq) {
+				System.out.println("You don't have enough space for this resource buy");
+			}
+			else if (numResource==2||gs.getPlayerOrder().get(playerNum).getMaxTrash()<numReq) {
+				System.out.println(gs.getPlayerOrder().get(playerNum).getMaxTrash());
+				System.out.println("You don't have enough space for this resource buy");
+			}
+			else if (numResource==3||gs.getPlayerOrder().get(playerNum).getMaxNuclear()<numReq) {
+				System.out.println("You don't have enough space for this resource buy");
+			}
+			else if (numResource==0)
 			gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
 			gs.setMarket(resource, originalMarket);
 		}
