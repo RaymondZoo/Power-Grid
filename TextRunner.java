@@ -16,7 +16,7 @@ public class TextRunner {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
 		ArrayList<String> playableColors = new ArrayList<String>();
-		// System.out.println("Enter Playable Colors (4), seperate lines");
+		// System.out.println("Enter Playable Colors (4), separate lines");
 
 		// for (int i = 0; i < 4; i++) {
 		// playableColors.add(input.nextLine());
