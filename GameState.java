@@ -33,7 +33,7 @@ public class GameState {
 	private HashMap<Player, Integer> numCities;
 	private HashMap<City, ArrayList<String>> listOfLinks;
 	private ArrayList<City> listOfCities;
-	public static final String[] colors = { "blue", "black", "green", "purple", "red", "yellow" };
+	public static final String[] colors = { "blue", "green", "purple", "red", "yellow" };
 	public static final int[] rewards = { 10, 22, 33, 44, 54, 64, 73, 82, 90, 98, 105, 112, 118, 124, 129, 134, 138,
 			142, 145, 148, 150 };
 	public static final int[] step1Restock = { 5, 3, 2, 1 };
