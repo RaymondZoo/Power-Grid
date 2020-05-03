@@ -47,7 +47,7 @@ public class TextRunner {
 			System.out.println("Future Market: ");
 			for(int x = 1; x<=gs.getFutureMarket().size(); x++)
 			{
-				System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+				System.out.println(x + ". " + gs.getFutureMarket().get(x-1));
 			}
 			
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
@@ -131,7 +131,7 @@ public class TextRunner {
 					System.out.println("Future Market: ");
 					for(int x = 1; x<=gs.getFutureMarket().size(); x++)
 					{
-						System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+						System.out.println(x + ". " + gs.getFutureMarket().get(x-1));
 					}
 					gs.setAuctionCard(null);
 				}
