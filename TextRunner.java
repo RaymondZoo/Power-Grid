@@ -168,28 +168,30 @@ public class TextRunner {
 				String cmd = input.nextLine();
 				while (!cmd.equals("-1")) {
 					if (cmd.equals("-1")) {
-
 					} else {
 						City c = gs.findCity(cmd);
 						int cost = 0;
+						if (c==null) {
+							System.out.println("City is null");
+						}
 						if (c != null) {
 							if (gs.getNumCities().get(p) == 0) {
 								cost = c.getCost();
 							} else {
 								cost = c.leastCost(p);
 								cost += c.getCost();
-								if (p.getMoney() > cost) {
-									p.addMoney(cost * -1);
-									c.addPlayer(p);
-									gs.addCityBuilt(p);
-								}
 							}
-							System.out.println("Cost: " + cost);
-							gs.checkPowerPlantSize();
-							System.out.println(gs.getPlayerOrder().get(i).getColor()
-									+ ": Which city do you want to build to (-1 for none)");
-							cmd = input.nextLine();
+							if (p.getMoney() > cost) {
+								p.addMoney(cost * -1);
+								c.addPlayer(p);
+								gs.addCityBuilt(p);
+							}
+							System.out.println("Cost: " + cost);	
 						}
+						gs.checkPowerPlantSize();	
+						System.out.println(gs.getPlayerOrder().get(i).getColor()
+								+ ": Which city do you want to build to (-1 for none)");
+						cmd = input.nextLine();
 					}
 				}
 
