@@ -58,7 +58,7 @@ public class TextRunner {
 			while (!tempPlayers.isEmpty()) {
 				System.out.println(tempPlayers.get(0).getColor()
 						+ ", choose the index of the powerPlant to start auction on (1-4), 0 to pass");
-				int index = Integer.parseInt(input.nextLine());
+				int index = Integer.parseInt(input.nextLine())-1;
 				if (index == -1 && turn1) {
 					while (index == -1) {
 						System.out.println(tempPlayers.get(0).getColor()
