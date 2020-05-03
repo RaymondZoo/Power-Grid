@@ -57,13 +57,13 @@ public class TextRunner {
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
 				System.out.println(tempPlayers.get(0).getColor()
-						+ ", choose the index of the powerPlant to start auction on (0-3), -1 to pass");
+						+ ", choose the index of the powerPlant to start auction on (1-4), 0 to pass");
 				int index = Integer.parseInt(input.nextLine());
 				if (index == -1 && turn1) {
 					while (index == -1) {
 						System.out.println(tempPlayers.get(0).getColor()
-								+ ", choose the index of the powerPlant to start auction on (0-3). You cannot pass b/c it's turn 1");
-						index = Integer.parseInt(input.nextLine());
+								+ ", choose the index of the powerPlant to start auction on (1-4). You cannot pass b/c it's turn 1");
+						index = Integer.parseInt(input.nextLine())-1;
 					}
 				}
 				if (index == -1) {
