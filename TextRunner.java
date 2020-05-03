@@ -16,12 +16,12 @@ public class TextRunner {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
 		ArrayList<String> playableColors = new ArrayList<String>();
-		//System.out.println("Enter Playable Colors (4), seperate lines");
+		// System.out.println("Enter Playable Colors (4), seperate lines");
 
-		//for (int i = 0; i < 4; i++) {
-			//playableColors.add(input.nextLine());
-		//}
-		
+		// for (int i = 0; i < 4; i++) {
+		// playableColors.add(input.nextLine());
+		// }
+
 		System.out.println("Temp: Playable Colors are green, blue, purple, red");
 		playableColors.add("green");
 		playableColors.add("red");
@@ -149,25 +149,31 @@ public class TextRunner {
 
 			// phase 4
 			// citybuilding
+			System.out.println("Phase 4");
 			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
-				System.out.println("Which city do you want to build to (-1 for none)");
+				System.out.println(
+						gs.getPlayerOrder().get(i).getColor() + ": Which city do you want to build to (-1 for none)");
 				Player p = gs.getPlayerOrder().get(i);
 				String cmd = input.nextLine();
 				while (!cmd.equals("-1")) {
-					City c = gs.findCity(cmd);
-					int cost = 0;
-					if (c != null) {
-						cost = c.leastCost(p);
-						cost += c.getCost();
-						if (p.getMoney() > cost) {
-							p.addMoney(cost * -1);
-							c.addPlayer(p);
-							gs.addCityBuilt(p);
+					if (cmd.equals("-1")) {
+
+					} else {
+						City c = gs.findCity(cmd);
+						int cost = 0;
+						if (c != null) {
+							cost = c.leastCost(p);
+							cost += c.getCost();
+							if (p.getMoney() > cost) {
+								p.addMoney(cost * -1);
+								c.addPlayer(p);
+								gs.addCityBuilt(p);
+							}
 						}
+						gs.checkPowerPlantSize();
+						System.out.println("Which city do you want to build to (-1 for none)");
+						cmd = input.nextLine();
 					}
-					gs.checkPowerPlantSize();
-					System.out.println("Which city do you want to build to (-1 for none)");
-					cmd = input.nextLine();
 				}
 
 			}
@@ -253,21 +259,17 @@ public class TextRunner {
 				System.out.println("Sorry You don't have that much money");
 			else if (numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney() < 0)
 				System.out.println("Sorry You don't have that much money & the market doesn't have enough resource");
-			else if (numResource==0||gs.getPlayerOrder().get(playerNum).getMaxCoal()<numReq) {
+			else if (numResource == 0 || gs.getPlayerOrder().get(playerNum).getMaxCoal() < numReq) {
 				System.out.println("You don't have enough space for this resource buy");
-			}
-			else if (numResource==1||gs.getPlayerOrder().get(playerNum).getMaxOil()<numReq) {
+			} else if (numResource == 1 || gs.getPlayerOrder().get(playerNum).getMaxOil() < numReq) {
 				System.out.println("You don't have enough space for this resource buy");
-			}
-			else if (numResource==2||gs.getPlayerOrder().get(playerNum).getMaxTrash()<numReq) {
+			} else if (numResource == 2 || gs.getPlayerOrder().get(playerNum).getMaxTrash() < numReq) {
 				System.out.println(gs.getPlayerOrder().get(playerNum).getMaxTrash());
 				System.out.println("You don't have enough space for this resource buy");
-			}
-			else if (numResource==3||gs.getPlayerOrder().get(playerNum).getMaxNuclear()<numReq) {
+			} else if (numResource == 3 || gs.getPlayerOrder().get(playerNum).getMaxNuclear() < numReq) {
 				System.out.println("You don't have enough space for this resource buy");
-			}
-			else if (numResource==0)
-			gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
+			} else if (numResource == 0)
+				gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
 			gs.setMarket(resource, originalMarket);
 		}
 
