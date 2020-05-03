@@ -54,6 +54,8 @@ public class TextRunner {
 			tempPlayers.addAll(gs.getPlayerOrder());
 
 			// System.out.println(tempPlayers);
+			System.out.println();
+			System.out.println(tempPlayers.get(0).getColor() + "'s money: " + tempPlayers.get(0).getMoney());
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
 				System.out.println(tempPlayers.get(0).getColor()
