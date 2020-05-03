@@ -195,6 +195,43 @@ public class TextRunner {
 
 			}
 
+
+		// phase 5
+		// poweringstuffs
+		
+		TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
+		for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
+			Player current = gs.getPlayerOrder().get(i);
+			System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+			int index = Integer.parseInt(input.nextLine());
+			int totalCitiesPowered = 0;
+			while (index != -1) {
+				if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
+					totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
+					System.out.println("Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
+					if(current.getPowerList().get(index).getCost().contains("coal"))
+					{
+						int newCoal = gs.getCoalSupply() + current.getPowerList().get(index).getCost().size();
+						gs.setCoalSupply(newCoal);
+					}
+					else if(current.getPowerList().get(index).getCost().contains("trash"))
+					{
+						int newTrash = gs.getTrashSupply() + current.getPowerList().get(index).getCost().size();
+						gs.setTrashSupply(newTrash);
+					}
+					else if(current.getPowerList().get(index).getCost().contains("oil"))
+					{
+						int newOil = gs.getTrashSupply() + current.getPowerList().get(index).getCost().size();
+						gs.setOilSupply(newOil);
+					}
+					else if(current.getPowerList().get(index).getCost().contains("nuclear"))
+					{
+						int newNuclear = gs.getTrashSupply() + current.getPowerList().get(index).getCost().size();
+						gs.setNuclearSupply(newNuclear);
+					}
+				} else {
+					System.out.println("Unsuccessful.");
+
 			// phase 5
 			// poweringstuffs
 			TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
@@ -218,9 +255,21 @@ public class TextRunner {
 					}
 					System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
 					index = Integer.parseInt(input.nextLine());
+
 				}
 				numCitiesPowered.put(current, totalCitiesPowered);
 			}
+
+			numCitiesPowered.put(current, totalCitiesPowered);
+		}
+		
+		gs.givingMoney(numCitiesPowered);
+		gs.setRestock();
+		gs.marketFix();
+		if (turn1) {
+			turn1=false;
+		}
+
 			gs.givingMoney(numCitiesPowered);
 
 			gs.restockResources();
@@ -230,6 +279,7 @@ public class TextRunner {
 			if (turn1) {
 				turn1 = false;
 			}
+
 		}
 
 	}
