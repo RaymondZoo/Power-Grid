@@ -39,8 +39,17 @@ public class TextRunner {
 			// phase 2
 			// auction
 			gs.rearrangeMarket();
-			System.out.println("Current Market: " + gs.getCurrentMarket());
-			System.out.println("Future Market: " + gs.getFutureMarket());
+			System.out.println("Current Market: ");
+			for(int x = 1; x<=gs.getCurrentMarket().size(); x++)
+			{
+				System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+			}
+			System.out.println("Future Market: ");
+			for(int x = 1; x<=gs.getFutureMarket().size(); x++)
+			{
+				System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+			}
+			
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
 			tempPlayers.addAll(gs.getPlayerOrder());
 

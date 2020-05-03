@@ -260,7 +260,7 @@ public class GameState {
 			deck.addAll(socket);
 
 			Collections.sort(tempList);
-			System.out.println(tempList);
+			//System.out.println(tempList);
 			for (int i = 0; i < 4; i++) {
 				currentMarket.add(tempList.remove(0));
 			}
