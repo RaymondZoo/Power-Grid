@@ -85,13 +85,13 @@ public class TextRunner {
 							firstBid = false;
 						} else {
 							System.out.println(auctionPlayers.get(i).getColor()
-									+ ", how much do you want to bid on this powerplant (-1 to pass)? "
+									+ ", how much do you want to bid on this powerplant? (anything less or equal to current bid to pass) "
 									+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice);
 							int bid = Integer.parseInt(input.nextLine());
 							if (bid > auctionPlayers.get(i).getMoney()) {
 								while (bid > auctionPlayers.get(i).getMoney()) {
 									System.out.println(auctionPlayers.get(i).getColor()
-											+ ", how much do you want to bid on this powerplant (-1 to pass)? "
+											+ "how much do you want to bid on this powerplant? (anything less or equal to current bid to pass) "
 											+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice
 											+ ". You don't have enough money for the previous bid");
 									bid = Integer.parseInt(input.nextLine());
