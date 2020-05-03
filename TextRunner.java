@@ -54,10 +54,11 @@ public class TextRunner {
 			tempPlayers.addAll(gs.getPlayerOrder());
 
 			// System.out.println(tempPlayers);
-			System.out.println();
-			System.out.println(tempPlayers.get(0).getColor() + "'s money: " + tempPlayers.get(0).getMoney());
+			
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
+				System.out.println();
+				System.out.println(tempPlayers.get(0).getColor() + "'s money: " + tempPlayers.get(0).getMoney());
 				System.out.println(tempPlayers.get(0).getColor()
 						+ ", choose the index of the powerPlant to start auction on (1-4), 0 to pass");
 				int index = Integer.parseInt(input.nextLine())-1;
@@ -121,8 +122,17 @@ public class TextRunner {
 					gs.addPowerPlant();
 					auctionPlayers.get(0).addPowerPlant(gs.getAuctionCard());
 					gs.rearrangeMarket();
-					System.out.println("Current Market: " + gs.getCurrentMarket());
-					System.out.println("Future Market: " + gs.getFutureMarket());
+					System.out.println();
+					System.out.println("Current Market: ");
+					for(int x = 1; x<=gs.getCurrentMarket().size(); x++)
+					{
+						System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+					}
+					System.out.println("Future Market: ");
+					for(int x = 1; x<=gs.getFutureMarket().size(); x++)
+					{
+						System.out.println(x + ". " + gs.getCurrentMarket().get(x-1));
+					}
 					gs.setAuctionCard(null);
 				}
 
