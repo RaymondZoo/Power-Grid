@@ -156,6 +156,7 @@ public class GameState {
 			for (Player p : playerOrder) {
 				decision.put(p, false);
 				bids.put(p, 0);
+				numCities.put(p, 0);
 			}
 
 			// reading in cities
@@ -192,7 +193,7 @@ public class GameState {
 			int ctr =0;
 			while (iter.hasNext()) {
 				if (ctr == 24) {
-					System.out.println ("At23rd row");
+					//System.out.println ("At 23rd row");
 				}
 				City current = iter.next();
 				ArrayList<String> links = listOfLinks.get(current);
