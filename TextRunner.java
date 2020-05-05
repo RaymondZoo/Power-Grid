@@ -322,7 +322,7 @@ public class TextRunner {
 					tryAgain =  true;
 					
 				}
-				else if(cost.size()*2 < numReq)
+				else if(plant.getStorage().size()+numReq>cost.size()*2)
 				{
 					System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
 					tryAgain = true;
@@ -331,12 +331,28 @@ public class TextRunner {
 			else
 			{
 				String firstElement = cost.get(0);
-				if(!(firstElement.contains(resources[numResource])&&firstElement.equalsIgnoreCase(resources[numResource])))
+				String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
+				String secondResource = firstElement.substring(firstElement.indexOf("||"), firstElement.length());
+				int numOfFirstResource = 0;
+				int numOfSecondResource = 0;
+				for(String x : plant.getStorage())
+				{
+					if(x.equalsIgnoreCase(firstResource))
+					{
+						numOfFirstResource++;
+					}
+					else if(x.equalsIgnoreCase(secondResource))
+					{
+						numOfSecondResource++;
+					}
+				}
+				if(!(firstElement.contains(resources[numResource])))
 				{
 					System.out.println("You can't place " + resources[numResource] + " on this card");
 					tryAgain = true;
 				}
-				else if(cost.size()*2 < numReq)
+				
+				else if(numOfFirstResource+numReq>plant.getCost().size()*2||numOfSecondResource+numReq>plant.getCost().size()*2)
 				{
 					System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
 					tryAgain = true;
@@ -348,7 +364,10 @@ public class TextRunner {
 				input = new Scanner(System.in);
 				String yesOrNo = input.nextLine();
 				if(yesOrNo.equalsIgnoreCase("yes"))
+				{
 					askResource(playerNum);
+					return;
+				}
 				else
 					return;	
 			}

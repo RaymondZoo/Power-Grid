@@ -35,7 +35,7 @@ public class PowerPlant implements Comparable {
 	}
 
 	public boolean isHybrid() {
-		if (cost.get(0).contains(".")) {
+		if (cost.get(0).contains("||")) {
 			return true;
 		}
 		return false;
@@ -47,7 +47,8 @@ public class PowerPlant implements Comparable {
 		if (cost.size() == 0) {
 			return;
 		}
-		if (cost.get(0).contains("||")) {
+		storage.addAll(resources);
+		/*if (cost.get(0).contains("||")) {
 			String firstResource = cost.get(0).substring(0, cost.get(0).indexOf("||"));
 			String secondResource = cost.get(0).substring(cost.get(0).indexOf("||") + 1, cost.get(0).length());
 			int index = 0;
@@ -69,6 +70,7 @@ public class PowerPlant implements Comparable {
 			}
 			++index;
 		}
+		*/
 	}
 
 	public boolean isFull() {
