@@ -104,30 +104,27 @@ public class GameState {
 				}
 			}
 			ArrayList<String> nuclearWord = null;
-			
+
 			for (int i = 16; i >= 14; i--) {
-				if(i==14||i==16)
-				{
+				if (i == 14 || i == 16) {
 					nuclearWord = new ArrayList<String>();
 					nuclearWord.add("nuclear");
 					nuclearMarket.put(i, nuclearWord);
 				}
 			}
 			ArrayList<String> blank = new ArrayList<String>();
-			for(int i = 1;i<=6;i++)
-			{
+			for (int i = 1; i <= 6; i++) {
 				oilMarket.put(i, blank);
 			}
-			for(int i = 1;i<=2;i++)
-			{
+			for (int i = 1; i <= 2; i++) {
 				trashMarket.put(i, blank);
 			}
 			nuclearMarket.put(10, blank);
 			nuclearMarket.put(12, blank);
-			coalSupply-=24;
-			trashSupply-=6;
-			oilSupply-=18;
-			nuclearSupply-=2;
+			coalSupply -= 24;
+			trashSupply -= 6;
+			oilSupply -= 18;
+			nuclearSupply -= 2;
 			deck = new ArrayList<PowerPlant>();
 			currentMarket = new ArrayList<PowerPlant>();
 			futureMarket = new ArrayList<PowerPlant>();
@@ -135,7 +132,7 @@ public class GameState {
 			step = 1;
 			maxHouseInCity = step;
 			numberOfPlayers = 4;
-		
+
 			bids = new HashMap<Player, Integer>();
 			decision = new HashMap<Player, Boolean>();
 			cities = new TreeSet<City>();
@@ -163,7 +160,7 @@ public class GameState {
 			// reading in cities
 			Scanner cityReader = new Scanner(new File("Cities.txt"));
 			cityReader.nextLine();
-			//cityReader.nextLine();
+			// cityReader.nextLine();
 
 			while (cityReader.hasNextLine()) {
 				String line = cityReader.nextLine();
@@ -191,10 +188,10 @@ public class GameState {
 			// setting up cities
 			Set<City> keySet = listOfLinks.keySet();
 			Iterator<City> iter = keySet.iterator();
-			int ctr =0;
+			int ctr = 0;
 			while (iter.hasNext()) {
 				if (ctr == 24) {
-					//System.out.println ("At 23rd row");
+					// System.out.println ("At 23rd row");
 				}
 				City current = iter.next();
 				ArrayList<String> links = listOfLinks.get(current);
@@ -221,7 +218,7 @@ public class GameState {
 				}
 				ctr++;
 			}
-			// reading in PowerPlants 
+			// reading in PowerPlants
 			ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 			ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
 			Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
@@ -290,24 +287,23 @@ public class GameState {
 			deck.addAll(socket);
 
 			Collections.sort(tempList);
-			//System.out.println(tempList);
+			// System.out.println(tempList);
 			for (int i = 0; i < 4; i++) {
 				currentMarket.add(tempList.remove(0));
 			}
 			for (int i = 0; i < 4; i++) {
 				futureMarket.add(tempList.remove(0));
 			}
-		for(Player p : playerOrder)
-		{
-			numCities.put(p, 0);
-		}
+			for (Player p : playerOrder) {
+				numCities.put(p, 0);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 	}
-	public ArrayList<City> getListOfCities()
-	{
+
+	public ArrayList<City> getListOfCities() {
 		return listOfCities;
 	}
 
@@ -474,6 +470,7 @@ public class GameState {
 	public boolean getMarketStep3() {
 		return marketStep3;
 	}
+
 	public int getCoalSupply() {
 		return coalSupply;
 	}
@@ -622,8 +619,8 @@ public class GameState {
 	public City findCity(String name) {// incomplete
 		for (City c : listOfCities) {
 			if (name.equals(c.getName()))
-				System.out.println(c.getName()+" found.");
-				return c;
+				System.out.println(c.getName() + " found.");
+			return c;
 		}
 		return null;
 	}
@@ -672,123 +669,96 @@ public class GameState {
 
 	public void setRestock() {
 		int coalToBeSupplied = 0;
-		int oilToBeSupplied =  0;
+		int oilToBeSupplied = 0;
 		int trashToBeSupplied = 0;
 		int nuclearToBeSupplied = 0;
-		if(step==1)
-		{
+		if (step == 1) {
 			coalToBeSupplied = 5;
 			oilToBeSupplied = 3;
 			trashToBeSupplied = 2;
 			nuclearToBeSupplied = 1;
-		}
-		else if(step==2)
-		{
+		} else if (step == 2) {
 			coalToBeSupplied = 6;
 			oilToBeSupplied = 4;
 			trashToBeSupplied = 3;
 			nuclearToBeSupplied = 2;
-		}
-		else if(step==3)
-		{
+		} else if (step == 3) {
 			coalToBeSupplied = 4;
 			oilToBeSupplied = 5;
 			trashToBeSupplied = 4;
 			nuclearToBeSupplied = 2;
 		}
-		if(coalToBeSupplied>coalSupply)
-		{
+		if (coalToBeSupplied > coalSupply) {
 			coalToBeSupplied = coalSupply;
-		}
-		else if(oilToBeSupplied>oilSupply)
-		{
+		} else if (oilToBeSupplied > oilSupply) {
 			oilToBeSupplied = oilSupply;
-		}
-		else if(trashToBeSupplied>trashSupply)
-		{
+		} else if (trashToBeSupplied > trashSupply) {
 			trashToBeSupplied = trashSupply;
-		}
-		else if(nuclearToBeSupplied>nuclearSupply)
-		{
+		} else if (nuclearToBeSupplied > nuclearSupply) {
 			nuclearToBeSupplied = nuclearSupply;
 		}
 		setCoalMarket(restock(coalMarket, coalToBeSupplied));
-		coalSupply-=coalToBeSupplied;
+		coalSupply -= coalToBeSupplied;
 		setOilMarket(restock(oilMarket, oilToBeSupplied));
-		oilSupply-=oilToBeSupplied;
+		oilSupply -= oilToBeSupplied;
 		setTrashMarket(restock(trashMarket, trashToBeSupplied));
-		trashSupply-=trashToBeSupplied;
+		trashSupply -= trashToBeSupplied;
 		int lowestKeyNuclear = findLowestKeyAvailable(nuclearMarket);
-		for(int i = 1;i<=nuclearToBeSupplied;i++)
-		{
-			for(int x = lowestKeyNuclear;x>=10;x-=2)
-			{
+		for (int i = 1; i <= nuclearToBeSupplied; i++) {
+			for (int x = lowestKeyNuclear; x >= 10; x -= 2) {
 				ArrayList<String> nuclearWord = new ArrayList<String>();
 				nuclearWord.add("nuclear");
 				nuclearMarket.put(lowestKeyNuclear, nuclearWord);
 			}
 		}
-		nuclearSupply-=nuclearToBeSupplied;
+		nuclearSupply -= nuclearToBeSupplied;
 	}
-	public int findLowestKeyAvailable(TreeMap<Integer, ArrayList<String>> market)
-	{
+
+	public int findLowestKeyAvailable(TreeMap<Integer, ArrayList<String>> market) {
 		Iterator<Integer> marketIter = market.keySet().iterator();
 		int lowestKeyAvailable = 0;
-		while(marketIter.hasNext())
-		{
+		while (marketIter.hasNext()) {
 			int key = marketIter.next();
-			if(market.get(key).size()>0)
-			{
+			if (market.get(key).size() > 0) {
 				lowestKeyAvailable = key;
 			}
 		}
 		return lowestKeyAvailable;
 	}
-	public TreeMap<Integer, ArrayList<String>> restock(TreeMap<Integer, ArrayList<String>> market, int numToBeSupplied)
-	{
-		
-		int lowestKeyAvailable = findLowestKeyAvailable(market);	
+
+	public TreeMap<Integer, ArrayList<String>> restock(TreeMap<Integer, ArrayList<String>> market,
+			int numToBeSupplied) {
+
+		int lowestKeyAvailable = findLowestKeyAvailable(market);
 		String wordToPut = market.get(lowestKeyAvailable).get(0);
-		TreeSet<Integer> costs = (TreeSet)market.keySet();
+		TreeSet<Integer> costs = (TreeSet) market.keySet();
 		Iterator<Integer> descend = costs.descendingIterator();
-		while(descend.hasNext())
-		{
+		while (descend.hasNext()) {
 			int key = descend.next();
-			if(key==lowestKeyAvailable)
-			{
-				if(numToBeSupplied>3)
-				{
-					for(int i = market.get(lowestKeyAvailable).size();i<=3;i++)
-					{
+			if (key == lowestKeyAvailable) {
+				if (numToBeSupplied > 3) {
+					for (int i = market.get(lowestKeyAvailable).size(); i <= 3; i++) {
 						market.get(lowestKeyAvailable).add(wordToPut);
 						numToBeSupplied--;
 					}
 				}
-			}
-			else if(key<lowestKeyAvailable&&numToBeSupplied%3==0)
-			{
-				for(int i = 1;i<=3;i++)
-				{
+			} else if (key < lowestKeyAvailable && numToBeSupplied % 3 == 0) {
+				for (int i = 1; i <= 3; i++) {
 					market.get(key).add(wordToPut);
 					numToBeSupplied--;
 				}
-			}
-			else if(numToBeSupplied%3!=0)
-			{
-				for(int i = 1;i<=numToBeSupplied;i++)
-				{
+			} else if (numToBeSupplied % 3 != 0) {
+				for (int i = 1; i <= numToBeSupplied; i++) {
 					market.get(key).add(wordToPut);
 				}
 				break;
 			}
 		}
-		if(numToBeSupplied!=0)
-		{
+		if (numToBeSupplied != 0) {
 			printIfMarketDoesNotHaveSpace(numToBeSupplied);
 		}
 		return market;
 	}
-
 
 	public void addCityBuilt(Player p) {
 		for (Player t : numCities.keySet()) {
@@ -797,54 +767,55 @@ public class GameState {
 			}
 		}
 	}
-	public void printIfMarketDoesNotHaveSpace(int numToBeSupplied)
-	{
+
+	public void printIfMarketDoesNotHaveSpace(int numToBeSupplied) {
 		System.out.println(numToBeSupplied + " could not restocked because market ran out of space");
 	}
 
 	public void randomizePlayerOrder() {
 		Collections.shuffle(playerOrder);
 	}
-	
-	public TreeMap<Integer,ArrayList<String>> getMarket(String resourceType) 
-	{
-		if ("coal".equalsIgnoreCase(resourceType)) 
+
+	public TreeMap<Integer, ArrayList<String>> getMarket(String resourceType) {
+		if ("coal".equalsIgnoreCase(resourceType))
 			return coalMarket;
 		else if ("oil".equalsIgnoreCase(resourceType))
 			return oilMarket;
 		else if ("trash".equalsIgnoreCase(resourceType))
 			return trashMarket;
 		else if ("nuclear".equalsIgnoreCase(resourceType))
-			return nuclearMarket;	
-		
+			return nuclearMarket;
+
 		return null;
 	}
-	public void rearrangeMarket()
-	{
+
+	public void rearrangeMarket() {
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		Collections.sort(currentMarket);
-		for(int i = 4;i<currentMarket.size();i++)
-		{
+		for (int i = 4; i < currentMarket.size(); i++) {
 			futureMarket.add(currentMarket.get(i));
 		}
 		currentMarket.removeAll(futureMarket);
-		
+
 	}
-	public void setMarket(String resourceType, TreeMap<Integer,ArrayList<String>> newMarket) 
-	{
-		if ("coal".equalsIgnoreCase(resourceType)) 
+
+	public void setMarket(String resourceType, TreeMap<Integer, ArrayList<String>> newMarket) {
+		if ("coal".equalsIgnoreCase(resourceType))
 			this.setCoalMarket(newMarket);
 		else if ("oil".equalsIgnoreCase(resourceType))
 			this.setOilMarket(newMarket);
 		else if ("trash".equalsIgnoreCase(resourceType))
 			this.setTrashMarket(newMarket);
 		else if ("nuclear".equalsIgnoreCase(resourceType))
-			this.setNuclearMarket(newMarket);	
+			this.setNuclearMarket(newMarket);
 	}
 
-	public void restockResources() {
-		// TODO Auto-generated method stub
-		
+	public void setListOfCites(ArrayList<City> list) {
+		this.listOfCities = list;
+	}
+
+	public ArrayList<City> getListOfCites() {
+		return listOfCities;
 	}
 }
