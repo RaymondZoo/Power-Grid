@@ -161,7 +161,7 @@ public class GameState {
 			// reading in cities
 			Scanner cityReader = new Scanner(new File("Cities.txt"));
 			cityReader.nextLine();
-			cityReader.nextLine();
+			//cityReader.nextLine();
 
 			while (cityReader.hasNextLine()) {
 				String line = cityReader.nextLine();
@@ -189,13 +189,16 @@ public class GameState {
 			// setting up cities
 			Set<City> keySet = listOfLinks.keySet();
 			Iterator<City> iter = keySet.iterator();
+			int ctr =0;
 			while (iter.hasNext()) {
+				if (ctr == 24) {
+					System.out.println ("At23rd row");
+				}
 				City current = iter.next();
 				ArrayList<String> links = listOfLinks.get(current);
 				for (int i = 0; i < links.size(); i++) {
 					String val = links.get(i);
 					String toSearchFor = val.substring(0, val.indexOf("/"));
-
 					int cost = 0;
 					try {
 
@@ -207,12 +210,14 @@ public class GameState {
 					}
 					City linked = null;
 					for (int x = 0; x < listOfCities.size(); x++) {
-						if (listOfCities.get(i).getName().equalsIgnoreCase(toSearchFor)) {
-							linked = listOfCities.get(i);
+						if (listOfCities.get(x).getName().equalsIgnoreCase(toSearchFor)) {
+							linked = listOfCities.get(x);
+							break;
 						}
 					}
 					current.getEdges().put(linked, cost);
 				}
+				ctr++;
 			}
 			// reading in PowerPlants 
 			ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
@@ -294,6 +299,10 @@ public class GameState {
 			ex.printStackTrace();
 		}
 
+	}
+	public ArrayList<City> getListOfCities()
+	{
+		return listOfCities;
 	}
 
 	public Scanner getInput() {

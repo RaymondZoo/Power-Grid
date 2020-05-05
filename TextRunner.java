@@ -5,7 +5,7 @@ import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Iterator;
-
+import java.util.Set;
 public class TextRunner {
 
 	static GameState gs = null;
@@ -21,7 +21,6 @@ public class TextRunner {
 		// for (int i = 0; i < 4; i++) {
 		// playableColors.add(input.nextLine());
 		// }
-
 		System.out.println("Temp: Playable Colors are green, blue, purple, red");
 		playableColors.add("green");
 		playableColors.add("red");
@@ -155,7 +154,7 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
-				resourceSelection(i);
+				askResource(i);
 				System.out.println("Are You Done with Purchasing Resources?");
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
@@ -163,7 +162,7 @@ public class TextRunner {
 					if (i != 3)
 						System.out.println("Ok. Moving on to next Player");
 				} else if (answer.equals("no")) {
-					resourceSelection(i);
+					askResource(i);
 
 				}
 			}
@@ -287,69 +286,116 @@ public class TextRunner {
 		}
 
 	}
-
-	@SuppressWarnings("unchecked")
-	public static void resourceSelection(int playerNum) {
-
+	public static void askResource(int playerNum)
+	{
 		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
 		String[] resources = { "coal", "oil", "trash", "nuclear" };
+		
 		System.out.println(gs.getPlayerOrder().get(playerNum).getColor() + "'s turn. You have " + originalMoney
 				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear, -1 to pass");
+	
+		System.out.println("The Powerplants you have: " + gs.getPlayerOrder().get(playerNum).getPowerList());
 		int numResource = input.nextInt();
-		if (numResource !=-1) {
+		if(numResource!=-1)
+		{
 		System.out.println("How much of " + resources[numResource] + " do you want");
 		int numReq = input.nextInt();
-		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
-		String resource = resources[numResource];
-
-		market = gs.getMarket(resource);
-
-		TreeMap<Integer, ArrayList<String>> originalMarket;
-		originalMarket = copyMarket(market);
-
-		int numCollectedResources = 0;
-		Iterator<Integer> iter = market.keySet().iterator();
-		while (iter.hasNext()) {
-			int key = iter.next();
-			int size = market.get(key).size();
-			if (size > 0) {
-				for (int w = 0; w < size; w++) {
-					ArrayList<String> tempList = market.get(key);
-					tempList.remove(0);
-					numCollectedResources++;
-					gs.getPlayerOrder().get(playerNum).subtractMoney(key);
-					if (numCollectedResources == numReq)
-						break;
-				}
-			}
-			if (numCollectedResources == numReq)
-				break;
-		}
-		if (numCollectedResources < numReq || gs.getPlayerOrder().get(playerNum).getMoney() < 0) {
-			if (numCollectedResources < numReq)
-				System.out.println("Sorry Market Doesn't have enough resources");
-			else if (gs.getPlayerOrder().get(playerNum).getMoney() < 0)
-				System.out.println("Sorry You don't have that much money");
-			else if (numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney() < 0)
-				System.out.println("Sorry You don't have that much money & the market doesn't have enough resource");
-			else if (numResource == 0 || gs.getPlayerOrder().get(playerNum).getMaxCoal() < numReq) {
-				System.out.println("You don't have enough space for this resource buy");
-			} else if (numResource == 1 || gs.getPlayerOrder().get(playerNum).getMaxOil() < numReq) {
-				System.out.println("You don't have enough space for this resource buy");
-			} else if (numResource == 2 || gs.getPlayerOrder().get(playerNum).getMaxTrash() < numReq) {
-				System.out.println(gs.getPlayerOrder().get(playerNum).getMaxTrash());
-				System.out.println("You don't have enough space for this resource buy");
-			} else if (numResource == 3 || gs.getPlayerOrder().get(playerNum).getMaxNuclear() < numReq) {
-				System.out.println("You don't have enough space for this resource buy");
-			} else if (numResource == 0)
-				gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
-			gs.setMarket(resource, originalMarket);
-		}
-
-		System.out
-				.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
+		resourceMovement(playerNum, numResource, numReq);
 		}
 	}
+	@SuppressWarnings("unchecked")
+	public static void resourceMovement(int playerNum, int numResource, int numReq) 
+	{
+			int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
+			String[] resources = { "coal", "oil", "trash", "nuclear" };
+			System.out.println("Please chose the card you want to place these resources on(0 to 3)");
+			System.out.println(gs.getPlayerOrder().get(playerNum).getPowerList());
+			int indexOfCard = input.nextInt();
+			PowerPlant plant = gs.getPlayerOrder().get(playerNum).getPowerList().get(indexOfCard);
+			ArrayList<String> cost = plant.getCost();
+			boolean tryAgain = false;
+			if(!plant.isHybrid())
+			{
+				if(!cost.contains(resources[numResource]))
+				{
+					System.out.println("You can't place " + resources[numResource] + " on this card");
+					tryAgain =  true;
+					
+				}
+				else if(cost.size()*2 < numReq)
+				{
+					System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
+					tryAgain = true;
+				}
+			}
+			else
+			{
+				String firstElement = cost.get(0);
+				if(!(firstElement.contains(resources[numResource])&&firstElement.equalsIgnoreCase(resources[numResource])))
+				{
+					System.out.println("You can't place " + resources[numResource] + " on this card");
+					tryAgain = true;
+				}
+				else if(cost.size()*2 < numReq)
+				{
+					System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
+					tryAgain = true;
+				}	
+			}
+			if(tryAgain)
+			{
+				System.out.println("Do you want to try again or not");
+				input = new Scanner(System.in);
+				String yesOrNo = input.nextLine();
+				if(yesOrNo.equalsIgnoreCase("yes"))
+					askResource(playerNum);
+				else
+					return;	
+			}
+			TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
+			String resource = resources[numResource];
+			market = gs.getMarket(resource);
+			TreeMap<Integer, ArrayList<String>> originalMarket;
+			originalMarket = copyMarket(market);
+			int numCollectedResources = 0;
+			Iterator<Integer> iter = market.keySet().iterator();
+			while (iter.hasNext()) {
+				int key = iter.next();
+				int size = market.get(key).size();
+				if (size > 0) {
+					for (int w = 0; w < size; w++) {
+						ArrayList<String> tempList = market.get(key);
+						tempList.remove(0);
+						numCollectedResources++;
+						gs.getPlayerOrder().get(playerNum).subtractMoney(key);
+						if (numCollectedResources == numReq)
+							break;
+					}
+				}
+				if (numCollectedResources == numReq)
+					break;
+			}
+			if (numCollectedResources < numReq || gs.getPlayerOrder().get(playerNum).getMoney() < 0) 
+			{
+				if(numCollectedResources < numReq&&gs.getPlayerOrder().get(playerNum).getMoney() < 0)
+					System.out.println("Sorry you don't have that much much money and the market doesn't have enough resources");
+				else if (numCollectedResources < numReq)
+					System.out.println("Sorry Market Doesn't have enough resources");
+				else if (gs.getPlayerOrder().get(playerNum).getMoney() < 0)
+					System.out.println("Sorry You don't have that much money");	
+				gs.getPlayerOrder().get(playerNum).setMoney(originalMoney);
+				gs.setMarket(resource, originalMarket);
+	
+			}
+			System.out.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
+			ArrayList<String> attainedResources = new ArrayList<String>();
+			for(int i = 1;i<=numReq;i++)
+			{
+				attainedResources.add(resource);
+			}
+			gs.getPlayerOrder().get(playerNum).getPowerList().get(indexOfCard).addResources(attainedResources);
+		}
+	
 
 	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
 		TreeMap<Integer, ArrayList<String>> newMarket = new TreeMap<Integer, ArrayList<String>>();
