@@ -1,3 +1,4 @@
+
 import java.io.*;
 
 import java.util.ArrayList;
@@ -296,6 +297,10 @@ public class GameState {
 			for (int i = 0; i < 4; i++) {
 				futureMarket.add(tempList.remove(0));
 			}
+		for(Player p : playerOrder)
+		{
+			numCities.put(p, 0);
+		}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
