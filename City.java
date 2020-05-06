@@ -29,9 +29,9 @@ public class City {
 		dist.put(this, 0);
 		City current = this;
 		while (!current.hasPlayer(p)) {
-			for (City c : edges.keySet()) {
+			for (City c : current.getEdges().keySet()) {
 				if (!visited.contains(c)) {
-					int tentDist = dist.get(current) + edges.get(c);
+					int tentDist = dist.get(current) + current.getEdges().get(c);
 					if (!dist.keySet().contains(c)) {
 						dist.put(c, tentDist);
 					} else {
@@ -41,18 +41,24 @@ public class City {
 				}
 			}
 			visited.add(current);
+			System.out.println("City "+current.getName());
 			current = getLowest(dist, visited);
 			//System.out.println(current.getName());
-			// System.out.println(dist.get(current));
+			//System.out.println(dist.get(current));
 		}
 		return dist.get(current);
 	}
 
 	public City getLowest(HashMap<City, Integer> dist, HashSet<City> visited) {
-		City lowest = null;
-		for (City c : dist.keySet()) {
+		ArrayList<City>list=new ArrayList<City>();
+		list.addAll(dist.keySet());
+		list.removeAll(visited);
+		City lowest=null;
+		for (City c : list) {
 			if (lowest == null) {
-				lowest = c;
+				if (!visited.contains(c)) {
+					lowest = c;
+				}
 			} else if (!visited.contains(c) && dist.get(c) < dist.get(lowest)) {
 				lowest = c;
 			}
