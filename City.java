@@ -26,7 +26,7 @@ public class City {
 	public int leastCost(Player p) {
 		HashMap<City, Integer> dist = new HashMap<City, Integer>();
 		HashSet<City> visited = new HashSet<City>();
-		visited.add(this);
+		visited.add(this) ;
 		dist.put(this, 0);
 		City current = this;
 		while (!current.hasPlayer(p)) {
@@ -35,9 +35,15 @@ public class City {
 					int tentDist = dist.get(current) + edges.get(c);
 					if (!dist.keySet().contains(c)) {
 						dist.put(c, tentDist);
+						visited.add(c);
 					} else {
 						if (dist.get(c) > tentDist)
+						{
 							dist.replace(c, tentDist);
+							visited.add(c);
+
+						}
+						
 					}
 				}
 			}

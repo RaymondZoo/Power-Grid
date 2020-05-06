@@ -162,7 +162,10 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
-				askResource(i);
+				System.out.println("Do you want to buy resources(0 for yes, -1 for no");
+				int num = input.nextInt();
+				if(num==0)
+					askResource(i);
 				System.out.println("Are You Done with Purchasing Resources?");
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
@@ -188,8 +191,8 @@ public class TextRunner {
 				String cmd = input.nextLine();
 				if (turn1 && cmd.equals("-1")) {
 					while (cmd.equals("-1")) {
-						System.out.println(gs.getPlayerOrder().get(i).getColor()
-								+ ": Which city do you want to build to. You cannot pass b/c it's turn 1");
+						System.out.println(gs.getPlayerOrder().get(i).getColor() 
+								+ " : Which city do you want to build to. You cannot pass b/c it's turn 1");
 						cmd = input.nextLine();
 					}
 				}
@@ -198,7 +201,7 @@ public class TextRunner {
 					} else {
 						City c = gs.findCity(cmd);
 						System.out.println("Inputed Phrase was "+cmd);
-						System.out.println("City Found was "+c);
+						System.out.println("City Found was "+c.getName());
 						int cost = 0;
 						if (c == null) {
 							System.out.println("City is unavailable to be built at");

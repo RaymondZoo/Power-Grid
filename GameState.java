@@ -619,8 +619,10 @@ public class GameState {
 	public City findCity(String name) {// incomplete
 		for (City c : listOfCities) {
 			if (name.equals(c.getName()))
+			{
 				System.out.println(c.getName() + " found.");
-			return c;
+				return c;
+			}
 		}
 		return null;
 	}

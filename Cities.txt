@@ -1,6 +1,6 @@
 
 Seattle purple Portland/3, Boise/12, Billings/9
-PortLand purple Seattle/3, Boise/13, San_Francisco/24
+Portland purple Seattle/3, Boise/13, San_Francisco/24
 Boise purple Portland/13, Seattle/12, Billings/12, Salt_Lake_City/8, San_Francisco/27
 Billings purple Seattle/0, Boise/12, Cheyenne/9, Fargo/17, Minneapolis/18
 Cheyenne purple Denver/0, Billings/9, Minneapolis/18, Omaha/14
