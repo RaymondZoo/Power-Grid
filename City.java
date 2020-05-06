@@ -41,6 +41,7 @@ public class City {
 					}
 				}
 			}
+			visited.add(current);
 			current = getLowest(dist, visited);
 		}
 		return dist.get(current);
