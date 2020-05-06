@@ -162,7 +162,7 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
-				System.out.println("Do you want to buy resources(0 for yes, -1 for no");
+				System.out.println("Do you want to buy resources(0 for yes, -1 for no)");
 				int num = input.nextInt();
 				if(num==0)
 					askResource(i);
