@@ -103,16 +103,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(GREEN); // We could do the player's color here ~
 			g.fillRect(0, 0, width, height);
 			g.drawImage(mainMenuBackground, 0, 0, 1535, 1080, null);
+			
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("MONEY:", 1573, 48);
 			g.setColor(Color.WHITE);
 			g.drawString("MONEY:", 1570, 45); //add currentPlayer money here ~
+			
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("Power Plants:", 1673, 73);
 			g.setColor(Color.WHITE);
 			g.drawString("Power Plants:", 1670, 70); 
+			
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("MESSAGE BOARD:", 1573, 783);
+			g.setColor(Color.WHITE);
+			g.drawString("MESSAGE BOARD:", 1570, 780); 
 			
 			
 			//Powerplants
