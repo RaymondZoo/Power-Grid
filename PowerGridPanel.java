@@ -28,7 +28,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private GameState game;
 	
 	//Constants (tentative)~
-	public static final int CARDWIDTH = 260, CARDHEIGHT = 200;
+	public static final int PPWIDTH = 260, PPHEIGHT = 200; // PP = powerplant
+	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
 	
 
 	// Colors
@@ -115,11 +116,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 			
 			//Powerplants
-			g.setColor(TRANSPARENTBLACK);
-			
-			
-			//Buttons
-			
+			for(int i = 0; i<3; i++)
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(MAPX+10, MAPY+(i*(PPHEIGHT+20))+10, PPWIDTH, PPHEIGHT);
+				
+				//ACTUAL PP
+			}
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 			//End Turn
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(537, 20, 260, 80);
@@ -128,8 +132,37 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("END TURN", 608, 48);
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 			g.drawString("END TURN", 605, 45);
+			
+			//Buy
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(25, 670, 100, 80);
+			g.setColor(GREEN); 
+			g.fillRect(15, 660, 100, 80);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("BUY", 51, 713);
+			g.setColor(Color.WHITE);
+			g.drawString("BUY", 48, 710);
+			
+			
+			//Other Players
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(1360, 650, 150, 400);
+			g.setColor(GREEN); 
+			g.fillRect(1350, 640, 150, 400);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("Other Players", 1363, 663);
+			g.setColor(Color.WHITE);
+			g.drawString("Other Players", 1360, 660);
+			
+			int colorX = 1380, colorY = 690;
+			for(int i = 0; i<3; i++)
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(colorX+10, colorY+(i*(100+10))+10, 100, 100);
+				
+				//ACTUAL Color
+			}
 			
 			
 			
