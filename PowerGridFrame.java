@@ -15,7 +15,7 @@ public class PowerGridFrame extends JFrame {
 		setSize(WIDTH, HEIGHT);
 		add(new PowerGridPanel(WIDTH, HEIGHT));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
+		//setUndecorated(true);
 
 		/*
 		 * try { setIconImage(ImageIO.read(new File("src/images/icon.png"))); } catch

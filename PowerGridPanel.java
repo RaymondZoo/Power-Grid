@@ -26,6 +26,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private String keyInput;
 
 	private GameState game;
+	
+	//Constants (tentative)~
+	public static final int CARDWIDTH = 260, CARDHEIGHT = 200;
+	
 
 	// Colors
 	public static final Color GREEN = new Color(17, 59, 8);
@@ -67,7 +71,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMainMenu(Graphics g) {
 		try {
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/MainMenu.jpg"));
+			//BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
 			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
 
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
@@ -92,10 +97,43 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMAPUI(Graphics g) {
 		try {
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/BestSoFar.jpg"));
-			g.setColor(GREEN);
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/BestSoFar.jpg"));
+			//ImageIO.read(new File("src/UI/BestSoFar.jpg"));
+			g.setColor(GREEN); // We could do the player's color here ~
 			g.fillRect(0, 0, width, height);
 			g.drawImage(mainMenuBackground, 0, 0, 1535, 1080, null);
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("MONEY:", 1573, 48);
+			g.setColor(Color.WHITE);
+			g.drawString("MONEY:", 1570, 45); //add currentPlayer money here ~
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("Power Plants:", 1673, 73);
+			g.setColor(Color.WHITE);
+			g.drawString("Power Plants:", 1670, 70); 
+			
+			
+			//Powerplants
+			g.setColor(TRANSPARENTBLACK);
+			
+			
+			//Buttons
+			
+			//End Turn
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(537, 20, 260, 80);
+			g.setColor(GREEN); 
+			g.fillRect(527, 10, 260, 80);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("END TURN", 608, 48);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+			g.drawString("END TURN", 605, 45);
+			
+			
+			
+			
 		} catch (IOException e) {
 			System.out.println("Cannot find Map image!");
 		}
