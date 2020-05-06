@@ -14,6 +14,7 @@ public class TextRunner {
 
 	static Scanner input = new Scanner(System.in); // player input
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
@@ -180,6 +181,7 @@ public class TextRunner {
 			System.out.println();
 			System.out.println("Phase 4");
 			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
+				City c;
 				System.out.println("Playable Regions: " + playableColors.toString());
 				System.out.println("Max number of Players at a city is " + gs.getMaxHouseInCity());
 				System.out.println(
@@ -196,13 +198,15 @@ public class TextRunner {
 				while (!cmd.equals("-1")) {
 					if (cmd.equals("-1")) {
 					} else {
-						City c = gs.findCity(cmd);
-						System.out.println("Inputed Phrase was "+cmd);
-						System.out.println("City Found was "+c);
+						c = gs.findCity(cmd);
 						int cost = 0;
 						if (c == null) {
 							System.out.println("City is unavailable to be built at");
 						} else {
+							//System.out.println("Inputed Phrase was " + cmd);
+							//System.out.println("City Found was " + c.getName());
+							//System.out.println("City has " + c.getPlayersAtCity().size() + " players");
+
 							if (c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()) {
 								System.out.println(
 										"There is no more space for a house at that city. Please choose another (-1 to quit)");
@@ -213,13 +217,20 @@ public class TextRunner {
 								cost = c.leastCost(p);
 								cost += c.getCost();
 							}
+
 							if (p.getMoney() > cost) {
 								p.addMoney(cost * -1);
 								c.addPlayer(p);
 								gs.addCityBuilt(p);
 							}
+							else {
+								System.out.println("You don't have enough money to build to there.");
+							}
+
 							System.out.println("Cost: " + cost);
+							System.out.println("You now have $" + p.getMoney());
 						}
+
 						gs.checkPowerPlantSize();
 						System.out.println("Playable Regions: " + playableColors.toString());
 						System.out.println(gs.getPlayerOrder().get(i).getColor()
