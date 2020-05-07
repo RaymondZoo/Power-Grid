@@ -82,7 +82,37 @@ public class PowerPlant implements Comparable {
 		if (cost.size() == 0) {
 			return true;
 		}
-
+		if(!this.isHybrid())
+		{
+			if(storage.size()>=cost.size())
+			{
+				actualRemoval(cost.get(0));
+				return true;
+			}
+			return false;
+		}
+		else if(this.isHybrid())
+		{
+			int numInStorage = 0;
+			if(resources.size()==0)
+				return false;
+			String resourceToBeRemoved = resources.get(0);
+			for(int i = 0;i<storage.size();i++)
+			{
+				if(storage.get(i).equalsIgnoreCase(resourceToBeRemoved))
+				{
+					numInStorage++;
+				}
+			}
+			if(numInStorage>=cost.size())
+			{
+					actualRemoval(resourceToBeRemoved);
+					return true;
+			}
+			return false;
+		}
+		return false;
+		/*
 		ArrayList<String> costCopy = new ArrayList<String>();
 		for (String s : cost) {
 			costCopy.add(s);
@@ -96,6 +126,14 @@ public class PowerPlant implements Comparable {
 			specialRemove(storage, s);
 		}
 		return true;
+		*/
+	}
+	public void actualRemoval(String word)
+	{
+		for(int i = 1;i<=cost.size();i++)
+		{
+			storage.remove(word);
+		}
 	}
 
 	// used for hybrid plants

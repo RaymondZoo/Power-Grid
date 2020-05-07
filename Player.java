@@ -5,6 +5,7 @@ public class Player {
 	private int money;
 	private String color;
 
+
 	public Player() {
 		powerList = new ArrayList<PowerPlant>();
 		money = 50;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.HashMap;
 
 public class TextRunner {
 
@@ -14,6 +15,7 @@ public class TextRunner {
 
 	static Scanner input = new Scanner(System.in); // player input
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
@@ -162,10 +164,7 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
-				System.out.println("Do you want to buy resources(0 for yes, -1 for no)");
-				int num = input.nextInt();
-				if(num==0)
-					askResource(i);
+				askResource(i);
 				System.out.println("Are You Done with Purchasing Resources?");
 				input = new Scanner(System.in);
 				String answer = input.nextLine();
@@ -183,6 +182,8 @@ public class TextRunner {
 			System.out.println();
 			System.out.println("Phase 4");
 			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
+				
+				City c;
 				System.out.println("Playable Regions: " + playableColors.toString());
 				System.out.println("Max number of Players at a city is " + gs.getMaxHouseInCity());
 				System.out.println(
@@ -191,21 +192,23 @@ public class TextRunner {
 				String cmd = input.nextLine();
 				if (turn1 && cmd.equals("-1")) {
 					while (cmd.equals("-1")) {
-						System.out.println(gs.getPlayerOrder().get(i).getColor() 
-								+ " : Which city do you want to build to. You cannot pass b/c it's turn 1");
+						System.out.println(gs.getPlayerOrder().get(i).getColor()
+								+ ": Which city do you want to build to. You cannot pass b/c it's turn 1");
 						cmd = input.nextLine();
 					}
 				}
 				while (!cmd.equals("-1")) {
 					if (cmd.equals("-1")) {
 					} else {
-						City c = gs.findCity(cmd);
-						System.out.println("Inputed Phrase was "+cmd);
-						System.out.println("City Found was "+c.getName());
+						c = gs.findCity(cmd);
 						int cost = 0;
 						if (c == null) {
 							System.out.println("City is unavailable to be built at");
 						} else {
+							//System.out.println("Inputed Phrase was " + cmd);
+							//System.out.println("City Found was " + c.getName());
+							//System.out.println("City has " + c.getPlayersAtCity().size() + " players");
+
 							if (c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()) {
 								System.out.println(
 										"There is no more space for a house at that city. Please choose another (-1 to quit)");
@@ -216,13 +219,20 @@ public class TextRunner {
 								cost = c.leastCost(p);
 								cost += c.getCost();
 							}
+
 							if (p.getMoney() > cost) {
 								p.addMoney(cost * -1);
 								c.addPlayer(p);
 								gs.addCityBuilt(p);
 							}
+							else {
+								System.out.println("You don't have enough money to build to there.");
+							}
+
 							System.out.println("Cost: " + cost);
+							System.out.println("You now have $" + p.getMoney());
 						}
+
 						gs.checkPowerPlantSize();
 						System.out.println("Playable Regions: " + playableColors.toString());
 						System.out.println(gs.getPlayerOrder().get(i).getColor()
@@ -230,79 +240,130 @@ public class TextRunner {
 						cmd = input.nextLine();
 					}
 				}
+				if(gs.getNumCities().get(gs.getPlayerOrder().get(i))>=7)
+					gs.nextStep();
+					
 
 			}
 
 			// phase 5
 			// poweringstuffs
 
-			TreeMap<Player, Integer> numCitiesPowered = new TreeMap<Player, Integer>();
+			HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 			for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
 				Player current = gs.getPlayerOrder().get(i);
 				System.out.println(current.getColor()
 						+ ": choose a powerplant to burn resources from for power. (index 0-2). -1 to quit");
+				System.out.println("Here are your Powerplants: " + gs.getPlayerOrder().get(i).getPowerList());
 				int index = Integer.parseInt(input.nextLine());
 				int totalCitiesPowered = 0;
 				int numCitiesOwned = gs.getNumCities().get(current);
-				while (index != -1) {
-					if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
-						totalCitiesPowered += Math.min(current.getPowerList().get(index).getNumCitiesPowered(),
-								numCitiesOwned);
-						numCitiesOwned = numCitiesOwned
-								- Math.min(current.getPowerList().get(index).getNumCitiesPowered(), numCitiesOwned);
-						System.out.println(
-								"Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
-						if (current.getPowerList().get(index)
-								.burnResources(current.getPowerList().get(index).getCost())) {
+				while (index != -1) 
+				{
+					if(!current.getPowerList().get(index).isHybrid()&&current.getPowerList().get(index)
+							.burnResources(current.getPowerList().get(index).getCost())
+							)
+					{
+						 
 							totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
-							System.out.println("Powerplant successfully powered. " + totalCitiesPowered
+							System.out.println("Powerplant can power  " + current.getPowerList().get(index).getNumCitiesPowered()
 									+ " cities powered in total.");
-							if (current.getPowerList().get(index).getCost().contains("coal")) {
-								int newCoal = gs.getCoalSupply() + current.getPowerList().get(index).getCost().size();
-								gs.setCoalSupply(newCoal);
-							} else if (current.getPowerList().get(index).getCost().contains("trash")) {
-								int newTrash = gs.getTrashSupply() + current.getPowerList().get(index).getCost().size();
-								gs.setTrashSupply(newTrash);
-							} else if (current.getPowerList().get(index).getCost().contains("oil")) {
-								int newOil = gs.getTrashSupply() + current.getPowerList().get(index).getCost().size();
-								gs.setOilSupply(newOil);
-							} else if (current.getPowerList().get(index).getCost().contains("nuclear")) {
-								int newNuclear = gs.getTrashSupply()
-										+ current.getPowerList().get(index).getCost().size();
-								gs.setNuclearSupply(newNuclear);
-							}
-						} else {
-							System.out.println("Unsuccessful.");
+							PowerPlant plant = current.getPowerList().get(index);
+							reSupplyAfterBurn(plant.getCost().get(0), plant);
 						}
-						System.out
-								.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+				
+					else if(current.getPowerList().get(index).isHybrid())
+					{
+						
+						System.out.println("You've chosen a hybrid power plant. You have two choices of resources to burn(Enter 1 or 2)");
+						String firstElement = current.getPowerList().get(index).getCost().get(0);
+						String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
+						String secondResource = firstElement.substring(firstElement.indexOf("||") + 2, firstElement.length());
+						System.out.println("1) First Choice: " + firstResource);
+						System.out.println("2) Second Choice: " + secondResource);
+						int choice = input.nextInt();
+						String wordToBurn = "";
+						if(choice==1)
+							wordToBurn = firstResource;
+						else if(choice==2)
+							wordToBurn = secondResource;	
+						ArrayList<String> resourcesToBurn = new ArrayList<String>();
+						PowerPlant plant = current.getPowerList().get(index);
+						for(String x : plant.getStorage())
+						{
+							if(x.equalsIgnoreCase(wordToBurn))
+								resourcesToBurn.add(wordToBurn);
+						}
+						if(plant.burnResources(resourcesToBurn))
+						{
+							totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
+							System.out.println("Powerplant can power " + totalCitiesPowered
+									+ " cities in total.");
+							reSupplyAfterBurn(wordToBurn, plant);
+						}
+						else
+						{
+							System.out.println("Unsuccessful");
+						}
+			
+				    }
+					else 
+					{
+							System.out.println("Unsuccessful.");
+					}
+						System.out.println(current.getColor() + ": choose a powerplant to burn. (index 0-2). -1 to quit");
+						input = new Scanner(System.in);
 						index = Integer.parseInt(input.nextLine());
 
 					}
-					numCitiesPowered.put(current, totalCitiesPowered);
+					System.out.println("All of the power plant burned succesfully powered " + Math.min(totalCitiesPowered, numCitiesOwned) +
+							" cities");
+					numCitiesPowered.put(current, Math.min(totalCitiesPowered, numCitiesOwned));
 				}
-
-				numCitiesPowered.put(current, totalCitiesPowered);
+					gs.givingMoney(numCitiesPowered);
+					gs.setRestock();
+					gs.marketFix();
+					System.out.print("Coal Market:");
+					System.out.println(gs.getCoalMarket());
+					System.out.print("Oil Market");
+					System.out.println(gs.getOilMarket());
+					System.out.print("Nuclear Market");
+					System.out.println(gs.getNuclearMarket());
+					System.out.print("Trash Market");
+					System.out.println(gs.getTrashMarket());
+					/*gs.givingMoney(numCitiesPowered);
+					gs.setRestock();
+					gs.marketFix();
+					*/
+			
+					if (turn1) {
+						turn1 = false;
+					}
+			
+					//gs.givingMoney(numCitiesPowered);
+			
+					//gs.marketFix();
+			
+					if (turn1) {
+						turn1 = false;
+					}
 			}
-
-			gs.givingMoney(numCitiesPowered);
-			gs.setRestock();
-			gs.marketFix();
-
-			if (turn1) {
-				turn1 = false;
-			}
-
-			gs.givingMoney(numCitiesPowered);
-
-			gs.marketFix();
-
-			if (turn1) {
-				turn1 = false;
-			}
-
 		}
-
+	public static void reSupplyAfterBurn(String wordBurned, PowerPlant plant)
+	{
+		if (wordBurned.equals("coal")) {
+			int newCoal = gs.getCoalSupply() + plant.getCost().size();
+			gs.setCoalSupply(newCoal);
+		} else if (wordBurned.equals("trash")) {
+			int newTrash = gs.getTrashSupply() + plant.getCost().size();
+			gs.setTrashSupply(newTrash);
+		} else if (wordBurned.equals("oil")) {
+			int newOil = gs.getTrashSupply() + plant.getCost().size();
+			gs.setOilSupply(newOil);
+		} else if (wordBurned.equals("nuclear")) {
+			int newNuclear = gs.getTrashSupply() + plant.getCost().size();
+			gs.setNuclearSupply(newNuclear);
+		}
 	}
 
 	public static void askResource(int playerNum) {
@@ -343,7 +404,7 @@ public class TextRunner {
 		} else {
 			String firstElement = cost.get(0);
 			String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
-			String secondResource = firstElement.substring(firstElement.indexOf("||"), firstElement.length());
+			String secondResource = firstElement.substring(firstElement.indexOf("||")+2, firstElement.length());
 			int numOfFirstResource = 0;
 			int numOfSecondResource = 0;
 			for (String x : plant.getStorage()) {
@@ -435,3 +496,11 @@ public class TextRunner {
 		return newMarket;
 	}
 }
+/*	if (current.getPowerList().get(index).burnResources(current.getPowerList().get(index).getCost())) {
+totalCitiesPowered += Math.min(current.getPowerList().get(index).getNumCitiesPowered(),
+		numCitiesOwned);
+numCitiesOwned = numCitiesOwned
+		- Math.min(current.getPowerList().get(index).getNumCitiesPowered(), numCitiesOwned);
+System.out.println(
+		"Powerplant successfully powered. " + totalCitiesPowered + " cities powered in total.");
+		*/

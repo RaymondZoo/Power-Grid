@@ -1,4 +1,3 @@
-
 import java.io.*;
 
 import java.util.ArrayList;
@@ -112,15 +111,19 @@ public class GameState {
 					nuclearMarket.put(i, nuclearWord);
 				}
 			}
-			ArrayList<String> blank = new ArrayList<String>();
 			for (int i = 1; i <= 6; i++) {
-				oilMarket.put(i, blank);
-			}
-			for (int i = 1; i <= 2; i++) {
+				ArrayList<String> blank = new ArrayList<String>();
 				trashMarket.put(i, blank);
 			}
+			for (int i = 1; i <= 2; i++) {
+				ArrayList<String> blank = new ArrayList<String>();
+
+				oilMarket.put(i, blank);
+			}
+			ArrayList<String> blank = new ArrayList<String>();
 			nuclearMarket.put(10, blank);
-			nuclearMarket.put(12, blank);
+			ArrayList<String> blank2 = new ArrayList<String>();
+			nuclearMarket.put(12, blank2);
 			coalSupply -= 24;
 			trashSupply -= 6;
 			oilSupply -= 18;
@@ -618,8 +621,7 @@ public class GameState {
 
 	public City findCity(String name) {// incomplete
 		for (City c : listOfCities) {
-			if (name.equals(c.getName()))
-			{
+			if (name.equals(c.getName())) {
 				System.out.println(c.getName() + " found.");
 				return c;
 			}
@@ -663,7 +665,7 @@ public class GameState {
 		}
 	}
 
-	public void givingMoney(TreeMap<Player, Integer> numCitiesPowered) {
+	public void givingMoney(HashMap<Player, Integer> numCitiesPowered) {
 		for (Player p : numCitiesPowered.keySet()) {
 			p.addMoney(rewards[numCitiesPowered.get(p)]);
 		}
@@ -692,26 +694,33 @@ public class GameState {
 		}
 		if (coalToBeSupplied > coalSupply) {
 			coalToBeSupplied = coalSupply;
-		} else if (oilToBeSupplied > oilSupply) {
+		}  if (oilToBeSupplied > oilSupply) {
 			oilToBeSupplied = oilSupply;
-		} else if (trashToBeSupplied > trashSupply) {
+		}  if (trashToBeSupplied > trashSupply) {
 			trashToBeSupplied = trashSupply;
-		} else if (nuclearToBeSupplied > nuclearSupply) {
+		}  if (nuclearToBeSupplied > nuclearSupply) {
 			nuclearToBeSupplied = nuclearSupply;
 		}
-		setCoalMarket(restock(coalMarket, coalToBeSupplied));
+		restock(coalMarket, coalToBeSupplied);
 		coalSupply -= coalToBeSupplied;
-		setOilMarket(restock(oilMarket, oilToBeSupplied));
+		restock(oilMarket, oilToBeSupplied);
 		oilSupply -= oilToBeSupplied;
-		setTrashMarket(restock(trashMarket, trashToBeSupplied));
+		restock(trashMarket, trashToBeSupplied);
 		trashSupply -= trashToBeSupplied;
 		int lowestKeyNuclear = findLowestKeyAvailable(nuclearMarket);
-		for (int i = 1; i <= nuclearToBeSupplied; i++) {
-			for (int x = lowestKeyNuclear; x >= 10; x -= 2) {
-				ArrayList<String> nuclearWord = new ArrayList<String>();
-				nuclearWord.add("nuclear");
-				nuclearMarket.put(lowestKeyNuclear, nuclearWord);
+		String wordToPut = nuclearMarket.get(lowestKeyNuclear).get(0);
+		TreeSet<Integer> costs =  new TreeSet<Integer>(nuclearMarket.keySet());
+		Iterator<Integer> descend =  costs.descendingIterator();
+		while(descend.hasNext())
+		{
+			int key = descend.next();
+			if(key<lowestKeyNuclear)
+			{
+				nuclearMarket.get(key).add(wordToPut);
+				nuclearToBeSupplied--;
 			}
+			if(nuclearToBeSupplied==0)
+				break;
 		}
 		nuclearSupply -= nuclearToBeSupplied;
 	}
@@ -723,43 +732,46 @@ public class GameState {
 			int key = marketIter.next();
 			if (market.get(key).size() > 0) {
 				lowestKeyAvailable = key;
+				return lowestKeyAvailable;
 			}
 		}
-		return lowestKeyAvailable;
+		return 0;
 	}
 
-	public TreeMap<Integer, ArrayList<String>> restock(TreeMap<Integer, ArrayList<String>> market,
+	public void restock(TreeMap<Integer, ArrayList<String>> market,
 			int numToBeSupplied) {
 
 		int lowestKeyAvailable = findLowestKeyAvailable(market);
 		String wordToPut = market.get(lowestKeyAvailable).get(0);
-		TreeSet<Integer> costs = (TreeSet) market.keySet();
-		Iterator<Integer> descend = costs.descendingIterator();
+		TreeSet<Integer> costs =  new TreeSet<Integer>(market.keySet());
+		Iterator<Integer> descend =  costs.descendingIterator();
 		while (descend.hasNext()) {
 			int key = descend.next();
 			if (key == lowestKeyAvailable) {
-				if (numToBeSupplied > 3) {
-					for (int i = market.get(lowestKeyAvailable).size(); i <= 3; i++) {
+					for (int i = market.get(lowestKeyAvailable).size(); i < 3; i++) {
 						market.get(lowestKeyAvailable).add(wordToPut);
 						numToBeSupplied--;
-					}
+				
 				}
 			} else if (key < lowestKeyAvailable && numToBeSupplied % 3 == 0) {
 				for (int i = 1; i <= 3; i++) {
 					market.get(key).add(wordToPut);
 					numToBeSupplied--;
 				}
-			} else if (numToBeSupplied % 3 != 0) {
-				for (int i = 1; i <= numToBeSupplied; i++) {
+			} else if (numToBeSupplied % 3 != 0&&numToBeSupplied<3&&key<lowestKeyAvailable) {
+				int originalNumTobeSupplied = numToBeSupplied;
+				for (int i = 1; i <= originalNumTobeSupplied; i++) {
 					market.get(key).add(wordToPut);
+					numToBeSupplied--;
 				}
 				break;
 			}
+			if(numToBeSupplied==0)
+				break;
 		}
 		if (numToBeSupplied != 0) {
 			printIfMarketDoesNotHaveSpace(numToBeSupplied);
 		}
-		return market;
 	}
 
 	public void addCityBuilt(Player p) {
