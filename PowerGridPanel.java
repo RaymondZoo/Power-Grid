@@ -26,6 +26,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private String keyInput;
 
 	private GameState game;
+	
+	//Constants (tentative)~
+	public static final int PPWIDTH = 260, PPHEIGHT = 200; // PP = powerplant
+	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
+	
 
 	// Colors
 	public static final Color GREEN = new Color(17, 59, 8);
@@ -67,7 +72,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMainMenu(Graphics g) {
 		try {
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/MainMenu.jpg"));
+			//BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/MainMenu.jpg"));
 			g.drawImage(mainMenuBackground, 0, 0, width, height, null);
 
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
@@ -92,10 +98,83 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMAPUI(Graphics g) {
 		try {
-			BufferedImage mainMenuBackground = ImageIO.read(new File("src/UI/BestSoFar.jpg"));
-			g.setColor(GREEN);
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/BestSoFar.jpg"));
+			//ImageIO.read(new File("src/UI/BestSoFar.jpg"));
+			g.setColor(GREEN); // We could do the player's color here ~
 			g.fillRect(0, 0, width, height);
 			g.drawImage(mainMenuBackground, 0, 0, 1535, 1080, null);
+			
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("MONEY:", 1573, 48);
+			g.setColor(Color.WHITE);
+			g.drawString("MONEY:", 1570, 45); //add currentPlayer money here ~
+			
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("Power Plants:", 1673, 73);
+			g.setColor(Color.WHITE);
+			g.drawString("Power Plants:", 1670, 70); 
+			
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("MESSAGE BOARD:", 1573, 783);
+			g.setColor(Color.WHITE);
+			g.drawString("MESSAGE BOARD:", 1570, 780); 
+			
+			
+			//Powerplants
+			for(int i = 0; i<3; i++)
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(MAPX+10, MAPY+(i*(PPHEIGHT+20))+10, PPWIDTH, PPHEIGHT);
+				
+				//ACTUAL PP
+			}
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+			//End Turn
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(537, 20, 260, 80);
+			g.setColor(GREEN); 
+			g.fillRect(527, 10, 260, 80);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("END TURN", 608, 48);
+			g.setColor(Color.WHITE);
+			g.drawString("END TURN", 605, 45);
+			
+			//Buy
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(25, 670, 100, 80);
+			g.setColor(GREEN); 
+			g.fillRect(15, 660, 100, 80);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("BUY", 51, 713);
+			g.setColor(Color.WHITE);
+			g.drawString("BUY", 48, 710);
+			
+			
+			//Other Players
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(1360, 650, 150, 400);
+			g.setColor(GREEN); 
+			g.fillRect(1350, 640, 150, 400);
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString("Other Players", 1363, 663);
+			g.setColor(Color.WHITE);
+			g.drawString("Other Players", 1360, 660);
+			
+			int colorX = 1380, colorY = 690;
+			for(int i = 0; i<3; i++)
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(colorX+10, colorY+(i*(100+10))+10, 100, 100);
+				
+				//ACTUAL Color
+			}
+			
+			
+			
+			
 		} catch (IOException e) {
 			System.out.println("Cannot find Map image!");
 		}
