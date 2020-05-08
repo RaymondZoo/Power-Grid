@@ -455,7 +455,12 @@ public class GameState {
 	}
 
 	public boolean isEndOfGame() {
-		return endOfGame;
+		for (Player p:numCities.keySet()) {
+			if (numCities.get(p)>16) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void setEndOfGame(boolean endOfGame) {
