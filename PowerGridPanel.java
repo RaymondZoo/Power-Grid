@@ -124,7 +124,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(TopLeft, 0, 0, 738, 516, null);
 			g.drawImage(TopRight, 738, 0, 738, 516, null);
 			g.drawImage(BottomLeft, 0, 516, 738, 516, null);
-			g.drawImage(BottomRight, 738, 516, 738, 516, null);
+			g.drawImage(BottomRight, 738, 516, 738, 510, null);
 			
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
