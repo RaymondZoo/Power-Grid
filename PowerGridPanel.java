@@ -107,12 +107,25 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void drawMAPONLY(Graphics g) 
 	{
 		try {
-			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/ALT.jpg"));
+			//BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/ALT2.jpg")); //pretty good
 			//ImageIO.read(new File("src/UI/BestSoFar.jpg"));
+			
+			BufferedImage TopLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/TopLeft.jpg"));
+			BufferedImage TopRight = ImageIO.read(PowerGridPanel.class.getResource("UI/TopRight.jpg"));
+			BufferedImage BottomLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomLeft.jpg"));
+			BufferedImage BottomRight = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomRight.jpg"));
+			
+			
 			g.setColor(GREEN); // We could do the player's color here ~ 
 			g.fillRect(0, 0, width, height);
-			g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null);
-			//1535, 1080
+			//g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null);
+			//1535, 1080 former width, height
+			
+			g.drawImage(TopLeft, 0, 0, 738, 516, null);
+			g.drawImage(TopRight, 738, 0, 738, 516, null);
+			g.drawImage(BottomLeft, 0, 516, 738, 516, null);
+			g.drawImage(BottomRight, 738, 516, 738, 516, null);
+			
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
@@ -217,9 +230,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(GREEN); 
 		g.fillRect(0, 0, 150, 520);
 		g.setColor(TRANSPARENTBLACK);
-		g.drawString("Other Views", 48, 43);
+		g.drawString("Other Views", 43, 43);
 		g.setColor(Color.WHITE);
-		g.drawString("Other Views", 45, 40);
+		g.drawString("Other Views", 40, 40);
 		
 		int colorX = 30, colorY = 50;
 		for(int i = 0; i<4; i++)
