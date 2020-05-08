@@ -28,8 +28,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private GameState game;
 	
 	//Constants (tentative)~
-	public static final int PPWIDTH = 260, PPHEIGHT = 200; // PP = powerplant
+	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original proportions
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
+	public static final int MARKETX = 500, MARKETY = 130;
 	public String hover = "";
 	
 
@@ -38,8 +39,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-	private boolean MainMenu, MAPUI, AUCTION;
-
+	private boolean MainMenu, MAPUI, AUCTION, FOURTH;
+	//FOURTH is when there is a fourth powerplant
+	
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
 	{
@@ -70,7 +72,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} 
 		else if(AUCTION)
 		{
-			drawAUCTIONBACKGROUND(g);
+			drawAUCTION(g);
+		}
+		else if(FOURTH)
+		{
+			drawFOURTH(g);
 		}
 		else if (MAPUI) {
 			drawMAPUI(g);
@@ -113,7 +119,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			BufferedImage TopLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/TopLeft.jpg"));
 			BufferedImage TopRight = ImageIO.read(PowerGridPanel.class.getResource("UI/TopRight.jpg"));
 			BufferedImage BottomLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomLeft.jpg"));
-			BufferedImage BottomRight = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomRight.jpg"));
+			BufferedImage BottomRight = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomRight2.jpg"));
 			
 			
 			g.setColor(GREEN); // We could do the player's color here ~ 
@@ -124,7 +130,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(TopLeft, 0, 0, 738, 516, null);
 			g.drawImage(TopRight, 738, 0, 738, 516, null);
 			g.drawImage(BottomLeft, 0, 516, 738, 516, null);
-			g.drawImage(BottomRight, 738, 516, 738, 510, null);
+			g.drawImage(BottomRight, 738, 516, 738, 516, null);
 			
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
@@ -163,13 +169,21 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("MESSAGE BOARD:", 1570, 780); 
 		
 		
-		//Powerplants
+		//Your powerplants
 		for(int i = 0; i<3; i++)
 		{
 			g.setColor(TRANSPARENTBLACK);//shadow
 			g.fillRect(MAPX+10, MAPY+(i*(PPHEIGHT+20))+10, PPWIDTH, PPHEIGHT);
 			
 			//ACTUAL PP
+			try 
+			{
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				g.drawImage(card,MAPX, MAPY+(i*(PPHEIGHT+20)), PPWIDTH, PPHEIGHT, null);
+				
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
 		}
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		//End Turn
@@ -242,9 +256,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.setColor(TRANSPARENTBLACK);//shadow
 				g.fillRect(colorX+10, colorY+(i*(100+10))+10, 100, 100);
 				
-				//ACTUAL Color
-				g.setColor(Color.DARK_GRAY);
-				g.fillRect(colorX, colorY+(i*(100+10)), 100, 100);
+				//ACTUAL Color ~
+				/*g.setColor(Color.DARK_GRAY);
+				g.fillRect(colorX, colorY+(i*(100+10)), 100, 100);*/
 			}
 			else
 			{
@@ -261,10 +275,114 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.drawString("MAP", colorX+35, colorY+(i*(100+10))+50);
 			}
 		}
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("MESSAGE BOARD:", 1573, 48);
+		g.setColor(Color.WHITE);
+		g.drawString("MESSAGE BOARD:", 1570, 45); 
+		
 		
 	}
-	
+	public void drawAUCTION(Graphics g) 
+	{
+		drawAUCTIONBACKGROUND(g);
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("AUCTION", 863, 48);
+		g.setColor(Color.WHITE);
+		g.drawString("AUCTION", 860, 45); 
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("MONEY:", 13, 558);
+		g.setColor(Color.WHITE);
+		g.drawString("MONEY:", 10, 555); //Enter money amount here~
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("YOUR POWERPLANTS:", 13, 583);
+		g.setColor(Color.WHITE);
+		g.drawString("YOUR POWERPLANTS:", 10, 580); 
+		
+		int AUCTIONX = 10, AUCTIONY = 595;
+		int side = 120; //only for this UI
+		
+		//Your powerplant
+		for(int i = 0; i<3; i++)
+		{
+			g.setColor(TRANSPARENTBLACK);//shadow
+			g.fillRect(AUCTIONX+10, AUCTIONY+(i*(side+15))+10, side, side);
+			
+			//ACTUAL PP
+			//g.setColor(Color.DARK_GRAY);
+			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				g.drawImage(card,AUCTIONX, AUCTIONY+(i*(side+15)), side, side, null);
+				
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+			
+		}
+		//Market
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("CURRENT MARKET:", 268, 218);
+		g.setColor(Color.WHITE);
+		g.drawString("CURRENT MARKET:", 265, 215); 
+		for(int i = 0; i<4; i++) //current Market
+		{
+			g.setColor(TRANSPARENTBLACK);//shadow
+			g.fillRect(MARKETX+(i*(PPWIDTH+20))+10, MARKETY+10, PPHEIGHT, PPWIDTH);
+			
+			//ACTUAL PP
+			//g.setColor(Color.DARK_GRAY);
+			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				g.drawImage(card,MARKETX+(i*(PPWIDTH+20)), MARKETY, PPHEIGHT, PPWIDTH, null);
+				
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+			
+		}
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("FUTURE MARKET:", 268, 493);
+		g.setColor(Color.WHITE);
+		g.drawString("FUTURE MARKET:", 265, 490); 
+		int space = 265;
+		for(int i = 0; i<4; i++) //current Market
+		{
+			g.setColor(TRANSPARENTBLACK);//shadow
+			g.fillRect(MARKETX+(i*(PPWIDTH+20))+10, (MARKETY+space)+10, PPHEIGHT, PPWIDTH);
+			
+			//ACTUAL PP
+			//g.setColor(Color.DARK_GRAY);
+			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				g.drawImage(card,MARKETX+(i*(PPWIDTH+20)), MARKETY+space, PPHEIGHT, PPWIDTH, null);
+				
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+			
+		}
+		
+	}
 
+	public void drawFOURTH(Graphics g) 
+	{
+		drawAUCTIONBACKGROUND(g);
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("4th Powerplant", 843, 48);
+		g.setColor(Color.WHITE);
+		g.drawString("4th Powerplant", 840, 45); 
+		
+	}
 	public void mousePressed(MouseEvent e) {
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
 		if (MainMenu) {
@@ -291,9 +409,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		else if(AUCTION)
 		{
 
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS~
 			AUCTION = false;
-			MAPUI = true;
+			FOURTH = true;
+		}
+		else if(FOURTH)
+		{
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS~
+				FOURTH = false;
+				MAPUI = true;
 		}
 
 		repaint();
