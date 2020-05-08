@@ -38,7 +38,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-	private boolean MainMenu, MAPUI;
+	private boolean MainMenu, MAPUI, AUCTION;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -57,15 +57,22 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Initializing each UI
 		MainMenu = true;
 		MAPUI = false;
+		AUCTION = false;
 
 	}
 
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		if (MainMenu) {
+		if (MainMenu) 
+		{
 			drawMainMenu(g);
-		} else if (MAPUI) {
+		} 
+		else if(AUCTION)
+		{
+			drawAUCTIONBACKGROUND(g);
+		}
+		else if (MAPUI) {
 			drawMAPUI(g);
 		}
 
@@ -102,7 +109,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		try {
 			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/ALT.jpg"));
 			//ImageIO.read(new File("src/UI/BestSoFar.jpg"));
-			g.setColor(GREEN); // We could do the player's color here ~
+			g.setColor(GREEN); // We could do the player's color here ~ 
 			g.fillRect(0, 0, width, height);
 			g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null);
 			//1535, 1080
@@ -116,11 +123,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(0, 0, width, height);
 		g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null);
 		//1535, 1080*/
+		
+		//plus city and turn order ~
+		
 	
 	}
 
 	public void drawMAPUI(Graphics g) {
-		drawMAPONLY(g);
+		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
 		g.drawString("MONEY:", 1573, 48);
@@ -189,6 +199,57 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//ACTUAL Color
 		}
 	}
+	public void drawAUCTIONBACKGROUND(Graphics g) 
+	{
+		g.setColor(GREEN);
+		g.fillRect(0, 0, width, height);
+		
+		//TEMPORARY BUTTON ~
+		g.setColor(Color.WHITE);
+		g.fillRect(1715, 990, 205, 90);
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		g.setColor(Color.BLACK);
+		g.drawString("Switch UI",1760,1010);
+		
+		//Other Players
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(10, 10, 150, 520);
+		g.setColor(GREEN); 
+		g.fillRect(0, 0, 150, 520);
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("Other Views", 48, 43);
+		g.setColor(Color.WHITE);
+		g.drawString("Other Views", 45, 40);
+		
+		int colorX = 30, colorY = 50;
+		for(int i = 0; i<4; i++)
+		{
+			if(i<3)
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(colorX+10, colorY+(i*(100+10))+10, 100, 100);
+				
+				//ACTUAL Color
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(colorX, colorY+(i*(100+10)), 100, 100);
+			}
+			else
+			{
+				g.setColor(TRANSPARENTBLACK);//shadow
+				g.fillRect(colorX+10, colorY+(i*(100+10))+10, 100, 100);
+				
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(colorX, colorY+(i*(100+10)), 100, 100);
+				
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+				g.setColor(TRANSPARENTBLACK);
+				g.drawString("MAP", colorX+38, colorY+(i*(100+10))+53);
+				g.setColor(Color.WHITE);
+				g.drawString("MAP", colorX+35, colorY+(i*(100+10))+50);
+			}
+		}
+		
+	}
 	
 
 	public void mousePressed(MouseEvent e) {
@@ -205,7 +266,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					&& e.getY() <= 597) // IF START
 			{
 				MainMenu = false;
-				MAPUI = true;//should be auction ~
+				AUCTION = true;//should be find regions ~
 			}
 			if (e.getX() >= (1920 - boxW) / 2 && e.getX() <= (1920 - boxW) / 2 + boxW && e.getY() >= 700
 					&& e.getY() <= 800) // IF QUIT
@@ -213,6 +274,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.exit(0);
 
 			}
+		}
+		else if(AUCTION)
+		{
+
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS
+			AUCTION = false;
+			MAPUI = true;
 		}
 
 		repaint();
