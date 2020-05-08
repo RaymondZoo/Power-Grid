@@ -102,8 +102,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//ImageIO.read(new File("src/UI/BestSoFar.jpg"));
 			g.setColor(GREEN); // We could do the player's color here ~
 			g.fillRect(0, 0, width, height);
-			g.drawImage(mainMenuBackground, 0, 0, 1535, 1080, null);
-			
+			g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null);
+			//1535, 1080
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("MONEY:", 1573, 48);
@@ -144,13 +144,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 			//Buy
 			g.setColor(TRANSPARENTBLACK);
-			g.fillRect(25, 670, 100, 80);
+			g.fillRect(25, 650, 100, 80);
 			g.setColor(GREEN); 
-			g.fillRect(15, 660, 100, 80);
+			g.fillRect(15, 640, 100, 80);
 			g.setColor(TRANSPARENTBLACK);
-			g.drawString("BUY", 51, 713);
+			g.drawString("BUY", 51, 693);
 			g.setColor(Color.WHITE);
-			g.drawString("BUY", 48, 710);
+			g.drawString("BUY", 48, 690);
 			
 			
 			//Other Players
