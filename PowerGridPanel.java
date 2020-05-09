@@ -816,7 +816,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 					}
 				}
-				else if(!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //pass
+				else if(e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //pass
 				{
 					gs.getBids().put(players.get(currPlayer), -1);
 					if(gs.isAuctionDone())
