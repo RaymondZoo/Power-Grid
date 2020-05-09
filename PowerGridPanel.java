@@ -51,6 +51,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private ArrayList<Player> players;
 	private boolean round1;
 	private int auctionIndex;
+	private int minBid;
 	
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
@@ -416,7 +417,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		int side = 120; // only for this UI
 
 		// Your powerplant
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(AUCTIONX + 10, AUCTIONY + (i * (side + 15)) + 10, side, side);
 
@@ -424,7 +425,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".jpg")); // change this to
 																									// actual card~
 				g.drawImage(card, AUCTIONX, AUCTIONY + (i * (side + 15)), side, side, null);
 
@@ -521,7 +522,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("BID", 640, 875);
 		g.drawString("PASS", 1000, 875); // 880, 810
 		
-		g.drawString(gs.getPlayerOrder().get(0).getColor().toUpperCase()+ " player", 295, 45); // 880, 810
+		g.drawString(gs.getPlayerOrder().get(currPlayer).getColor().toUpperCase()+ " player", 295, 45); // 880, 810
 		
 		int highest = 0;
 		for(int i =0; i<players.size(); i++)
@@ -722,38 +723,145 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 			}
 				//boolean bidded = false;
-				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880, 810
-																												// if
-																												// pass
-																												// width,height
-																												// -
-																												// 360,
-																												// 100
+				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //bid starting auction
 				{
 					//bidded = true;
 					if(Integer.parseInt(keyInput) >= gs.getCurrentMarket().get(auctionIndex).getMinBid())
 					{
 						gs.setAuctionCard(gs.getCurrentMarket().get(auctionIndex));
+						
+						minBid =  Integer.parseInt(keyInput);
+						
 						gs.getBids().put(players.get(currPlayer),Integer.parseInt(keyInput));
+						
+						int nextIndex = -1;
+						
+						for(int i = 0 ; i<players.size(); i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							{
+								System.out.println("i and currPlayer" + i +" " + currPlayer);
+								System.out.println(players.get(i).getColor() +" " + players.get(currPlayer).getColor());
+								nextIndex = i;
+								break;
+							}
+						}
+						
+						if(nextIndex == -1)
+						{
+							//they get the powerpoint
+							//Phase 3
+						}
+						else
+						{
+							System.out.println("curr and next"+currPlayer +" "+nextIndex);
+							currPlayer = nextIndex;
+							keyInput = "";
+						}
+						
+						
 					}
 				}
-				if (!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880,
-																														// 810
-																														// if
-																														// pass
-																														// width,height
-																														// -
-																														// 360,
-																														// 100
+				if (!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //pass starting auction
 				{
 					//auctionIndex = -1;
 					//gs.getDecision().put(tempPlayers.get(0), true);
 					//tempPlayers.remove(tempPlayers.get(0));
+					gs.getDecision().put(players.get(currPlayer), true);
+					int nextIndex = -1;
+					
+					for(int i = 0 ; i<players.size(); i++)
+					{
+						if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+						{
+							nextIndex = i;
+							break;
+						}
+					}
+					
+					if(nextIndex == -1)
+					{
+						//they get the powerpoint
+						//Phase 3
+					}
+					else
+					{
+						currPlayer = nextIndex;
+						
+					}
 				}
 			}
 			else
 			{
-				
+				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //bid
+				{
+					if(Integer.parseInt(keyInput) >= minBid)
+					{
+						minBid =  Integer.parseInt(keyInput);
+						
+						gs.getBids().put(players.get(currPlayer),Integer.parseInt(keyInput));
+						
+						int nextIndex = -1;
+						
+						for(int i = 0 ; i<players.size(); i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							{
+								nextIndex = i;
+								break;
+							}
+						}
+						currPlayer = nextIndex;
+						keyInput = "";
+						
+					}
+				}
+				else if(!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //pass
+				{
+					gs.getBids().put(players.get(currPlayer), -1);
+					if(gs.isAuctionDone())
+					{
+						Player winner = null;
+						//give player powerplant
+						for(int i =0; i<players.size(); i++)
+						{
+							if(gs.getBids().get(players.get(i)) >-1)
+							{
+								winner = players.get(i);
+							}
+						}
+						winner.addPowerPlant(gs.getAuctionCard());
+						gs.setAuctionCard(null);
+						/*
+						int nextIndex = -1;
+						
+						for(int i = 0 ; i<players.size(); i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							{
+								nextIndex = i;
+							}
+						} 
+						currPlayer = nextIndex;*/
+					}
+					else
+					{
+						int nextIndex = -1;
+						
+						for(int i = 0 ; i<players.size(); i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							{
+								nextIndex = i;
+								break;
+							}
+						} 
+						currPlayer = nextIndex;
+					}
+					
+					
+					
+				}
 			}
 
 				/*if (auctionIndex == -1) {
