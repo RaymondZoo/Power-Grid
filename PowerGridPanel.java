@@ -34,7 +34,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
 	public static final int MARKETX = 500, MARKETY = 130;
 
-	private ArrayList<String> selectedRegions;
+	private ArrayList<String> selectedRegions; //aka playableColors
 	// Colors
 	public static final Color GREEN = new Color(17, 59, 8);
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
