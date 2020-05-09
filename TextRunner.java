@@ -239,7 +239,7 @@ public class TextRunner {
 						cmd = input.nextLine();
 					}
 				}
-				if (gs.getNumCities().get(gs.getPlayerOrder().get(i)) >= 7)
+				if (gs.getNumCities().get(gs.getPlayerOrder().get(i)) >= 7&&gs.getStep()==1)
 					gs.nextStep();
 
 			}
