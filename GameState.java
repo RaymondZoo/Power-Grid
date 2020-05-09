@@ -461,9 +461,11 @@ public class GameState {
 	public boolean isEndOfGame() {
 		for (Player p : numCities.keySet()) {
 			if (numCities.get(p) > 16) {
+				endOfGame=true;
 				return true;
 			}
 		}
+		endOfGame=false;
 		return false;
 	}
 
@@ -595,7 +597,7 @@ public class GameState {
 			Collections.sort(currentMarket);
 		} else {
 			currentMarket.add(toAdd);
-			Collections.sort(currentMarket);
+			rearrangeMarket();
 		}
 	}
 
@@ -814,7 +816,7 @@ public class GameState {
 		return null;
 	}
 
-	public void rearrangeMarket() {
+	public void rearrangeMarket() { //Sort
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		Collections.sort(currentMarket);
