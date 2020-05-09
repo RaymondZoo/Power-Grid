@@ -527,7 +527,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 	public void drawView(Graphics g) 
 	{
-	
+		g.setColor(GREEN);
+		g.fillRect(0, 0, width, height);
 	}
 
 	public void drawCheck(int x, int y, Graphics g) {
@@ -590,8 +591,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			{
 
 				FOURTH = false;
-				MAPUI = true;
+				view = "something";
 			}
+		}
+		else if (view!=null)
+		{
+			view = null;
+			MAPUI = true;
 		}
 		
 
