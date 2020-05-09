@@ -749,8 +749,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						if(nextIndex == -1)
 						{
-							//they get the powerpoint
-							//Phase 3
+							gs.nextPhase();
 						}
 						else
 						{
@@ -781,8 +780,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					
 					if(nextIndex == -1)
 					{
-						//they get the powerpoint
-						//Phase 3
+						gs.nextPhase();
 					}
 					else
 					{
