@@ -437,7 +437,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("CURRENT MARKET:", 268, 218);
 		g.setColor(Color.WHITE);
 		g.drawString("CURRENT MARKET:", 265, 215);
-		for (int i = 0; i < 4; i++) // current Market
+		for (int i = 0; i < gs.getCurrentMarket().size(); i++) // current Market
 		{
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, MARKETY + 10, PPWIDTH, PPHEIGHT);
@@ -446,7 +446,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+gs.getCurrentMarket().get(i).getMinBid()+".PNG")); // change this to
 																									// actual card~
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
 
@@ -461,7 +461,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("FUTURE MARKET:", 265, 490);
 		int space = 265;
-		for (int i = 0; i < 4; i++) // future Market
+		for (int i = 0; i < gs.getFutureMarket().size(); i++) // future Market
 		{
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, (MARKETY + space) + 10, PPWIDTH, PPHEIGHT);
@@ -470,7 +470,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+gs.getFutureMarket().get(i).getMinBid()+".PNG")); // change this to
 																									// actual card~
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY + space, PPWIDTH, PPHEIGHT, null);
 
