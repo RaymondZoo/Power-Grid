@@ -226,7 +226,9 @@ public class GameState {
 			// reading in PowerPlants
 			ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 			ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
-			Scanner PowerPlantReader = new Scanner(new File("PowerPlants.txt"));
+			InputStream pp = getClass().getResourceAsStream("PowerPlants.txt");
+		    InputStreamReader ppr = new InputStreamReader(pp);
+			Scanner PowerPlantReader = new Scanner(isr);
 			if (PowerPlantReader.hasNext()) {
 				PowerPlantReader.next();
 			}
