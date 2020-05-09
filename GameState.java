@@ -867,4 +867,11 @@ public class GameState {
 			bids.put(p, 0);
 		}
 	}
+	public int countResource(TreeMap<Integer, ArrayList<String>>map) {
+		int size=0;
+		for (int i:map.keySet()) {
+			size+=map.get(i).size();
+		}
+		return size;
+	}
 }

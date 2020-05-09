@@ -93,7 +93,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
-		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		try {
+			drawMAPUI(g);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
 		} else if (REGIONS) {
@@ -105,10 +111,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (FOURTH) {
 			drawFOURTH(g);
 		} else if (MAPUI) {
-			drawMAPUI(g);
+			try {
+				drawMAPUI(g);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (END) {
 			drawEND(g);
-		}
+		}*/
 
 	}
 
@@ -264,7 +275,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	}
 
-	public void drawMAPUI(Graphics g) {
+	public void drawMAPUI(Graphics g) throws IOException {
 		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
@@ -284,14 +295,22 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("MESSAGE BOARD:", 1570, 780);
 
+		BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
+		int sizeCoal=gs.countResource(gs.getCoalMarket());
+		System.out.println(sizeCoal);
+		for (int i=24-sizeCoal+1;i<=24;i++) {
+			g.drawImage(coal, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
+		}
+		
+		
 		// Your powerplants
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MAPX + 10, MAPY + (i * (PPHEIGHT + 20)) + 10, PPWIDTH, PPHEIGHT);
 
 			// ACTUAL PP
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); // change this to
 																									// actual card~
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 
