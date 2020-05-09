@@ -45,8 +45,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	// FOURTH is when there is a fourth powerplant
 	//gamestate's endOfGame will also be one
 	
+	
 	//Current variables
-	Player currPlayer;
+	private Player currPlayer;
+	private ArrayList<Player> players;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -60,7 +62,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		keyInput = "";
 
-		gs = new GameState();
 		this.width = width;
 		this.height = height;
 
@@ -74,6 +75,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		FOURTH = false;
 		view = "";
 		END = false;
+		
+		gs = new GameState();
+		players = gs.getPlayerOrder();
+		gs.randomizePlayerOrder();
 
 	}
 
@@ -128,9 +133,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawRegion(Graphics g) {
 		drawMAPONLY(g);
-		
-		ArrayList<Player> players = gs.getPlayerOrder();
-		gs.randomizePlayerOrder();
 		
 		currPlayer = players.get(0);
 
