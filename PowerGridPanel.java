@@ -1020,6 +1020,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
+			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
+				
+			}
+			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT) {
+				
+			}
+			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT) {
+	
+			}
 			//resource is removed from market
 			//cost is added to a total cost for the player
 			//added to powerplant
