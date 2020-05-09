@@ -150,6 +150,7 @@ public class TextRunner {
 			if (gs.getMarketStep3()) {
 				gs.restructureMarket();
 			}
+			gs.determinePlayerOrder();
 
 			// Phase 3
 			// Resource Buying

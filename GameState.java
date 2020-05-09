@@ -548,8 +548,11 @@ public class GameState {
 		} else {
 			if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
 				return true;
-			} else {
+			} else if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()){
 				return false;
+			}
+			else {
+				return Math.random()>=0.5;
 			}
 		}
 	}
