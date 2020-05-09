@@ -162,7 +162,7 @@ public class GameState {
 
 			// reading in cities
 			InputStream is = getClass().getResourceAsStream("Cities.txt");
-		    InputStreamReader isr = new InputStreamReader(is);
+			InputStreamReader isr = new InputStreamReader(is);
 			Scanner cityReader = new Scanner(isr);
 			cityReader.nextLine();
 			// cityReader.nextLine();
@@ -227,8 +227,8 @@ public class GameState {
 			ArrayList<PowerPlant> plug = new ArrayList<PowerPlant>();
 			ArrayList<PowerPlant> socket = new ArrayList<PowerPlant>();
 			InputStream pp = getClass().getResourceAsStream("PowerPlants.txt");
-		    InputStreamReader ppr = new InputStreamReader(pp);
-			Scanner PowerPlantReader = new Scanner(isr);
+			InputStreamReader ppr = new InputStreamReader(pp);
+			Scanner PowerPlantReader = new Scanner(ppr);
 			if (PowerPlantReader.hasNext()) {
 				PowerPlantReader.next();
 			}
@@ -459,8 +459,8 @@ public class GameState {
 	}
 
 	public boolean isEndOfGame() {
-		for (Player p:numCities.keySet()) {
-			if (numCities.get(p)>16) {
+		for (Player p : numCities.keySet()) {
+			if (numCities.get(p) > 16) {
 				return true;
 			}
 		}
@@ -552,11 +552,10 @@ public class GameState {
 		} else {
 			if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
 				return true;
-			} else if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()){
+			} else if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()) {
 				return false;
-			}
-			else {
-				return Math.random()>=0.5;
+			} else {
+				return Math.random() >= 0.5;
 			}
 		}
 	}
@@ -706,11 +705,14 @@ public class GameState {
 		}
 		if (coalToBeSupplied > coalSupply) {
 			coalToBeSupplied = coalSupply;
-		}  if (oilToBeSupplied > oilSupply) {
+		}
+		if (oilToBeSupplied > oilSupply) {
 			oilToBeSupplied = oilSupply;
-		}  if (trashToBeSupplied > trashSupply) {
+		}
+		if (trashToBeSupplied > trashSupply) {
 			trashToBeSupplied = trashSupply;
-		}  if (nuclearToBeSupplied > nuclearSupply) {
+		}
+		if (nuclearToBeSupplied > nuclearSupply) {
 			nuclearToBeSupplied = nuclearSupply;
 		}
 		restock(coalMarket, coalToBeSupplied);
@@ -721,17 +723,15 @@ public class GameState {
 		trashSupply -= trashToBeSupplied;
 		int lowestKeyNuclear = findLowestKeyAvailable(nuclearMarket);
 		String wordToPut = nuclearMarket.get(lowestKeyNuclear).get(0);
-		TreeSet<Integer> costs =  new TreeSet<Integer>(nuclearMarket.keySet());
-		Iterator<Integer> descend =  costs.descendingIterator();
-		while(descend.hasNext())
-		{
+		TreeSet<Integer> costs = new TreeSet<Integer>(nuclearMarket.keySet());
+		Iterator<Integer> descend = costs.descendingIterator();
+		while (descend.hasNext()) {
 			int key = descend.next();
-			if(key<lowestKeyNuclear)
-			{
+			if (key < lowestKeyNuclear) {
 				nuclearMarket.get(key).add(wordToPut);
 				nuclearToBeSupplied--;
 			}
-			if(nuclearToBeSupplied==0)
+			if (nuclearToBeSupplied == 0)
 				break;
 		}
 		nuclearSupply -= nuclearToBeSupplied;
@@ -750,27 +750,26 @@ public class GameState {
 		return 0;
 	}
 
-	public void restock(TreeMap<Integer, ArrayList<String>> market,
-			int numToBeSupplied) {
+	public void restock(TreeMap<Integer, ArrayList<String>> market, int numToBeSupplied) {
 
 		int lowestKeyAvailable = findLowestKeyAvailable(market);
 		String wordToPut = market.get(lowestKeyAvailable).get(0);
-		TreeSet<Integer> costs =  new TreeSet<Integer>(market.keySet());
-		Iterator<Integer> descend =  costs.descendingIterator();
+		TreeSet<Integer> costs = new TreeSet<Integer>(market.keySet());
+		Iterator<Integer> descend = costs.descendingIterator();
 		while (descend.hasNext()) {
 			int key = descend.next();
 			if (key == lowestKeyAvailable) {
-					for (int i = market.get(lowestKeyAvailable).size(); i < 3; i++) {
-						market.get(lowestKeyAvailable).add(wordToPut);
-						numToBeSupplied--;
-				
+				for (int i = market.get(lowestKeyAvailable).size(); i < 3; i++) {
+					market.get(lowestKeyAvailable).add(wordToPut);
+					numToBeSupplied--;
+
 				}
 			} else if (key < lowestKeyAvailable && numToBeSupplied % 3 == 0) {
 				for (int i = 1; i <= 3; i++) {
 					market.get(key).add(wordToPut);
 					numToBeSupplied--;
 				}
-			} else if (numToBeSupplied % 3 != 0&&numToBeSupplied<3&&key<lowestKeyAvailable) {
+			} else if (numToBeSupplied % 3 != 0 && numToBeSupplied < 3 && key < lowestKeyAvailable) {
 				int originalNumTobeSupplied = numToBeSupplied;
 				for (int i = 1; i <= originalNumTobeSupplied; i++) {
 					market.get(key).add(wordToPut);
@@ -778,7 +777,7 @@ public class GameState {
 				}
 				break;
 			}
-			if(numToBeSupplied==0)
+			if (numToBeSupplied == 0)
 				break;
 		}
 		if (numToBeSupplied != 0) {
