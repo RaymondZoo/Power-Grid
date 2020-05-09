@@ -307,6 +307,36 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(oil, 7+25*i+40*((i-1)/3), 945, 30, 30, null);
 		}
 		
+		BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
+		int sizeTrash=gs.countResource(gs.getTrashMarket());
+		for (int i=24-sizeTrash+1;i<=24;i++) {
+			g.drawImage(trash, -2+35*i+10*((i-1)/3), 980, 30, 30, null);
+		}
+		
+		BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
+		int sizeNuclear=gs.countResource(gs.getNuclearMarket());
+		int num=12;
+		if (num>0) {
+			g.drawImage(nuclear, 950, 905, 45, 45, null);
+			num--;
+		}
+		if (num>0) {
+			g.drawImage(nuclear, 998, 905, 45, 45, null);
+			num--;
+		}
+		if (num>0) {
+			g.drawImage(nuclear, 950, 967, 45, 45, null);
+			num--;
+		}
+		if (num>0) {
+			g.drawImage(nuclear, 998, 967, 45, 45, null);
+			num--;
+		}
+		int inv=8-num+1;
+		for (int i=inv;i<=8;i++) {
+			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
+		}
+		
 		
 		// Your powerplants
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
