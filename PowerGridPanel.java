@@ -693,16 +693,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void keyTyped(KeyEvent e) {
-		if (e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8) {
-			// System.out.println("backspace");
+		System.out.println(e.getID());
+		if (e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8 || e.getKeyChar()=='') {
+			System.out.println("backspace");
 			if (keyInput.length() >= 1)
 				keyInput = keyInput.substring(0, keyInput.length() - 1);
 		} else if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER || e.getExtendedKeyCode() == 10) {
-			// System.out.println("enter");
+			System.out.println("enter");
 			if (keyInput.length() > 0)
 				// BID ~
 				keyInput = "";
-		} else if (e.getExtendedKeyCode() >= 48 && e.getExtendedKeyCode() <= 57)
+		} else 
 			keyInput += e.getKeyChar();
 
 		repaint();
