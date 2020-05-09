@@ -44,6 +44,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH, END;
 	// FOURTH is when there is a fourth powerplant
 	//gamestate's endOfGame will also be one
+	
+	//Current variables
+	Player currPlayer;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -57,7 +60,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		keyInput = "";
 
-		// game = new GameState();
+		gs = new GameState();
 		this.width = width;
 		this.height = height;
 
@@ -125,6 +128,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawRegion(Graphics g) {
 		drawMAPONLY(g);
+		
+		ArrayList<Player> players = gs.getPlayerOrder();
+		gs.randomizePlayerOrder();
+		
+		currPlayer = players.get(0);
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.setColor(TRANSPARENTBLACK);
@@ -134,6 +142,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		g.setColor(Color.WHITE);
 		g.drawString("-Choose a region:", 1570, 80);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.drawString("PLAYERS:", 1570, 130);
 
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(357, 158, 100, 50);
@@ -196,8 +207,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 
 		int textX = 1525, textY = 190;
-		for (int i = 0; i < 4; i++)
-			g.drawString("(player_color)~", textX, textY + (i * 30));
+		for (int i = 0; i < players.size(); i++)
+		{
+			String temp = "";
+			if (currPlayer.equals(players.get(i)))
+			{
+				temp = "(You)";
+			}
+			g.drawString(temp+players.get(i).getColor(), textX, textY + (i * 30));
+			temp = "";
+		}
 
 	}
 

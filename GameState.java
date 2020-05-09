@@ -161,7 +161,9 @@ public class GameState {
 			}
 
 			// reading in cities
-			Scanner cityReader = new Scanner(new File("Cities.txt"));
+			InputStream is = getClass().getResourceAsStream("Cities.txt");
+		    InputStreamReader isr = new InputStreamReader(is);
+			Scanner cityReader = new Scanner(isr);
 			cityReader.nextLine();
 			// cityReader.nextLine();
 
