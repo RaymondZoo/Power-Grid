@@ -941,8 +941,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
-			MAPUI = false;
-			END = true;
+			
 		}
 
 		repaint();
