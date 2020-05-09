@@ -26,7 +26,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int height;
 	private String keyInput;
 
-	private GameState game;
+	private GameState gs;
 
 	// Constants (tentative)~
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original
@@ -34,7 +34,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
 	public static final int MARKETX = 500, MARKETY = 130;
 
-	private ArrayList<String> selectedRegions;
+	private ArrayList<String> selectedRegions; //aka playableColors
 	// Colors
 	public static final Color GREEN = new Color(17, 59, 8);
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
@@ -44,6 +44,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH, END;
 	// FOURTH is when there is a fourth powerplant
 	//gamestate's endOfGame will also be one
+	
+	//Current variables
+	Player currPlayer;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -57,7 +60,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		keyInput = "";
 
-		// game = new GameState();
+		gs = new GameState();
 		this.width = width;
 		this.height = height;
 
@@ -125,6 +128,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawRegion(Graphics g) {
 		drawMAPONLY(g);
+		
+		ArrayList<Player> players = gs.getPlayerOrder();
+		gs.randomizePlayerOrder();
+		
+		currPlayer = players.get(0);
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.setColor(TRANSPARENTBLACK);
@@ -134,7 +142,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		g.setColor(Color.WHITE);
 		g.drawString("-Choose a region:", 1570, 80);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.drawString("PLAYERS:", 1570, 130);
 
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(357, 158, 100, 50);
 		g.setColor(Color.MAGENTA);
@@ -195,9 +207,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawCheck(1170, 830, g);
 		}
 
-		int textX = 1525, textY = 190;
-		for (int i = 0; i < 4; i++)
-			g.drawString("(player_color)~", textX, textY + (i * 30));
+		int textX = 1570, textY = 190;
+		for (int i = 0; i < players.size(); i++)
+		{
+			String temp = "";
+			if (currPlayer.equals(players.get(i)))
+			{
+				temp = "(You)";
+			}
+			g.drawString("-"+temp+players.get(i).getColor().toUpperCase(), textX, textY + (i * 80));
+			temp = "";
+		}
 
 	}
 
