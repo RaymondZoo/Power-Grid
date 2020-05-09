@@ -50,6 +50,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int currPlayer;
 	private ArrayList<Player> players;
 	private boolean round1;
+	private int auctionIndex;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -508,7 +509,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(Color.WHITE);
 		g.drawString("BID", 640, 875);
-		g.drawString("PASS", 1000, 875);
+		g.drawString("PASS", 1000, 875); // 880, 810
 	}
 
 	public void drawFOURTH(Graphics g) {
@@ -692,6 +693,22 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				AUCTION = false;
 				FOURTH = true;
 			}
+			
+			for(int i =0 ; i<gs.getCurrentMarket().size(); i++)
+			{
+				//MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT,
+				if(e.getX()>=MARKETX+(i*(PPWIDTH+20)) && e.getX()<=MARKETX+(i*(PPWIDTH+20))+PPWIDTH&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
+				{
+					auctionIndex = i;
+				}
+				if(e.getX()>=880&&e.getX()<=(880+360)&&e.getY()>=810&&e.getY()<=(810+100))// 880, 810 if pass width,height - 360, 100
+				{
+					auctionIndex = -1;
+				}
+			}
+			
+			
+			
 			
 			/*
 			 * if (round1) {
