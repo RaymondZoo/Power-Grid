@@ -700,7 +700,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void keyTyped(KeyEvent e) {
-		System.out.println(e.getID());
 		if (e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8 || e.getKeyChar()=='') {
 			System.out.println("backspace");
 			if (keyInput.length() >= 1)
@@ -710,11 +709,23 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if (keyInput.length() > 0)
 				// BID ~
 				keyInput = "";*/
-		} else 
+		} else if (isNumeric(""+e.getKeyChar())){
 			keyInput += e.getKeyChar();
+		}
 
 		repaint();
 
+	}
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        int d = Integer.parseInt(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
 	}
 
 	public boolean adjacent(String str) {
