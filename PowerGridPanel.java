@@ -660,6 +660,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 			if(selectedRegions.size() == 4)
 			{
+				
+				ArrayList<City> cityList = gs.getListOfCites();
+				ArrayList<City> adjustedCityList = new ArrayList<City>();
+				for (City c : cityList) {
+					if (selectedRegions.contains(c.getZoneColor())) {
+						adjustedCityList.add(c);
+					}
+				}
+				gs.setListOfCites(adjustedCityList);
+				
 				AUCTION = true;
 				REGIONS = false;
 			}

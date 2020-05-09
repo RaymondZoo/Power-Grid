@@ -843,4 +843,20 @@ public class GameState {
 	public ArrayList<City> getListOfCites() {
 		return listOfCities;
 	}
+	
+	public Player nextPlayer(int i) {
+		if (phase==2||phase==5) {
+			i++;
+			if (i==4) {
+				i=0;
+			}
+		}
+		else {
+			i--;
+			if (i==0) {
+				i=4;
+			}
+		}
+		return playerOrder.get(i);
+	}
 }
