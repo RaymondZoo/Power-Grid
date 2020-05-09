@@ -146,6 +146,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.drawString("PLAYERS:", 1570, 130);
 
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(357, 158, 100, 50);
 		g.setColor(Color.MAGENTA);
@@ -206,7 +207,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawCheck(1170, 830, g);
 		}
 
-		int textX = 1525, textY = 190;
+		int textX = 1570, textY = 190;
 		for (int i = 0; i < players.size(); i++)
 		{
 			String temp = "";
@@ -214,7 +215,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			{
 				temp = "(You)";
 			}
-			g.drawString(temp+players.get(i).getColor(), textX, textY + (i * 30));
+			g.drawString("-"+temp+players.get(i).getColor().toUpperCase(), textX, textY + (i * 80));
 			temp = "";
 		}
 
