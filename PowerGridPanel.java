@@ -42,7 +42,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	// UIs
 
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH;
-	//FOURTH is when there is a fourth powerplant
+	// FOURTH is when there is a fourth powerplant
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -57,7 +57,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// game = new GameState();
 		this.width = width;
 		this.height = height;
-		
+
 		selectedRegions = new ArrayList<String>();
 
 		// Initializing each UI
@@ -74,13 +74,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
-		} 
-		else if(REGIONS)
-		{
+		} else if (REGIONS) {
 			drawRegion(g);
-		}
-		else if(AUCTION)
-		{
+		} else if (AUCTION) {
 			drawAUCTION(g);
 		} else if (FOURTH) {
 			drawFOURTH(g);
@@ -116,95 +112,86 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find main menu image!");
 		}
 	}
-	public void drawRegion(Graphics g) 
-	{
+
+	public void drawRegion(Graphics g) {
 		drawMAPONLY(g);
-		
+
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.setColor(TRANSPARENTBLACK);
 		g.drawString("MESSAGE BOARD:", 1573, 48);
 		g.setColor(Color.WHITE);
-		g.drawString("MESSAGE BOARD:", 1570, 45); 
+		g.drawString("MESSAGE BOARD:", 1570, 45);
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		g.setColor(Color.WHITE);
-		g.drawString("-Choose a region:", 1570, 80); 
-		
+		g.drawString("-Choose a region:", 1570, 80);
+
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(357, 158, 100, 50);
 		g.setColor(Color.MAGENTA);
 		g.fillRect(347, 148, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Purple", 360, 180); 
-		if(selectedRegions.contains("purple"))
-		{
+		g.drawString("Purple", 360, 180);
+		if (selectedRegions.contains("purple")) {
 			drawCheck(347, 148, g);
 		}
-		
+
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(685, 140, 100 , 50);
+		g.fillRect(685, 140, 100, 50);
 		g.setColor(Color.YELLOW);
 		g.fillRect(675, 130, 100, 50);
 		g.setColor(Color.BLACK);
-		g.drawString("Yellow", 690, 160); 
-		if(selectedRegions.contains("yellow"))
-		{
+		g.drawString("Yellow", 690, 160);
+		if (selectedRegions.contains("yellow")) {
 			drawCheck(675, 130, g);
 		}
-		
+
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(480, 690, 100 , 50);
+		g.fillRect(480, 690, 100, 50);
 		g.setColor(Color.BLUE);
 		g.fillRect(470, 680, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Blue", 485, 710); 
-		if(selectedRegions.contains("blue"))
-		{
+		g.drawString("Blue", 485, 710);
+		if (selectedRegions.contains("blue")) {
 			drawCheck(470, 680, g);
 		}
-		
+
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(1305, 315, 100 , 50);
+		g.fillRect(1305, 315, 100, 50);
 		g.setColor(Color.ORANGE);
 		g.fillRect(1295, 305, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Orange", 1310, 335); 
-		if(selectedRegions.contains("orange"))
-		{
+		g.drawString("Orange", 1310, 335);
+		if (selectedRegions.contains("orange")) {
 			drawCheck(1295, 305, g);
 		}
-		
+
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(680, 810, 100 , 50);
+		g.fillRect(680, 810, 100, 50);
 		g.setColor(Color.RED);
 		g.fillRect(670, 800, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Red", 685, 830); 
-		if(selectedRegions.contains("red"))
-		{
+		g.drawString("Red", 685, 830);
+		if (selectedRegions.contains("red")) {
 			drawCheck(670, 800, g);
 		}
-		
+
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(1180, 840, 100 , 50);
+		g.fillRect(1180, 840, 100, 50);
 		g.setColor(Color.GREEN);
 		g.fillRect(1170, 830, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Green", 1185, 860); 
-		if(selectedRegions.contains("green"))
-		{
+		g.drawString("Green", 1185, 860);
+		if (selectedRegions.contains("green")) {
 			drawCheck(1170, 830, g);
 		}
-		
-		int textX = 1525, textY =190;
-		for(int i = 0; i<4; i++)
-			g.drawString("(player_color)~", textX, textY+(i*30));
-		
-		
 
-		
+		int textX = 1525, textY = 190;
+		for (int i = 0; i < 4; i++)
+			g.drawString("(player_color)~", textX, textY + (i * 30));
+
 	}
-	public void drawMAPONLY(Graphics g) 
-	{
+
+	public void drawMAPONLY(Graphics g) {
 		try {
 			// BufferedImage mainMenuBackground =
 			// ImageIO.read(PowerGridPanel.class.getResource("UI/ALT2.jpg")); //pretty good
@@ -483,7 +470,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					&& e.getY() <= 597) // IF START
 			{
 				MainMenu = false;
-				REGIONS = true;//should be find regions ~
+				REGIONS = true;// should be find regions ~
 
 			}
 			if (e.getX() >= (1920 - boxW) / 2 && e.getX() <= (1920 - boxW) / 2 + boxW && e.getY() >= 700
@@ -492,38 +479,32 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.exit(0);
 
 			}
-		}
-		else if(REGIONS)
-		{
-			String[] colors = {"purple", "orange", "blue", "green", "red", "yellow"};
+		} else if (REGIONS) {
+			String[] colors = { "purple", "orange", "blue", "green", "red", "yellow" };
 			ArrayList thing = new ArrayList(Arrays.asList(colors));
 			String region = findRegion(e);
-			System.out.println("region:"+region);
-			if(thing.contains(region))
+			System.out.println("region:" + region);
+			if (thing.contains(region))
 				selectedRegions.add(region);
-			
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
+
+			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
 				AUCTION = true;
 				FOURTH = true;
 			}
-		}
-		else if(AUCTION)
-		{
+		} else if (AUCTION) {
 
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
+			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
-			AUCTION = false;
-			FOURTH = true;
+				AUCTION = false;
+				FOURTH = true;
 			}
-		}
-		else if(FOURTH)
-		{
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
+		} else if (FOURTH) {
+			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
-				
-			FOURTH = false;
-			MAPUI = true;
+
+				FOURTH = false;
+				MAPUI = true;
 			}
 		}
 
@@ -567,8 +548,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 	}
-	public void drawCheck(int x, int y, Graphics g)
-	{
+
+	public void drawCheck(int x, int y, Graphics g) {
 		try {
 			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/selected.png"));
 			g.drawImage(mainMenuBackground, x, y, 50, 50, null);
@@ -577,191 +558,192 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find main menu image!");
 		}
 	}
-	public boolean adjacent(String str)
-	{
-		String[] purple = {"yellow", "red", "blue"};
-		String[] blue = {"purple", "red"};
-		String[] red = {"yellow", "purple", "blue","green"};
-		String[] green = {"orange", "yellow", "red"};
-		String[] yellow = {"orange", "green", "red", "purple"};
-		String[] orange = {"green","yellow"};
-		
+
+	public boolean adjacent(String str) {
+		String[] purple = { "yellow", "red", "blue" };
+		String[] blue = { "purple", "red" };
+		String[] red = { "yellow", "purple", "blue", "green" };
+		String[] green = { "orange", "yellow", "red" };
+		String[] yellow = { "orange", "green", "red", "purple" };
+		String[] orange = { "green", "yellow" };
+
 		ArrayList<String> last = new ArrayList<String>();
-		
-		if(str.contentEquals("purple"))
-		{
-			last = new ArrayList<String> (Arrays.asList(purple));
+
+		if (str.contentEquals("purple")) {
+			last = new ArrayList<String>(Arrays.asList(purple));
+		} else if (str.equals("blue")) {
+			last = new ArrayList<String>(Arrays.asList(blue));
+		} else if (str.equals("green")) {
+			last = new ArrayList<String>(Arrays.asList(green));
+		} else if (str.equals("red")) {
+			last = new ArrayList<String>(Arrays.asList(red));
+		} else if (str.equals("yellow")) {
+			last = new ArrayList<String>(Arrays.asList(yellow));
+		} else if (str.equals("orange")) {
+			last = new ArrayList<String>(Arrays.asList(orange));
 		}
-		else if(str.equals("blue"))
-		{
-			last = new ArrayList<String> (Arrays.asList(blue));
-		}
-		else if(str.equals("green"))
-		{
-			last = new ArrayList<String> (Arrays.asList(green));
-		}
-		else if(str.equals("red"))
-		{
-			last = new ArrayList<String> (Arrays.asList(red));
-		}
-		else if(str.equals("yellow"))
-		{
-			last = new ArrayList<String> (Arrays.asList(yellow));
-		}
-		else if(str.equals("orange"))
-		{
-			last = new ArrayList<String> (Arrays.asList(orange));
-		}
-		
-		
-		for(int i = 0 ; i<selectedRegions.size(); i++)
-		{
-			if(last.contains(selectedRegions.get(i)))
-			{
+
+		for (int i = 0; i < selectedRegions.size(); i++) {
+			if (last.contains(selectedRegions.get(i))) {
 				return true;
 			}
 		}
 		return false;
 	}
-	public String findRegion(MouseEvent e) 
-	{
-		//System.out.println(e.getX()+""+e.getY());
-		if (e.getX() >= 347 && e.getX() <= 447 && e.getY() >= 98 && e.getY() <= 148){return "purple";}
-		if (e.getX() >= 675 && e.getX() <= 775 && e.getY() >= 80 && e.getY() <= 130){return "yellow";}
-		if (e.getX() >= 470 && e.getX() <= 570 && e.getY() >= 630 && e.getY() <= 680){return "blue";}
-		if (e.getX() >= 1295 && e.getX() <= 1395 && e.getY() >= 255 && e.getY() <= 305){return "orange";}
-		if (e.getX() >= 670 && e.getX() <= 770 && e.getY() >= 750 && e.getY() <= 800){return "red";}
-		if (e.getX() >= 1170 && e.getX() <= 1270 && e.getY() >= 780 && e.getY() <= 830){return "green";}
+
+	public String findRegion(MouseEvent e) {
+		// System.out.println(e.getX()+""+e.getY());
+		if (e.getX() >= 347 && e.getX() <= 447 && e.getY() >= 148 && e.getY() <= 198) {
+			return "purple";
+		}
+		if (e.getX() >= 675 && e.getX() <= 775 && e.getY() >= 130 && e.getY() <= 180) {
+			return "yellow";
+		}
+		if (e.getX() >= 470 && e.getX() <= 570 && e.getY() >= 680 && e.getY() <= 730) {
+			return "blue";
+		}
+		if (e.getX() >= 1295 && e.getX() <= 1395 && e.getY() >= 305 && e.getY() <= 355) {
+			return "orange";
+		}
+		if (e.getX() >= 670 && e.getX() <= 770 && e.getY() >= 800 && e.getY() <= 850) {
+			return "red";
+		}
+		if (e.getX() >= 1170 && e.getX() <= 1270 && e.getY() >= 830 && e.getY() <= 880) {
+			return "green";
+		}
 		return "no region found";
-		
+
 	}
+
 	public String findCity(MouseEvent e) {
-		if (e.getX() >= 85 && e.getX() <= 135 && e.getY() >= 98 && e.getY() <= 148) {
+		if (e.getX() >= 85 && e.getX() <= 135 && e.getY() >= 148 && e.getY() <= 198) {
 			return "Seattle";
 		}
-		if (e.getX() >= 53 && e.getX() <= 103 && e.getY() >= 188 && e.getY() <= 238) {
+		if (e.getX() >= 53 && e.getX() <= 103 && e.getY() >= 238 && e.getY() <= 288) {
 			return "Portland";
 		}
-		if (e.getX() >= 57 && e.getX() <= 107 && e.getY() >= 459 && e.getY() <= 509) {
+		if (e.getX() >= 57 && e.getX() <= 107 && e.getY() >= 509 && e.getY() <= 559) {
 			return "San_Francisco";
 		}
-		if (e.getX() >= 145 && e.getX() <= 195 && e.getY() >= 573 && e.getY() <= 623) {
+		if (e.getX() >= 145 && e.getX() <= 195 && e.getY() >= 623 && e.getY() <= 673) {
 			return "Los_Angeles";
 		}
-		if (e.getX() >= 200 && e.getX() <= 250 && e.getY() >= 638 && e.getY() <= 688) {
+		if (e.getX() >= 200 && e.getX() <= 250 && e.getY() >= 688 && e.getY() <= 738) {
 			return "San_Diego";
 		}
-		if (e.getX() >= 343 && e.getX() <= 393 && e.getY() >= 602 && e.getY() <= 652) {
+		if (e.getX() >= 343 && e.getX() <= 393 && e.getY() >= 652 && e.getY() <= 702) {
 			return "Phoenix";
 		}
-		if (e.getX() >= 257 && e.getX() <= 307 && e.getY() >= 505 && e.getY() <= 555) {
+		if (e.getX() >= 257 && e.getX() <= 307 && e.getY() >= 555 && e.getY() <= 605) {
 			return "Las_Vegas";
 		}
-		if (e.getX() >= 346 && e.getX() <= 396 && e.getY() >= 374 && e.getY() <= 424) {
+		if (e.getX() >= 346 && e.getX() <= 396 && e.getY() >= 424 && e.getY() <= 474) {
 			return "Salt_Lake_City";
 		}
-		if (e.getX() >= 235 && e.getX() <= 285 && e.getY() >= 259 && e.getY() <= 309) {
+		if (e.getX() >= 235 && e.getX() <= 285 && e.getY() >= 309 && e.getY() <= 359) {
 			return "Boise";
 		}
-		if (e.getX() >= 488 && e.getX() <= 538 && e.getY() >= 529 && e.getY() <= 579) {
+		if (e.getX() >= 488 && e.getX() <= 538 && e.getY() >= 579 && e.getY() <= 629) {
 			return "Santa_Fe";
 		}
-		if (e.getX() >= 521 && e.getX() <= 571 && e.getY() >= 395 && e.getY() <= 445) {
+		if (e.getX() >= 521 && e.getX() <= 571 && e.getY() >= 445 && e.getY() <= 495) {
 			return "Denver";
 		}
-		if (e.getX() >= 536 && e.getX() <= 586 && e.getY() >= 327 && e.getY() <= 377) {
+		if (e.getX() >= 536 && e.getX() <= 586 && e.getY() >= 377 && e.getY() <= 427) {
 			return "Cheyenne";
 		}
-		if (e.getX() >= 447 && e.getX() <= 497 && e.getY() >= 198 && e.getY() <= 248) {
+		if (e.getX() >= 447 && e.getX() <= 497 && e.getY() >= 248 && e.getY() <= 298) {
 			return "Billings";
 		}
-		if (e.getX() >= 755 && e.getX() <= 805 && e.getY() >= 708 && e.getY() <= 758) {
+		if (e.getX() >= 755 && e.getX() <= 805 && e.getY() >= 758 && e.getY() <= 808) {
 			return "Houston";
 		}
-		if (e.getX() >= 745 && e.getX() <= 795 && e.getY() >= 624 && e.getY() <= 674) {
+		if (e.getX() >= 745 && e.getX() <= 795 && e.getY() >= 674 && e.getY() <= 724) {
 			return "Dallas";
 		}
-		if (e.getX() >= 722 && e.getX() <= 772 && e.getY() >= 528 && e.getY() <= 578) {
+		if (e.getX() >= 722 && e.getX() <= 772 && e.getY() >= 578 && e.getY() <= 628) {
 			return "Oklahoma City";
 		}
-		if (e.getX() >= 773 && e.getX() <= 823 && e.getY() >= 431 && e.getY() <= 481) {
+		if (e.getX() >= 773 && e.getX() <= 823 && e.getY() >= 481 && e.getY() <= 531) {
 			return "Kansas City";
 		}
-		if (e.getX() >= 746 && e.getX() <= 796 && e.getY() >= 342 && e.getY() <= 392) {
+		if (e.getX() >= 746 && e.getX() <= 796 && e.getY() >= 392 && e.getY() <= 442) {
 			return "Omaha";
 		}
-		if (e.getX() >= 814 && e.getX() <= 864 && e.getY() >= 215 && e.getY() <= 265) {
+		if (e.getX() >= 814 && e.getX() <= 864 && e.getY() >= 265 && e.getY() <= 315) {
 			return "Minneapolis";
 		}
-		if (e.getX() >= 723 && e.getX() <= 773 && e.getY() >= 167 && e.getY() <= 217) {
+		if (e.getX() >= 723 && e.getX() <= 773 && e.getY() >= 217 && e.getY() <= 267) {
 			return "Fargo";
 		}
-		if (e.getX() >= 831 && e.getX() <= 881 && e.getY() >= 138 && e.getY() <= 188) {
+		if (e.getX() >= 831 && e.getX() <= 881 && e.getY() >= 188 && e.getY() <= 238) {
 			return "Duluth";
 		}
-		if (e.getX() >= 938 && e.getX() <= 988 && e.getY() >= 328 && e.getY() <= 378) {
+		if (e.getX() >= 938 && e.getX() <= 988 && e.getY() >= 378 && e.getY() <= 428) {
 			return "Chicago";
 		}
-		if (e.getX() >= 892 && e.getX() <= 942 && e.getY() >= 427 && e.getY() <= 477) {
+		if (e.getX() >= 892 && e.getX() <= 942 && e.getY() >= 477 && e.getY() <= 527) {
 			return "St._Louis";
 		}
-		if (e.getX() >= 898 && e.getX() <= 948 && e.getY() >= 542 && e.getY() <= 592) {
+		if (e.getX() >= 898 && e.getX() <= 948 && e.getY() >= 592 && e.getY() <= 642) {
 			return "Memphis";
 		}
-		if (e.getX() >= 895 && e.getX() <= 945 && e.getY() >= 699 && e.getY() <= 749) {
+		if (e.getX() >= 895 && e.getX() <= 945 && e.getY() >= 749 && e.getY() <= 799) {
 			return "New_Orleans";
 		}
-		if (e.getX() >= 978 && e.getX() <= 1028 && e.getY() >= 597 && e.getY() <= 647) {
+		if (e.getX() >= 978 && e.getX() <= 1028 && e.getY() >= 647 && e.getY() <= 697) {
 			return "Birmingham";
 		}
-		if (e.getX() >= 1068 && e.getX() <= 1118 && e.getY() >= 598 && e.getY() <= 648) {
+		if (e.getX() >= 1068 && e.getX() <= 1118 && e.getY() >= 648 && e.getY() <= 698) {
 			return "Atlanta";
 		}
-		if (e.getX() >= 1059 && e.getX() <= 1109 && e.getY() >= 509 && e.getY() <= 559) {
+		if (e.getX() >= 1059 && e.getX() <= 1109 && e.getY() >= 559 && e.getY() <= 609) {
 			return "Knoxville";
 		}
-		if (e.getX() >= 1049 && e.getX() <= 1099 && e.getY() >= 415 && e.getY() <= 465) {
+		if (e.getX() >= 1049 && e.getX() <= 1099 && e.getY() >= 465 && e.getY() <= 515) {
 			return "Cincinnati";
 		}
-		if (e.getX() >= 1055 && e.getX() <= 1105 && e.getY() >= 296 && e.getY() <= 346) {
+		if (e.getX() >= 1055 && e.getX() <= 1105 && e.getY() >= 346 && e.getY() <= 396) {
 			return "Detroit";
 		}
-		if (e.getX() >= 1181 && e.getX() <= 1231 && e.getY() >= 830 && e.getY() <= 880) {
+		if (e.getX() >= 1181 && e.getX() <= 1231 && e.getY() >= 880 && e.getY() <= 930) {
 			return "Miami";
 		}
-		if (e.getX() >= 1094 && e.getX() <= 1144 && e.getY() >= 768 && e.getY() <= 818) {
+		if (e.getX() >= 1094 && e.getX() <= 1144 && e.getY() >= 818 && e.getY() <= 868) {
 			return "Tampa";
 		}
-		if (e.getX() >= 1151 && e.getX() <= 1201 && e.getY() >= 686 && e.getY() <= 736) {
+		if (e.getX() >= 1151 && e.getX() <= 1201 && e.getY() >= 736 && e.getY() <= 786) {
 			return "Jacksonville";
 		}
-		if (e.getX() >= 1150 && e.getX() <= 1200 && e.getY() >= 622 && e.getY() <= 672) {
+		if (e.getX() >= 1150 && e.getX() <= 1200 && e.getY() >= 672 && e.getY() <= 722) {
 			return "Savannah";
 		}
-		if (e.getX() >= 1220 && e.getX() <= 1270 && e.getY() >= 532 && e.getY() <= 582) {
+		if (e.getX() >= 1220 && e.getX() <= 1270 && e.getY() >= 582 && e.getY() <= 632) {
 			return "Raleigh";
 		}
-		if (e.getX() >= 1288 && e.getX() <= 1338 && e.getY() >= 486 && e.getY() <= 536) {
+		if (e.getX() >= 1288 && e.getX() <= 1338 && e.getY() >= 536 && e.getY() <= 586) {
 			return "Norfolk";
 		}
-		if (e.getX() >= 1234 && e.getX() <= 1284 && e.getY() >= 422 && e.getY() <= 472) {
+		if (e.getX() >= 1234 && e.getX() <= 1284 && e.getY() >= 472 && e.getY() <= 522) {
 			return "Washington_D.C";
 		}
-		if (e.getX() >= 1164 && e.getX() <= 1214 && e.getY() >= 374 && e.getY() <= 424) {
+		if (e.getX() >= 1164 && e.getX() <= 1214 && e.getY() >= 424 && e.getY() <= 474) {
 			return "Pittsburgh";
 		}
-		if (e.getX() >= 1202 && e.getX() <= 1252 && e.getY() >= 283 && e.getY() <= 333) {
+		if (e.getX() >= 1202 && e.getX() <= 1252 && e.getY() >= 333 && e.getY() <= 383) {
 			return "Buffalo";
 		}
-		if (e.getX() >= 1304 && e.getX() <= 1354 && e.getY() >= 389 && e.getY() <= 439) {
+		if (e.getX() >= 1304 && e.getX() <= 1354 && e.getY() >= 439 && e.getY() <= 489) {
 			return "Philadelphia";
 		}
-		if (e.getX() >= 1337 && e.getX() <= 1387 && e.getY() >= 341 && e.getY() <= 391) {
+		if (e.getX() >= 1337 && e.getX() <= 1387 && e.getY() >= 391 && e.getY() <= 441) {
 			return "New_York";
 		}
-		if (e.getX() >= 1393 && e.getX() <= 1443 && e.getY() >= 281 && e.getY() <= 331) {
+		if (e.getX() >= 1393 && e.getX() <= 1443 && e.getY() >= 331 && e.getY() <= 381) {
 			return "Boston";
 		}
+
 		return "Not in ranges";
 	}
+
 }
