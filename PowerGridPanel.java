@@ -47,7 +47,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	
 	
 	//Current variables
-	private Player currPlayer;
+	private int currPlayer;
 	private ArrayList<Player> players;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
@@ -79,6 +79,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		gs = new GameState();
 		players = gs.getPlayerOrder();
 		gs.randomizePlayerOrder();
+		currPlayer = 0;
 
 	}
 
@@ -134,7 +135,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void drawRegion(Graphics g) {
 		drawMAPONLY(g);
 		
-		currPlayer = players.get(0);
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.setColor(TRANSPARENTBLACK);
@@ -208,12 +208,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		if (selectedRegions.contains("green")) {
 			drawCheck(1170, 830, g);
 		}
+		System.out.println(currPlayer);
 
 		int textX = 1570, textY = 190;
 		for (int i = 0; i < players.size(); i++)
 		{
 			String temp = "";
-			if (currPlayer.equals(players.get(i)))
+			if (players.get(currPlayer).equals(players.get(i)))
 			{
 				temp = "(You)";
 			}
@@ -629,19 +630,19 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 * g.fillRect((1920-boxW)/2, 497, boxW, boxL); g.fillRect((1920-boxW)/2, 700,
 			 * boxW, boxL);
 			 */
-
+	
 			if (e.getX() >= (1920 - boxW) / 2 && e.getX() <= (1920 - boxW) / 2 + boxW && e.getY() >= 497
 					&& e.getY() <= 597) // IF START
 			{
 				MainMenu = false;
 				REGIONS = true;// should be find regions ~
-
+	
 			}
 			if (e.getX() >= (1920 - boxW) / 2 && e.getX() <= (1920 - boxW) / 2 + boxW && e.getY() >= 700
 					&& e.getY() <= 800) // IF QUIT
 			{
 				System.exit(0);
-
+	
 			}
 		} else if (REGIONS) {
 			String[] colors = { "purple", "orange", "blue", "green", "red", "yellow" };
@@ -649,7 +650,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			String region = findRegion(e);
 			//System.out.println("region:" + region);
 			if (thing.contains(region)&&adjacent(region)&&!selectedRegions.contains(region))
+			{
+				System.out.println(currPlayer);
+				currPlayer++;
+				System.out.println(currPlayer);
+				
 				selectedRegions.add(region);
+			}
 			
 			if(selectedRegions.size() == 4)
 			{
@@ -657,9 +664,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				REGIONS = false;
 			}
 			
-
+	
 		} else if (AUCTION) {
-
+	
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
 				AUCTION = false;
@@ -668,7 +675,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (FOURTH) {
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
-
+	
 				FOURTH = false;
 				view = "something";
 			}
@@ -687,9 +694,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			END = true;
 		}
 		
-
+	
 		repaint();
-
+	
 	}
 
 	public void keyTyped(KeyEvent e) {
