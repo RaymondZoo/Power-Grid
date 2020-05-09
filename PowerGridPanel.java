@@ -47,9 +47,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	// Current variables
 	private int currPlayer;
+	private int auctionPlayer;
 	private ArrayList<Player> players;
 	private boolean round1;
 	private int auctionIndex;
+	
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -83,6 +85,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		System.out.println(players);
 		currPlayer = 0;
 		round1 = true;
+		auctionIndex = -1;
 
 	}
 
@@ -451,6 +454,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																														// to
 				// actual card~
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
+				
+				if(auctionIndex == i)
+				{
+					drawCheck(MARKETX + (i * (PPWIDTH + 20))+170, MARKETY+10,g);
+				}
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
@@ -512,6 +520,19 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("BID", 640, 875);
 		g.drawString("PASS", 1000, 875); // 880, 810
+		
+		g.drawString(gs.getPlayerOrder().get(0).getColor().toUpperCase()+ " player", 295, 45); // 880, 810
+		
+		int highest = 0;
+		for(int i =0; i<players.size(); i++)
+		{
+			if(gs.getBids().get(players.get(i))>highest)
+			{
+				highest = gs.getBids().get(players.get(i));
+			}
+		}
+		
+		g.drawString("Current Bid: "+highest, 1170, 45); // 880, 810
 	}
 
 	public void drawFOURTH(Graphics g) {
@@ -652,9 +673,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			String region = findRegion(e);
 			// System.out.println("region:" + region);
 			if (thing.contains(region) && adjacent(region) && !selectedRegions.contains(region)) {
-				// System.out.println(currPlayer);
 				currPlayer++;
-				// System.out.println(currPlayer);
 
 				selectedRegions.add(region);
 			}
@@ -691,9 +710,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				AUCTION = false;
 				FOURTH = true;
 			}
-
-			ArrayList<Player> tempPlayers = gs.getPlayerOrder();
-			int minPrice = 0;
+			
+			if(gs.getAuctionCard() == null) {
+			//ArrayList<Player> tempPlayers = gs.getPlayerOrder();
+			//int minPrice = 0;
 			for (int j = 0; j < gs.getCurrentMarket().size(); j++) {
 				// MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT,
 				if (e.getX() >= MARKETX + (j * (PPWIDTH + 20)) && e.getX() <= MARKETX + (j * (PPWIDTH + 20)) + PPWIDTH
@@ -701,7 +721,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					auctionIndex = j;
 				}
 			}
-				boolean bidded = false;
+				//boolean bidded = false;
 				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880, 810
 																												// if
 																												// pass
@@ -710,7 +730,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																												// 360,
 																												// 100
 				{
-					bidded = true;
+					//bidded = true;
+					if(Integer.parseInt(keyInput) >= gs.getCurrentMarket().get(auctionIndex).getMinBid())
+					{
+						gs.setAuctionCard(gs.getCurrentMarket().get(auctionIndex));
+						gs.getBids().put(players.get(currPlayer),Integer.parseInt(keyInput));
+					}
 				}
 				if (!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880,
 																														// 810
@@ -721,19 +746,26 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																														// 360,
 																														// 100
 				{
-					auctionIndex = -1;
+					//auctionIndex = -1;
+					//gs.getDecision().put(tempPlayers.get(0), true);
+					//tempPlayers.remove(tempPlayers.get(0));
 				}
+			}
+			else
+			{
+				
+			}
 
-				if (auctionIndex == -1) {
+				/*if (auctionIndex == -1) {
 					gs.getDecision().put(tempPlayers.get(0), true);
 					tempPlayers.remove(tempPlayers.get(0));
 				} else if (bidded) {
 					
-				}
+				}*//*
 				if (gs.getMarketStep3()) {
 					gs.restructureMarket();
 				}
-				gs.determinePlayerOrder();
+				gs.determinePlayerOrder();*/
 
 
 			/*
