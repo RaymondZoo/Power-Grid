@@ -599,7 +599,7 @@ public class GameState {
 		}
 	}
 
-	public void restructureMarket() {
+	public void restructureMarket() { //step 3 conversion
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
@@ -666,7 +666,7 @@ public class GameState {
 		}
 	}
 
-	public void marketFix() {
+	public void marketFix() { //Phase 5
 		if (step != 3) {
 			deck.add(deck.size(), futureMarket.remove(futureMarket.size() - 1));
 			addPowerPlant();
