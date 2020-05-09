@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
@@ -749,6 +750,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						if(nextIndex == -1)
 						{
+							AUCTION = false;
+							MAPUI = true;	
 							gs.nextPhase();
 						}
 						else
@@ -780,6 +783,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					
 					if(nextIndex == -1)
 					{
+						AUCTION = false;
+						MAPUI = true;	
 						gs.nextPhase();
 					}
 					else
@@ -925,6 +930,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (FOURTH) {
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
+				System.out.println();
 
 				FOURTH = false;
 				view = "something";
