@@ -496,10 +496,25 @@ public class TextRunner {
 				tryAgain = true;
 			}
 
-			else if (numOfFirstResource + numReq > plant.getCost().size() * 2
-					|| numOfSecondResource + numReq > plant.getCost().size() * 2) {
-				System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
-				tryAgain = true;
+			else 
+			{
+				if (resources[numResource].equalsIgnoreCase(firstResource))//if the resource selected is the first resource
+				{
+						if(numOfFirstResource + numReq > plant.getCost().size() * 2)//if trying to store greater than the amount allowed
+						{
+							System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
+							tryAgain = true;
+						}
+				}
+				else if(resources[numResource].equalsIgnoreCase(secondResource))
+				{
+						if(numOfSecondResource + numReq > plant.getCost().size() * 2)
+						{
+							System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
+							tryAgain = true;
+				
+						}
+				}
 			}
 		}
 		if (tryAgain) {//try again logic
