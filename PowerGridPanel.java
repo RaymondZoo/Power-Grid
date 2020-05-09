@@ -229,10 +229,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// ImageIO.read(PowerGridPanel.class.getResource("UI/ALT2.jpg")); //pretty good
 			// ImageIO.read(new File("src/UI/BestSoFar.jpg"));
 
-			BufferedImage TopLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/TopLeft.jpg"));
-			BufferedImage TopRight = ImageIO.read(PowerGridPanel.class.getResource("UI/TopRight.jpg"));
-			BufferedImage BottomLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomLeft.jpg"));
-			BufferedImage BottomRight = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomRight2.jpg"));
+			BufferedImage TopLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/TopLeftALT.jpg"));
+			BufferedImage TopRight = ImageIO.read(PowerGridPanel.class.getResource("UI/TopRightALT.jpg"));
+			BufferedImage BottomLeft = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomLeftALT.jpg"));
+			BufferedImage BottomRight = ImageIO.read(PowerGridPanel.class.getResource("UI/BottomRightALT.jpg"));
 
 			g.setColor(GREEN); // We could do the player's color here ~
 			g.fillRect(0, 0, width, height);
