@@ -861,4 +861,10 @@ public class GameState {
 		}
 		return playerOrder.get(i);
 	}
+	
+	public void resetBid() {
+		for (Player p:bids.keySet()) {
+			bids.put(p, 0);
+		}
+	}
 }
