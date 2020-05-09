@@ -169,7 +169,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.GREEN);
 		g.fillRect(1170, 830, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Red", 1185, 860); 
+		g.drawString("Green", 1185, 860); 
+		
+		g.drawString("Color: ", 1525, 190);
+		g.drawString("Color: ", 1525, 210);
+		g.drawString("Color: ", 1525, 230);
+		g.drawString("Color: ", 1525, 250);
+		
 
 		
 	}
