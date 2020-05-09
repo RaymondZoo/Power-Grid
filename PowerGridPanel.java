@@ -41,8 +41,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	// UIs
 	private String view;
-	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH;
+	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH, END;
 	// FOURTH is when there is a fourth powerplant
+	//gamestate's endOfGame will also be one
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -524,6 +525,20 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("END TURN", 905, 660);
 			
 	}
+	public void drawView(Graphics g) 
+	{
+	
+	}
+
+	public void drawCheck(int x, int y, Graphics g) {
+		try {
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/selected.png"));
+			g.drawImage(mainMenuBackground, x, y, 50, 50, null);
+	
+		} catch (IOException e) {
+			System.out.println("Cannot find main menu image!");
+		}
+	}
 
 	public void mousePressed(MouseEvent e) {
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
@@ -599,16 +614,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		repaint();
 
-	}
-
-	public void drawCheck(int x, int y, Graphics g) {
-		try {
-			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/selected.png"));
-			g.drawImage(mainMenuBackground, x, y, 50, 50, null);
-
-		} catch (IOException e) {
-			System.out.println("Cannot find main menu image!");
-		}
 	}
 
 	public boolean adjacent(String str) {
