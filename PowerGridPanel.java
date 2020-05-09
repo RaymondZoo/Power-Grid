@@ -40,7 +40,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-
+	private String view;
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH;
 	// FOURTH is when there is a fourth powerplant
 
@@ -53,6 +53,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		setFocusable(true);
 		setLayout(null);
 		setSize(width, height);
+		
+		keyInput = "";
 
 		// game = new GameState();
 		this.width = width;
@@ -66,6 +68,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		AUCTION = false;
 		REGIONS = false;
 		FOURTH = false;
+		view = "";
 
 	}
 
@@ -405,7 +408,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		for (int i = 0; i < 4; i++) // current Market
 		{
 			g.setColor(TRANSPARENTBLACK);// shadow
-			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, MARKETY + 10, PPHEIGHT, PPWIDTH);
+			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, MARKETY + 10, PPWIDTH, PPHEIGHT);
 
 			// ACTUAL PP
 			// g.setColor(Color.DARK_GRAY);
@@ -413,7 +416,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
 																									// actual card~
-				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPHEIGHT, PPWIDTH, null);
+				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
@@ -426,10 +429,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("FUTURE MARKET:", 265, 490);
 		int space = 265;
-		for (int i = 0; i < 4; i++) // current Market
+		for (int i = 0; i < 4; i++) // future Market
 		{
 			g.setColor(TRANSPARENTBLACK);// shadow
-			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, (MARKETY + space) + 10, PPHEIGHT, PPWIDTH);
+			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, (MARKETY + space) + 10, PPWIDTH, PPHEIGHT);
 
 			// ACTUAL PP
 			// g.setColor(Color.DARK_GRAY);
@@ -437,13 +440,43 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
 																									// actual card~
-				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY + space, PPHEIGHT, PPWIDTH, null);
+				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY + space, PPWIDTH, PPHEIGHT, null);
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
 
 		}
+		g.setColor(Color.WHITE);
+		g.fillRect(940, 644, 300, 50);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(TRANSPARENTBLACK); 
+		g.drawString("Enter Bid", 725, 683);
+		g.setColor(Color.WHITE);
+		g.drawString("Enter Bid:", 722, 680);
+		
+		g.setColor(Color.BLACK);
+		if(keyInput != null)
+		{
+			g.drawString(keyInput, 950, 680);
+		}
+		
+		//Bid/Pass
+		
+		int bidX = 500, bidY = 810; // 360, 100
+		for(int i = 0 ; i<2; i++)
+		{
+		g.setColor(TRANSPARENTBLACK);// shadow
+		g.fillRect(bidX +(i*(360+20))+ 10, bidY + 10, 360, 100);
+
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(bidX+(i*(360+20)), bidY, 360, 100);
+		}
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(Color.WHITE);
+		g.drawString("BID", 640, 875);
+		g.drawString("PASS", 1000, 875);
 	}
 
 	public void drawFOURTH(Graphics g) {
@@ -453,7 +486,43 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("4th Powerplant", 843, 48);
 		g.setColor(Color.WHITE);
 		g.drawString("4th Powerplant", 840, 45);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("MONEY:", 13, 558);
+		g.setColor(Color.WHITE);
+		g.drawString("MONEY:", 10, 555); // Enter money amount here~
+		
+		
+		for (int i = 0; i < 4; i++) // Powerplants
+		{
+			g.setColor(TRANSPARENTBLACK);// shadow
+			g.fillRect(MARKETX + (i * (PPWIDTH + 20)) + 10, MARKETY + 10, PPWIDTH, PPHEIGHT);
 
+			// ACTUAL PP
+			// g.setColor(Color.DARK_GRAY);
+			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+																									// actual card~
+				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
+
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+
+		}
+		
+		g.setColor(TRANSPARENTBLACK);// shadow
+		g.fillRect(825, 610, 360, 100);
+
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(815,600, 360, 100);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(Color.WHITE);
+		g.drawString("END TURN", 905, 660);
+			
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -483,15 +552,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			String[] colors = { "purple", "orange", "blue", "green", "red", "yellow" };
 			ArrayList thing = new ArrayList(Arrays.asList(colors));
 			String region = findRegion(e);
-			System.out.println("region:" + region);
-			if (thing.contains(region))
+			//System.out.println("region:" + region);
+			if (thing.contains(region)&&adjacent(region)&&!selectedRegions.contains(region))
 				selectedRegions.add(region);
-
-			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
+			
+			if(selectedRegions.size() == 4)
 			{
 				AUCTION = true;
-				FOURTH = true;
+				REGIONS = false;
 			}
+			
+
 		} else if (AUCTION) {
 
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
@@ -507,21 +578,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		}
+		
 
 		repaint();
 
-	}
-
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	public void mouseReleased(MouseEvent e) {
-	}
-
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	public void mouseExited(MouseEvent e) {
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -532,20 +592,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER || e.getExtendedKeyCode() == 10) {
 			// System.out.println("enter");
 			if (keyInput.length() > 0)
-				// BID
+				// BID ~
 				keyInput = "";
 		} else if (e.getExtendedKeyCode() >= 48 && e.getExtendedKeyCode() <= 57)
 			keyInput += e.getKeyChar();
 
 		repaint();
-
-	}
-
-	public void keyPressed(KeyEvent e) {
-
-	}
-
-	public void keyReleased(KeyEvent e) {
 
 	}
 
@@ -582,6 +634,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (str.equals("orange")) {
 			last = new ArrayList<String>(Arrays.asList(orange));
 		}
+		
+		if(selectedRegions.isEmpty())
+			return true;
 
 		for (int i = 0; i < selectedRegions.size(); i++) {
 			if (last.contains(selectedRegions.get(i))) {
@@ -746,4 +801,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		return "Not in ranges";
 	}
 
+	
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	public void mouseExited(MouseEvent e) {
+	}
+
+	public void keyPressed(KeyEvent e) {
+
+	}
+
+	public void keyReleased(KeyEvent e) {
+
+	}
 }
