@@ -719,8 +719,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			for (int j = 0; j < gs.getCurrentMarket().size(); j++) {
 				// MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT,
 				if (e.getX() >= MARKETX + (j * (PPWIDTH + 20)) && e.getX() <= MARKETX + (j * (PPWIDTH + 20)) + PPWIDTH
-						&& e.getY() >= MARKETY && e.getY() <= MARKETY + PPHEIGHT) {
-					auctionIndex = j;
+						&& e.getY() >= MARKETY && e.getY() <= MARKETY + PPHEIGHT)
+				{
+					if(auctionIndex == j)
+					{
+						auctionIndex = -1;
+					}
+					else
+					{
+					auctionIndex = j;	
+					}
 				}
 			}
 				//boolean bidded = false;
