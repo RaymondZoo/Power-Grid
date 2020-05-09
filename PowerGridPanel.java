@@ -739,6 +739,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										+ ", how much do you want to bid on this powerplant? (anything less or equal to current bid to pass) "
 										+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice);
 								int bid = Integer.parseInt(keyInput);
+								bidded=false;
+								keyInput="";
 								if (bid > auctionPlayers.get(i).getMoney()) {
 									while (bid > auctionPlayers.get(i).getMoney()) {//keep on asking until the bid is less then the amount of money player has or equal(he can afford it)
 										System.out.println(auctionPlayers.get(i).getColor()
@@ -746,6 +748,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 												+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice
 												+ ". You don't have enough money for the previous bid");
 										bid = Integer.parseInt(keyInput);
+										bidded=false;
+										keyInput="";
 									}
 								}
 								if (bid <= minPrice) {
