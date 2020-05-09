@@ -1,4 +1,5 @@
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,15 +32,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original proportions
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
 	public static final int MARKETX = 500, MARKETY = 130;
-	public String hover = "";
 	
-
+	private ArrayList<String> selectedRegions;
+	
 	// Colors
 	public static final Color GREEN = new Color(17, 59, 8);
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-	private boolean MainMenu, MAPUI, AUCTION, FOURTH;
+	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH;
 	//FOURTH is when there is a fourth powerplant
 	
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
@@ -55,11 +56,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// game = new GameState();
 		this.width = width;
 		this.height = height;
+		
+		selectedRegions = new ArrayList<String>();
 
 		// Initializing each UI
 		MainMenu = true;
 		MAPUI = false;
 		AUCTION = false;
+		REGIONS = false;
+		FOURTH = false;
 
 	}
 
@@ -70,6 +75,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		{
 			drawMainMenu(g);
 		} 
+		else if(REGIONS)
+		{
+			drawRegion(g);
+		}
 		else if(AUCTION)
 		{
 			drawAUCTION(g);
@@ -109,7 +118,27 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find main menu image!");
 		}
 	}
-	
+	public void drawRegion(Graphics g) 
+	{
+		drawMAPONLY(g);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("MESSAGE BOARD:", 1573, 48);
+		g.setColor(Color.WHITE);
+		g.drawString("MESSAGE BOARD:", 1570, 45); 
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+		g.setColor(Color.WHITE);
+		g.drawString("-Choose a region:", 1570, 80); 
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(357, 158, 100, 50);
+		g.setColor(Color.MAGENTA);
+		g.fillRect(347, 148, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Purple", 360, 180); 
+		
+	}
 	public void drawMAPONLY(Graphics g) 
 	{
 		try {
@@ -371,6 +400,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 		}
 		
+		
 	}
 
 	public void drawFOURTH(Graphics g) 
@@ -397,7 +427,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					&& e.getY() <= 597) // IF START
 			{
 				MainMenu = false;
-				AUCTION = true;//should be find regions ~
+				REGIONS = true;//should be find regions ~
 			}
 			if (e.getX() >= (1920 - boxW) / 2 && e.getX() <= (1920 - boxW) / 2 + boxW && e.getY() >= 700
 					&& e.getY() <= 800) // IF QUIT
@@ -406,18 +436,34 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 			}
 		}
+		else if(REGIONS)
+		{
+			
+			
+			
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
+			{
+				AUCTION = true;
+				FOURTH = true;
+			}
+		}
 		else if(AUCTION)
 		{
 
 			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
+			{
 			AUCTION = false;
 			FOURTH = true;
+			}
 		}
 		else if(FOURTH)
 		{
 			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
-				FOURTH = false;
-				MAPUI = true;
+			{
+				
+			FOURTH = false;
+			MAPUI = true;
+			}
 		}
 
 		repaint();
@@ -460,5 +506,51 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void keyReleased(KeyEvent e) {
 
+	}
+	public boolean adjacent(String str)
+	{
+		String[] purple = {"yellow", "red", "blue"};
+		String[] blue = {"purple", "red"};
+		String[] red = {"yellow", "purple", "blue","green"};
+		String[] green = {"orange", "yellow", "red"};
+		String[] yellow = {"orange", "green", "red", "purple"};
+		String[] orange = {"green","yellow"};
+		
+		ArrayList<String> last = new ArrayList<String>();
+		
+		if(str.contentEquals("purple"))
+		{
+			last = new ArrayList<String> (Arrays.asList(purple));
+		}
+		else if(str.equals("blue"))
+		{
+			last = new ArrayList<String> (Arrays.asList(blue));
+		}
+		else if(str.equals("green"))
+		{
+			last = new ArrayList<String> (Arrays.asList(green));
+		}
+		else if(str.equals("red"))
+		{
+			last = new ArrayList<String> (Arrays.asList(red));
+		}
+		else if(str.equals("yellow"))
+		{
+			last = new ArrayList<String> (Arrays.asList(yellow));
+		}
+		else if(str.equals("orange"))
+		{
+			last = new ArrayList<String> (Arrays.asList(orange));
+		}
+		
+		
+		for(int i = 0 ; i<selectedRegions.size(); i++)
+		{
+			if(last.contains(selectedRegions.get(i)))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
