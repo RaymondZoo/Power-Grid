@@ -738,7 +738,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						for(int i = 0 ; i<players.size(); i++)
 						{
-							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
 							{
 								System.out.println("i and currPlayer" + i +" " + currPlayer);
 								System.out.println(players.get(i).getColor() +" " + players.get(currPlayer).getColor());
@@ -772,7 +772,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					
 					for(int i = 0 ; i<players.size(); i++)
 					{
-						if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+						if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
 						{
 							nextIndex = i;
 							break;
@@ -805,7 +805,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						for(int i = 0 ; i<players.size(); i++)
 						{
-							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
 							{
 								nextIndex = i;
 								break;
@@ -850,7 +850,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						for(int i = 0 ; i<players.size(); i++)
 						{
-							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer)
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
 							{
 								nextIndex = i;
 								break;
