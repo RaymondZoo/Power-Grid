@@ -136,6 +136,42 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("Purple", 360, 180); 
 		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(685, 140, 100 , 50);
+		g.setColor(Color.YELLOW);
+		g.fillRect(675, 130, 100, 50);
+		g.setColor(Color.BLACK);
+		g.drawString("Yellow", 690, 160); 
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(480, 690, 100 , 50);
+		g.setColor(Color.BLUE);
+		g.fillRect(470, 680, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Blue", 485, 710); 
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(1305, 315, 100 , 50);
+		g.setColor(Color.ORANGE);
+		g.fillRect(1295, 305, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Orange", 1310, 335); 
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(680, 810, 100 , 50);
+		g.setColor(Color.RED);
+		g.fillRect(670, 800, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Red", 685, 830); 
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(1180, 840, 100 , 50);
+		g.setColor(Color.GREEN);
+		g.fillRect(1170, 830, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Red", 1185, 860); 
+
+		
 	}
 	public void drawMAPONLY(Graphics g) 
 	{
