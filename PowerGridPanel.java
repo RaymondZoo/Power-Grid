@@ -49,6 +49,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	//Current variables
 	private int currPlayer;
 	private ArrayList<Player> players;
+	private boolean round1;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -80,6 +81,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		players = gs.getPlayerOrder();
 		gs.randomizePlayerOrder();
 		currPlayer = 0;
+		round1 = true;
 
 	}
 
@@ -651,9 +653,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//System.out.println("region:" + region);
 			if (thing.contains(region)&&adjacent(region)&&!selectedRegions.contains(region))
 			{
-				System.out.println(currPlayer);
+				//System.out.println(currPlayer);
 				currPlayer++;
-				System.out.println(currPlayer);
+				//System.out.println(currPlayer);
 				
 				selectedRegions.add(region);
 			}
@@ -670,6 +672,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 				gs.setListOfCites(adjustedCityList);
 				
+				if (round1) {
+					gs.randomizePlayerOrder();
+				} else {
+					gs.determinePlayerOrder();
+				}
+				
+				
 				AUCTION = true;
 				REGIONS = false;
 			}
@@ -682,6 +691,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				AUCTION = false;
 				FOURTH = true;
 			}
+			
+			/*
+			 * if (round1) {
+					gs.randomizePlayerOrder();
+				} else {
+					gs.determinePlayerOrder();
+				}
+			 */
 		} else if (FOURTH) {
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
