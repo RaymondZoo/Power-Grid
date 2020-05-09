@@ -124,6 +124,10 @@ public class GameState {
 			nuclearMarket.put(10, blank);
 			ArrayList<String> blank2 = new ArrayList<String>();
 			nuclearMarket.put(12, blank2);
+			for (int i=1; i<=8;i++) {
+				ArrayList<String>stuff=new ArrayList<String>();
+				nuclearMarket.put(i, stuff);
+			}
 			coalSupply -= 24;
 			trashSupply -= 6;
 			oilSupply -= 18;
