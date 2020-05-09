@@ -26,7 +26,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int height;
 	private String keyInput;
 
-	private GameState game;
+	private GameState gs;
 
 	// Constants (tentative)~
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original
