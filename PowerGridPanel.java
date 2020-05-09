@@ -803,7 +803,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						
 						int nextIndex = -1;
 						
-						for(int i = 0 ; i<players.size(); i++)
+						for(int i = currPlayer ; i<players.size(); i++)
 						{
 							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) >= 0 &&gs.getBids().get(players.get(i))<minBid)
 							{
@@ -811,6 +811,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								break;
 							}
 						}
+						if(nextIndex == -1)
+							{
+							for(int i = 0 ; i<currPlayer; i++)
+							{
+								if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) >= 0 &&gs.getBids().get(players.get(i))<minBid)
+								{
+									nextIndex = i;
+									break;
+								}
+							}
+						}
+						
 						currPlayer = nextIndex;
 						keyInput = "";
 						
@@ -830,6 +842,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
+						
 						winner.addPowerPlant(gs.getAuctionCard());
 						gs.setAuctionCard(null);
 						/*
@@ -848,7 +861,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					{
 						int nextIndex = -1;
 						
-						for(int i = 0 ; i<players.size(); i++)
+						for(int i = currPlayer ; i<players.size(); i++)
 						{
 							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) >= 0&&gs.getBids().get(players.get(i))<minBid)
 							{
@@ -856,6 +869,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								break;
 							}
 						} 
+						if(nextIndex == -1)
+						{
+						for(int i = 0 ; i<currPlayer; i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) >= 0 &&gs.getBids().get(players.get(i))<minBid)
+							{
+								nextIndex = i;
+								break;
+							}
+						}
+					}
 						currPlayer = nextIndex;
 					}
 					
