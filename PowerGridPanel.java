@@ -297,9 +297,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
 		int sizeCoal=gs.countResource(gs.getCoalMarket());
-		System.out.println(sizeCoal);
 		for (int i=24-sizeCoal+1;i<=24;i++) {
 			g.drawImage(coal, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
+		}
+		
+		BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
+		int sizeOil=gs.countResource(gs.getOilMarket());
+		for (int i=24-sizeOil+1;i<=24;i++) {
+			g.drawImage(oil, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
 		}
 		
 		
