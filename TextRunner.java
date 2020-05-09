@@ -42,7 +42,8 @@ public class TextRunner {
 		}
 		
 		gs.setListOfCites(adjustedCityList);
-
+		//if it's the first turn, then randomize player order for 
+		//power plant buying otherwise use determinePlayerOrder()
 		while (!gs.isEndOfGame()) {
 			// phase 1
 			if (turn1) {
@@ -66,8 +67,10 @@ public class TextRunner {
 			}
 
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
+			//Temp players is just another way to say get player order
 			tempPlayers.addAll(gs.getPlayerOrder());
-
+			
+			//Entire Auction algorithm
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
 				System.out.println();
@@ -77,6 +80,7 @@ public class TextRunner {
 				int index = Integer.parseInt(input.nextLine()) - 1;
 				if (index == -1 && turn1) {
 					while (index == -1) {
+						//While the player doesn't pass just keep on asking because it's first turn
 						System.out.println(tempPlayers.get(0).getColor()
 								+ ", choose the index of the powerPlant to start auction on (1-4). You cannot pass b/c it's turn 1");
 						index = Integer.parseInt(input.nextLine()) - 1;
@@ -86,6 +90,7 @@ public class TextRunner {
 					gs.getDecision().put(tempPlayers.get(0), true);
 					tempPlayers.remove(tempPlayers.get(0));
 				} else {
+					//person chose auction card to start on
 					gs.setAuctionCard(gs.getCurrentMarket().get(index));
 					minPrice = gs.getCurrentMarket().get(index).getMinBid();
 					int i = 0;
@@ -102,7 +107,7 @@ public class TextRunner {
 									+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice);
 							int bid = Integer.parseInt(input.nextLine());
 							if (bid > auctionPlayers.get(i).getMoney()) {
-								while (bid > auctionPlayers.get(i).getMoney()) {
+								while (bid > auctionPlayers.get(i).getMoney()) {//keep on asking until the bid is less then the amount of money player has or equal(he can afford it)
 									System.out.println(auctionPlayers.get(i).getColor()
 											+ "how much do you want to bid on this powerplant? (anything less or equal to current bid to pass) "
 											+ gs.getAuctionCard().toString() + ". Current Bid is " + minPrice
@@ -127,14 +132,15 @@ public class TextRunner {
 						}
 					}
 					System.out.println(auctionPlayers.get(0).getColor() + " has won the auction for "
-							+ gs.getAuctionCard().toString() + " for " + minPrice + ".");
-					auctionPlayers.get(0).subtractMoney(minPrice);
-					tempPlayers.removeAll(auctionPlayers);
+							+ gs.getAuctionCard().toString() + " for " + minPrice + ".");//the remaining auction player wins
+					auctionPlayers.get(0).subtractMoney(minPrice);//subtracting money
+					tempPlayers.removeAll(auctionPlayers);//remove the player who already won a power plant
 					gs.getCurrentMarket().remove(gs.getAuctionCard());
-					gs.addPowerPlant();
-					auctionPlayers.get(0).addPowerPlant(gs.getAuctionCard());
-					gs.rearrangeMarket();
+					gs.addPowerPlant();//draw power plant from draw stack
+					auctionPlayers.get(0).addPowerPlant(gs.getAuctionCard());//add it to the player's deck
+					gs.rearrangeMarket();//current market (lowest to highest) & future market(lowest to highest)
 					System.out.println();
+					//displaying markets
 					System.out.println("Current Market: ");
 					for (int x = 1; x <= gs.getCurrentMarket().size(); x++) {
 						System.out.println(x + ". " + gs.getCurrentMarket().get(x - 1));
@@ -157,7 +163,7 @@ public class TextRunner {
 			System.out.println();
 			System.out.println("Now it's time for resource selection");
 			for (int i = 0; i <= 3; i++) {
-
+				//displaying all the resource markets
 				System.out.print("Coal Market:");
 				System.out.println(gs.getCoalMarket());
 				System.out.print("Oil Market");
@@ -166,6 +172,7 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
+				//method to ask player for resource
 				askResource(i);
 				System.out.println("Are You Done with Purchasing Resources?");
 				input = new Scanner(System.in);
@@ -174,7 +181,7 @@ public class TextRunner {
 					if (i != 3)
 						System.out.println("Ok. Moving on to next Player");
 				} else if (answer.equals("no")) {
-					askResource(i);
+					askResource(i);//ask him again if he/she wants to buy the resource
 
 				}
 			}
@@ -186,13 +193,13 @@ public class TextRunner {
 			for (int i = gs.getPlayerOrder().size() - 1; i >= 0; i--) {
 
 				City c;
-				System.out.println("Playable Regions: " + playableColors.toString());
-				System.out.println("Max number of Players at a city is " + gs.getMaxHouseInCity());
+				System.out.println("Playable Regions: " + playableColors.toString());//displaying playable regions
+				System.out.println("Max number of Players at a city is " + gs.getMaxHouseInCity());//number of houses that can be built based on the current step
 				System.out.println(
 						gs.getPlayerOrder().get(i).getColor() + ": Which city do you want to build to (-1 for none)");
 				Player p = gs.getPlayerOrder().get(i);
 				String cmd = input.nextLine();
-				if (turn1 && cmd.equals("-1")) {
+				if (turn1 && cmd.equals("-1")) {//similar to auction
 					while (cmd.equals("-1")) {
 						System.out.println(gs.getPlayerOrder().get(i).getColor()
 								+ ": Which city do you want to build to. You cannot pass b/c it's turn 1");
@@ -215,19 +222,19 @@ public class TextRunner {
 								System.out.println(
 										"There is no more space for a house at that city. Please choose another (-1 to quit)");
 							} else if (gs.getNumCities().get(p) == 0) {
-								cost = c.getCost();
+								cost = c.getCost();//current cost based on step
 								System.out.println("First City");
 							} else {
-								cost = c.leastCost(p);
+								cost = c.leastCost(p);//least cost algorithm
 								cost += c.getCost();
 							}
 
 							if (p.getMoney() > cost) {
-								p.addMoney(cost * -1);
+								p.addMoney(cost * -1);//subtracting money
 								c.addPlayer(p);
 								gs.addCityBuilt(p);
-							} else {
-								System.out.println("You don't have enough money to build to there.");
+							} else {//if the player can't afford the city
+								System.out.println("You don't have enough money to build to there.");//the amount of money the player now has
 							}
 
 							System.out.println("Cost: " + cost);
@@ -241,8 +248,7 @@ public class TextRunner {
 						cmd = input.nextLine();
 					}
 				}
-				if (gs.getNumCities().get(gs.getPlayerOrder().get(i)) >= 7&&gs.getStep()==1)
-					gs.nextStep();
+				
 
 			}
 
@@ -260,14 +266,14 @@ public class TextRunner {
 					int numCitiesOwned = gs.getNumCities().get(current);
 					while (index != -1) {
 						if (!current.getPowerList().get(index).isHybrid() && current.getPowerList().get(index)
-								.burnResources(current.getPowerList().get(index).getCost())) {
-
+								.burnResources(current.getPowerList().get(index).getCost())) {//burn Resources is checking whether the resources sent in can be burned or not and 
+//actually burns them
 							totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
 							System.out.println(
 									"Powerplant can power  " + current.getPowerList().get(index).getNumCitiesPowered()
-											+ " cities powered in total.");
+											+ " cities powered in total.");//the power plant can power this many number of cities according to the power plant 
 							PowerPlant plant = current.getPowerList().get(index);
-							reSupplyAfterBurn(plant.getCost().get(0), plant);
+							reSupplyAfterBurn(plant.getCost().get(0), plant);//method to send resources back to supply
 						}
 
 						else if (current.getPowerList().get(index).isHybrid()) {
@@ -280,17 +286,20 @@ public class TextRunner {
 									firstElement.length());
 							System.out.println("1) First Choice: " + firstResource);
 							System.out.println("2) Second Choice: " + secondResource);
-							int choice = input.nextInt();
+							int choice = input.nextInt();//player gets to chose which resource he wants to burn since it's a hybrid
 							String wordToBurn = "";
 							if (choice == 1)
 								wordToBurn = firstResource;
 							else if (choice == 2)
 								wordToBurn = secondResource;
-							ArrayList<String> resourcesToBurn = new ArrayList<String>();
+							ArrayList<String> resourcesToBurn = new ArrayList<String>();//list of resources to burn
 							PowerPlant plant = current.getPowerList().get(index);
+
 							for (String x : plant.getStorage()) {
 								if (x.equalsIgnoreCase(wordToBurn))
-									resourcesToBurn.add(wordToBurn);
+									resourcesToBurn.add(wordToBurn);//adding the resources that the player chose to burn
+								if(resourcesToBurn.size()==current.getPowerList().get(index).getCost().size())//if the resources to burn is equal to the number required to power then break
+									break;
 							}
 							if (plant.burnResources(resourcesToBurn)) {
 								totalCitiesPowered += current.getPowerList().get(index).getNumCitiesPowered();
@@ -310,7 +319,7 @@ public class TextRunner {
 
 					}
 					System.out.println("All of the power plant burned succesfully powered "
-							+ Math.min(totalCitiesPowered, numCitiesOwned) + " cities");
+							+ Math.min(totalCitiesPowered, numCitiesOwned) + " cities");//a player can only power the number of cities he owns
 					numCitiesPowered.put(current, Math.min(totalCitiesPowered, numCitiesOwned));
 				}
 				gs.givingMoney(numCitiesPowered);
@@ -324,9 +333,7 @@ public class TextRunner {
 				System.out.println(gs.getNuclearMarket());
 				System.out.print("Trash Market");
 				System.out.println(gs.getTrashMarket());
-				gs.givingMoney(numCitiesPowered);
-				gs.setRestock();
-				gs.marketFix();
+			
 			}
 
 			if (turn1) {
@@ -335,6 +342,7 @@ public class TextRunner {
 		}
 		System.out.println("End of the Game!");
 		ArrayList<Player> list = gs.getPlayerOrder();
+		//need to run phase 5 again for ending game
 		HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 		for (int i = 0; i < gs.getPlayerOrder().size(); i++) {
 			Player current = gs.getPlayerOrder().get(i);
@@ -399,6 +407,7 @@ public class TextRunner {
 					+ Math.min(totalCitiesPowered, numCitiesOwned) + " cities");
 			numCitiesPowered.put(current, Math.min(totalCitiesPowered, numCitiesOwned));
 		}
+		//deciding winner logic
 		for (int i = 0; i < list.size() - 1; i++) {
 			int min_idx = i;
 			for (int j = i + 1; j < list.size(); j++)
@@ -439,34 +448,37 @@ public class TextRunner {
 				+ " dollars. Enter 0 for coal, 1 for oil, 2 trash, 3 for nuclear, -1 to pass");
 
 		System.out.println("The Powerplants you have: " + gs.getPlayerOrder().get(playerNum).getPowerList());
-		int numResource = input.nextInt();
+		int numResource = input.nextInt();//the input is the index he selected for buying the resource
 		if (numResource != -1) {
 			System.out.println("How much of " + resources[numResource] + " do you want");
 			int numReq = input.nextInt();
-			resourceMovement(playerNum, numResource, numReq);
+			resourceMovement(playerNum, numResource, numReq);//this method is actually considering whether he/she can
+			//actually buy the resource, removing resources selected from the markets and adding it to the powerplants
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public static void resourceMovement(int playerNum, int numResource, int numReq) {
-		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();
+		int originalMoney = gs.getPlayerOrder().get(playerNum).getMoney();//storage of original money(handy if he/she can't afford to put resources)
 		String[] resources = { "coal", "oil", "trash", "nuclear" };
 		System.out.println("Please chose the card you want to place these resources on(0 to 3)");
 		System.out.println(gs.getPlayerOrder().get(playerNum).getPowerList());
-		int indexOfCard = input.nextInt();
+		int indexOfCard = input.nextInt();//the index of card he wants to put resources on
 		PowerPlant plant = gs.getPlayerOrder().get(playerNum).getPowerList().get(indexOfCard);
 		ArrayList<String> cost = plant.getCost();
-		boolean tryAgain = false;
+		boolean tryAgain = false;//if the resources can't fit on the powerplants, they can try again
 		if (!plant.isHybrid()) {
-			if (!cost.contains(resources[numResource])) {
+			if (!cost.contains(resources[numResource])) {//if the cost doesn't match with the resources they're trying to place
 				System.out.println("You can't place " + resources[numResource] + " on this card");
 				tryAgain = true;
 
-			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {
+			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {//they are overfilling the powerplant
 				System.out.println("Sorry you don't have space to put " + resources[numResource] + " on this card");
 				tryAgain = true;
 			}
 		} else {
+			//this whole block of code is figuring out how much of each type of resource are there in the 
+			//powerplant storage
 			String firstElement = cost.get(0);
 			String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
 			String secondResource = firstElement.substring(firstElement.indexOf("||") + 2, firstElement.length());
@@ -490,7 +502,7 @@ public class TextRunner {
 				tryAgain = true;
 			}
 		}
-		if (tryAgain) {
+		if (tryAgain) {//try again logic
 			System.out.println("Do you want to try again or not");
 			input = new Scanner(System.in);
 			String yesOrNo = input.nextLine();
@@ -502,27 +514,28 @@ public class TextRunner {
 		}
 		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
 		String resource = resources[numResource];
-		market = gs.getMarket(resource);
+		market = gs.getMarket(resource);//getting the correct market based on the resource the player selected
 		TreeMap<Integer, ArrayList<String>> originalMarket;
-		originalMarket = copyMarket(market);
+		originalMarket = copyMarket(market);//saving original market in case transaction of resources is not possible because the player can't afford it
 		int numCollectedResources = 0;
-		Iterator<Integer> iter = market.keySet().iterator();
+		Iterator<Integer> iter = market.keySet().iterator();//iterating through the keys of the market
 		while (iter.hasNext()) {
 			int key = iter.next();
 			int size = market.get(key).size();
 			if (size > 0) {
 				for (int w = 0; w < size; w++) {
-					ArrayList<String> tempList = market.get(key);
-					tempList.remove(0);
+					ArrayList<String> tempList = market.get(key);//each key  has an array list of resources like:(cost 1 = coal, coal, coal)
+					tempList.remove(0);//remove from arraylist
 					numCollectedResources++;
 					gs.getPlayerOrder().get(playerNum).subtractMoney(key);
-					if (numCollectedResources == numReq)
+					if (numCollectedResources == numReq)//if the number of collected resources equals the number required stop removing from market
 						break;
 				}
 			}
-			if (numCollectedResources == numReq)
+			if (numCollectedResources == numReq)//coming out from from the while loop as well
 				break;
 		}
+		//pretty self-explanatory 
 		if (numCollectedResources < numReq || gs.getPlayerOrder().get(playerNum).getMoney() < 0) {
 			if (numCollectedResources < numReq && gs.getPlayerOrder().get(playerNum).getMoney() < 0)
 				System.out.println(
@@ -541,9 +554,9 @@ public class TextRunner {
 		for (int i = 1; i <= numReq; i++) {
 			attainedResources.add(resource);
 		}
-		gs.getPlayerOrder().get(playerNum).getPowerList().get(indexOfCard).addResources(attainedResources);
+		gs.getPlayerOrder().get(playerNum).getPowerList().get(indexOfCard).addResources(attainedResources);//adding all the resources the player gained
 	}
-
+	//saving original market
 	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
 		TreeMap<Integer, ArrayList<String>> newMarket = new TreeMap<Integer, ArrayList<String>>();
 		Iterator<Integer> itr = market.keySet().iterator();
