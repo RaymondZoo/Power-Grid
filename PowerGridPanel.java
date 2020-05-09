@@ -317,14 +317,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		int sizeNuclear=gs.countResource(gs.getNuclearMarket());
 		int num=sizeNuclear;
 		if (num>0) {
-			g.drawImage(nuclear, 950, 905, 45, 45, null);
-			num--;
-		}
-		if (num>0) {
-			g.drawImage(nuclear, 998, 905, 45, 45, null);
-			num--;
-		}
-		if (num>0) {
 			g.drawImage(nuclear, 950, 967, 45, 45, null);
 			num--;
 		}
@@ -332,11 +324,46 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(nuclear, 998, 967, 45, 45, null);
 			num--;
 		}
+		if (num>0) {
+			g.drawImage(nuclear, 950, 905, 45, 45, null);
+			num--;
+		}
+		if (num>0) {
+			g.drawImage(nuclear, 998, 905, 45, 45, null);
+			num--;
+		}
 		int inv=8-num+1;
 		for (int i=inv;i<=8;i++) {
 			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
 		}
 		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(454, 762, 100, 50);
+		g.setColor(Color.BLACK);
+		g.fillRect(454, 762, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Coal", 469, 799);
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(593, 763, 100, 50);
+		g.setColor(Color.BLACK);
+		g.fillRect(593, 763, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Oil", 608, 800);
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(454, 831, 100, 50);
+		g.setColor(Color.BLACK);
+		g.fillRect(454, 831, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Trash", 469, 868);
+		
+		g.setColor(TRANSPARENTBLACK);
+		g.fillRect(593, 831, 100, 50);
+		g.setColor(Color.BLACK);
+		g.fillRect(593, 831, 100, 50);
+		g.setColor(Color.WHITE);
+		g.drawString("Nuke", 608, 868);
 		
 		// Your powerplants
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
