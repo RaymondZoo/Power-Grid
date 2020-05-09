@@ -692,16 +692,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				FOURTH = true;
 			}
 
+			ArrayList<Player> tempPlayers = gs.getPlayerOrder();
+			int minPrice = 0;
 			for (int j = 0; j < gs.getCurrentMarket().size(); j++) {
 				// MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT,
-				ArrayList<Player> tempPlayers = gs.getPlayerOrder();
-				int minPrice = 0;
 				if (e.getX() >= MARKETX + (j * (PPWIDTH + 20)) && e.getX() <= MARKETX + (j * (PPWIDTH + 20)) + PPWIDTH
 						&& e.getY() >= MARKETY && e.getY() <= MARKETY + PPHEIGHT) {
 					auctionIndex = j;
 				}
+			}
 				boolean bidded = false;
-				if (e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880, 810
+				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100))// 880, 810
 																												// if
 																												// pass
 																												// width,height
@@ -726,13 +727,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (auctionIndex == -1) {
 					gs.getDecision().put(tempPlayers.get(0), true);
 					tempPlayers.remove(tempPlayers.get(0));
-				} else 
+				} else if (bidded) {
+					
+				}
 				if (gs.getMarketStep3()) {
 					gs.restructureMarket();
 				}
 				gs.determinePlayerOrder();
 
-			}
 
 			/*
 			 * if (round1) { gs.randomizePlayerOrder(); } else { gs.determinePlayerOrder();
