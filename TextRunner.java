@@ -20,18 +20,19 @@ public class TextRunner {
 		boolean turn1 = true;
 		gs = GameState.getGamestate();
 		ArrayList<String> playableColors = new ArrayList<String>();
-		// System.out.println("Enter Playable Colors (4), separate lines");
+		System.out.println("Enter Playable Colors (4), separate lines");
 
-		// for (int i = 0; i < 4; i++) {
-		// playableColors.add(input.nextLine());
-		// }
+		//needs 4 string inputs (for each color)
+		 for (int i = 0; i < 4; i++) {
+			playableColors.add(input.nextLine());
+		 }
 
-		// temp
-		System.out.println("Temp: Playable Colors are green, blue, purple, red");
+		/*System.out.println("Temp: Playable Colors are green, blue, purple, red");
 		playableColors.add("green");
 		playableColors.add("red");
 		playableColors.add("purple");
-		playableColors.add("blue");
+		playableColors.add("blue");*/
+		
 		ArrayList<City> cityList = gs.getListOfCites();
 		ArrayList<City> adjustedCityList = new ArrayList<City>();
 		for (City c : cityList) {
@@ -39,6 +40,7 @@ public class TextRunner {
 				adjustedCityList.add(c);
 			}
 		}
+		
 		gs.setListOfCites(adjustedCityList);
 
 		while (!gs.isEndOfGame()) {
@@ -52,6 +54,8 @@ public class TextRunner {
 			// phase 2
 			// auction
 			gs.rearrangeMarket();
+			
+			//market display
 			System.out.println("Current Market: ");
 			for (int x = 1; x <= gs.getCurrentMarket().size(); x++) {
 				System.out.println(x + ". " + gs.getCurrentMarket().get(x - 1));
@@ -63,8 +67,6 @@ public class TextRunner {
 
 			ArrayList<Player> tempPlayers = new ArrayList<Player>();
 			tempPlayers.addAll(gs.getPlayerOrder());
-
-			// System.out.println(tempPlayers);
 
 			int minPrice = 0;
 			while (!tempPlayers.isEmpty()) {
@@ -91,7 +93,6 @@ public class TextRunner {
 					Boolean firstBid = true;
 					auctionPlayers.addAll(tempPlayers);
 					while (!(auctionPlayers.size() == 1)) {
-						// System.out.println(auctionPlayers);
 						if (firstBid) {
 							System.out.println(auctionPlayers.get(i).getColor() + " starts bidding at " + minPrice);
 							firstBid = false;
