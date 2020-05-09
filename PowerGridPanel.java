@@ -70,6 +70,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		REGIONS = false;
 		FOURTH = false;
 		view = "";
+		END = false;
 
 	}
 
@@ -80,12 +81,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawMainMenu(g);
 		} else if (REGIONS) {
 			drawRegion(g);
-		} else if (AUCTION) {
+		} else if (!view.isEmpty()) {
+			drawView(g);
+		}else if (AUCTION) {
 			drawAUCTION(g);
 		} else if (FOURTH) {
 			drawFOURTH(g);
 		} else if (MAPUI) {
 			drawMAPUI(g);
+		}
+		else if(END) {
+			
 		}
 
 	}
@@ -529,6 +535,50 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		g.setColor(GREEN);
 		g.fillRect(0, 0, width, height);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("____'s situation", 843, 48);//player color here~
+		g.setColor(Color.WHITE);
+		g.drawString("____'s situation", 840, 45);
+		
+		int viewX =663, viewY = 315;
+		
+		for (int i = 0; i < 3; i++) // Powerplants
+		{
+			g.setColor(TRANSPARENTBLACK);// shadow
+			g.fillRect(viewX + (i * (PPWIDTH + 20)) + 10, viewY + 10, PPWIDTH, PPHEIGHT);
+
+			// ACTUAL PP
+			// g.setColor(Color.DARK_GRAY);
+			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
+																									// actual card~
+				g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
+
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+
+		}
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(Color.WHITE);
+		g.drawString("MONEY:", 880, 590); // add currentPlayer money here ~
+		g.drawString("Number of Cities:", 800, 650); // add numCities here ~
+		
+		g.setColor(Color.RED);
+		g.fillRect(1720, 0, 200, 80);
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+		g.setColor(Color.WHITE);
+		g.drawString("CLOSE", 1790, 50);
+		
+	}
+	
+	public void drawEND(Graphics g)
+	{
+		
 	}
 
 	public void drawCheck(int x, int y, Graphics g) {
@@ -540,6 +590,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find main menu image!");
 		}
 	}
+	
 
 	public void mousePressed(MouseEvent e) {
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
@@ -594,10 +645,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				view = "something";
 			}
 		}
-		else if (view!=null)
+		else if (!view.isEmpty())
 		{
-			view = null;
-			MAPUI = true;
+			if(e.getX()>=1720 &&e.getY()<=80)
+			{
+				view = "";
+				MAPUI = true;
+			}
 		}
 		
 
