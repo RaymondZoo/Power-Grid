@@ -26,10 +26,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int width;
 	private int height;
 	private String keyInput;
+	private PowerPlant toResource;
 
 	private GameState gs;
 
 	// Constants (tentative)~
+	toResource=null;
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original
 															// proportions
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
@@ -347,9 +349,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(603, 773, 100, 50);
 		g.setColor(Color.BLACK);
-		g.fillRect(593, 763, 100, 50);
+		g.fillRect(593, 762, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Oil", 608, 800);
+		g.drawString("Oil", 608, 899);
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(464, 841, 100, 50);
@@ -1020,14 +1022,30 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
+			boolean hasSelected=false;
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
-				
+				toResource=players.get(currPlayer).getPowerList().get(0);
+				hasSelected=true;
 			}
-			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT) {
-				
+			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+20) {
+				toResource=players.get(currPlayer).getPowerList().get(1);
+				hasSelected=true;
 			}
-			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT) {
-	
+			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT+20+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT+20+20) {
+				toResource=players.get(currPlayer).getPowerList().get(2);
+				hasSelected=true;
+			}
+			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
+				//coal
+			}
+			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
+				//oil
+			}
+			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
+				//trash
+			}
+			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
+				//nuclear
 			}
 			//resource is removed from market
 			//cost is added to a total cost for the player
