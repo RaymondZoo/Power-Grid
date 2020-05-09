@@ -135,6 +135,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(347, 148, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Purple", 360, 180); 
+		if(selectedRegions.contains("purple"))
+		{
+			drawCheck(347, 148, g);
+		}
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(685, 140, 100 , 50);
@@ -142,6 +146,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(675, 130, 100, 50);
 		g.setColor(Color.BLACK);
 		g.drawString("Yellow", 690, 160); 
+		if(selectedRegions.contains("yellow"))
+		{
+			drawCheck(675, 130, g);
+		}
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(480, 690, 100 , 50);
@@ -149,6 +157,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(470, 680, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Blue", 485, 710); 
+		if(selectedRegions.contains("blue"))
+		{
+			drawCheck(470, 680, g);
+		}
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(1305, 315, 100 , 50);
@@ -156,6 +168,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(1295, 305, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Orange", 1310, 335); 
+		if(selectedRegions.contains("orange"))
+		{
+			drawCheck(1295, 305, g);
+		}
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(680, 810, 100 , 50);
@@ -163,6 +179,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(670, 800, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Red", 685, 830); 
+		if(selectedRegions.contains("red"))
+		{
+			drawCheck(670, 800, g);
+		}
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(1180, 840, 100 , 50);
@@ -170,11 +190,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.fillRect(1170, 830, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Green", 1185, 860); 
+		if(selectedRegions.contains("green"))
+		{
+			drawCheck(1170, 830, g);
+		}
 		
-		g.drawString("Color: ", 1525, 190);
-		g.drawString("Color: ", 1525, 210);
-		g.drawString("Color: ", 1525, 230);
-		g.drawString("Color: ", 1525, 250);
+		int textX = 1525, textY =190;
+		for(int i = 0; i<4; i++)
+			g.drawString("(player_color)~", textX, textY+(i*30));
+		
 		
 
 		
@@ -471,8 +495,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 		else if(REGIONS)
 		{
-			
-			
+			String[] colors = {"purple", "orange", "blue", "green", "red", "yellow"};
+			ArrayList thing = new ArrayList(Arrays.asList(colors));
+			String region = findRegion(e);
+			System.out.println("region:"+region);
+			if(thing.contains(region))
+				selectedRegions.add(region);
 			
 			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
 			{
@@ -539,6 +567,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 	}
+	public void drawCheck(int x, int y, Graphics g)
+	{
+		try {
+			BufferedImage mainMenuBackground = ImageIO.read(PowerGridPanel.class.getResource("UI/selected.png"));
+			g.drawImage(mainMenuBackground, x, y, 50, 50, null);
+
+		} catch (IOException e) {
+			System.out.println("Cannot find main menu image!");
+		}
+	}
 	public boolean adjacent(String str)
 	{
 		String[] purple = {"yellow", "red", "blue"};
@@ -584,6 +622,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 		}
 		return false;
+	}
+	public String findRegion(MouseEvent e) 
+	{
+		//System.out.println(e.getX()+""+e.getY());
+		if (e.getX() >= 347 && e.getX() <= 447 && e.getY() >= 98 && e.getY() <= 148){return "purple";}
+		if (e.getX() >= 675 && e.getX() <= 775 && e.getY() >= 80 && e.getY() <= 130){return "yellow";}
+		if (e.getX() >= 470 && e.getX() <= 570 && e.getY() >= 630 && e.getY() <= 680){return "blue";}
+		if (e.getX() >= 1295 && e.getX() <= 1395 && e.getY() >= 255 && e.getY() <= 305){return "orange";}
+		if (e.getX() >= 670 && e.getX() <= 770 && e.getY() >= 750 && e.getY() <= 800){return "red";}
+		if (e.getX() >= 1170 && e.getX() <= 1270 && e.getY() >= 780 && e.getY() <= 830){return "green";}
+		return "no region found";
+		
 	}
 	public String findCity(MouseEvent e) {
 		if (e.getX() >= 85 && e.getX() <= 135 && e.getY() >= 98 && e.getY() <= 148) {
