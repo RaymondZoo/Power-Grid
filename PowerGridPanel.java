@@ -678,6 +678,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					gs.determinePlayerOrder();
 				}
 				
+				gs.rearrangeMarket();
 				
 				AUCTION = true;
 				REGIONS = false;
