@@ -315,7 +315,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
 		int sizeNuclear=gs.countResource(gs.getNuclearMarket());
-		int num=12;
+		int num=sizeNuclear;
 		if (num>0) {
 			g.drawImage(nuclear, 950, 905, 45, 45, null);
 			num--;
