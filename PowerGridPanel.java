@@ -409,13 +409,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		else if(AUCTION)
 		{
 
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS~
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
 			AUCTION = false;
 			FOURTH = true;
 		}
 		else if(FOURTH)
 		{
-			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIS~
+			if (e.getX() >= 1715 && e.getY() >= 990)  //temporary button for Switching UIs~
 				FOURTH = false;
 				MAPUI = true;
 		}
