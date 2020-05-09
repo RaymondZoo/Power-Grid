@@ -91,7 +91,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawMAPUI(g);
 		}
 		else if(END) {
-			
+			drawEND(g);
 		}
 
 	}
@@ -578,7 +578,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	
 	public void drawEND(Graphics g)
 	{
-		
+		try {
+			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.jpg"));
+			g.drawImage(end, 0, 0, width, height, null);
+
+		} catch (IOException e) {
+			System.out.println("Cannot find main menu image!");
+		}
 	}
 
 	public void drawCheck(int x, int y, Graphics g) {
@@ -652,6 +658,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				view = "";
 				MAPUI = true;
 			}
+		}
+		else if(MAPUI)
+		{
+			MAPUI = false;
+			END = true;
 		}
 		
 
