@@ -80,7 +80,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		gs = new GameState();
 		players = gs.getPlayerOrder();
-		gs.randomizePlayerOrder();
+		System.out.println(players);
 		currPlayer = 0;
 		round1 = true;
 
@@ -399,7 +399,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("AUCTION", 863, 48);
 		g.setColor(Color.WHITE);
 		g.drawString("AUCTION", 860, 45);
-
+		
+		System.out.println(players);
+		
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
 		g.setColor(TRANSPARENTBLACK);
 		g.drawString("MONEY: "+players.get(currPlayer).getMoney(), 13, 558);
@@ -706,7 +708,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					auctionIndex = j;
 				}
 				boolean bidded =false;
-				if(!round1&&e.getX()>=500&&e.getX()<=(500+360)&&e.getY()>=810&&e.getY()<=(810+100))// 880, 810 if pass width,height - 360, 100
+				if(e.getX()>=500&&e.getX()<=(500+360)&&e.getY()>=810&&e.getY()<=(810+100))// 880, 810 if pass width,height - 360, 100
 				{
 					bidded  = true;
 				}
