@@ -844,7 +844,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						
 						winner.addPowerPlant(gs.getAuctionCard());
+						gs.getDecision().put(winner, true);
 						gs.setAuctionCard(null);
+						gs.resetBid();
 						/*
 						int nextIndex = -1;
 						
@@ -856,6 +858,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 						} 
 						currPlayer = nextIndex;*/
+						int nextIndex = -1;
+						
+						for(int i = 0 ; i<players.size(); i++)
+						{
+							if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
+							{
+								System.out.println("i and currPlayer" + i +" " + currPlayer);
+								System.out.println(players.get(i).getColor() +" " + players.get(currPlayer).getColor());
+								nextIndex = i;
+								break;
+							}
+						}
 					}
 					else
 					{
