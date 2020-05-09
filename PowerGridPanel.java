@@ -402,9 +402,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
 		g.setColor(TRANSPARENTBLACK);
-		g.drawString("MONEY:", 13, 558);
+		g.drawString("MONEY: "+players.get(currPlayer).getMoney(), 13, 558);
 		g.setColor(Color.WHITE);
-		g.drawString("MONEY:", 10, 555); // Enter money amount here~
+		g.drawString("MONEY: "+players.get(currPlayer).getMoney(), 10, 555);
 
 		g.setColor(TRANSPARENTBLACK);
 		g.drawString("YOUR POWERPLANTS:", 13, 583);
@@ -683,6 +683,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				
 				AUCTION = true;
 				REGIONS = false;
+				
+				currPlayer = 0;
 			}
 			
 	
