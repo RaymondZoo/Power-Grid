@@ -849,6 +849,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						gs.setAuctionCard(null);
 						gs.resetBid();
 						minBid = 0;
+						auctionIndex = -1;
 						/*
 						int nextIndex = -1;
 						
