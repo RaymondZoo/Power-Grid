@@ -338,28 +338,28 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 		
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(454, 762, 100, 50);
+		g.fillRect(464, 772, 100, 50);
 		g.setColor(Color.BLACK);
 		g.fillRect(454, 762, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Coal", 469, 799);
 		
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(593, 763, 100, 50);
+		g.fillRect(603, 773, 100, 50);
 		g.setColor(Color.BLACK);
 		g.fillRect(593, 763, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Oil", 608, 800);
 		
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(454, 831, 100, 50);
+		g.fillRect(464, 841, 100, 50);
 		g.setColor(Color.BLACK);
 		g.fillRect(454, 831, 100, 50);
 		g.setColor(Color.WHITE);
 		g.drawString("Trash", 469, 868);
 		
 		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(593, 831, 100, 50);
+		g.fillRect(603, 841, 100, 50);
 		g.setColor(Color.BLACK);
 		g.fillRect(593, 831, 100, 50);
 		g.setColor(Color.WHITE);
@@ -390,16 +390,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("END TURN", 608, 48);
 		g.setColor(Color.WHITE);
 		g.drawString("END TURN", 605, 45);
-
-		// Buy
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(25, 675, 100, 80);
-		g.setColor(GREEN);
-		g.fillRect(15, 665, 100, 80);
-		g.setColor(TRANSPARENTBLACK);
-		g.drawString("BUY", 51, 718);
-		g.setColor(Color.WHITE);
-		g.drawString("BUY", 48, 715);
 
 		// Other Players
 		g.setColor(TRANSPARENTBLACK);
@@ -1030,7 +1020,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
-			
+			//resource is removed from market
+			//cost is added to a total cost for the player
+			//added to powerplant
 		}
 
 		repaint();
