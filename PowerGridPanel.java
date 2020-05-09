@@ -178,7 +178,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//ACTUAL PP
 			try 
 			{
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); //change this to actual card~
 				g.drawImage(card,MAPX, MAPY+(i*(PPHEIGHT+20)), PPWIDTH, PPHEIGHT, null);
 				
 			} catch (IOException e) {
@@ -316,7 +316,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//g.setColor(Color.DARK_GRAY);
 			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); //change this to actual card~
 				g.drawImage(card,AUCTIONX, AUCTIONY+(i*(side+15)), side, side, null);
 				
 			} catch (IOException e) {
@@ -339,7 +339,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//g.setColor(Color.DARK_GRAY);
 			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); //change this to actual card~
 				g.drawImage(card,MARKETX+(i*(PPWIDTH+20)), MARKETY, PPHEIGHT, PPWIDTH, null);
 				
 			} catch (IOException e) {
@@ -362,7 +362,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//g.setColor(Color.DARK_GRAY);
 			//g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35-1 oil-5.jpg")); //change this to actual card~
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); //change this to actual card~
 				g.drawImage(card,MARKETX+(i*(PPWIDTH+20)), MARKETY+space, PPHEIGHT, PPWIDTH, null);
 				
 			} catch (IOException e) {
