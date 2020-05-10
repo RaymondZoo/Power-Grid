@@ -1399,9 +1399,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 							}
 						}
-
+						else {
 						currPlayer = nextIndex;
 						keyInput = "";
+						}
 
 					}
 				} else if (e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) // pass
@@ -1448,9 +1449,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								break;
 							}
 						}
-
-						currPlayer = nextIndex;
-
 					} else {
 						int nextIndex = -1;
 
