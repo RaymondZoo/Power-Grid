@@ -103,7 +103,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	}
 
-	public void paint(Graphics g) {
+	public void paint(Graphics g) throws IOException {
 		// Anti-aliases text so that it is smooth
 		//try {
 			//gs.setPhase(5);
@@ -111,42 +111,33 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		//DRAWVIEW SHOULD COME FIRST
 		
-		if (view != null || mapView) {
+		/*if (view != null || mapView) {
 			drawView(g);
 		}
 		else if(AUCTION)
 			{
 			drawAUCTION(g);
 			}
-			//drawEND(g);
-			//drawFOURTH(g);
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+			drawEND(g);
+			drawFOURTH(g);
 		
 		
-		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
 		} else if (REGIONS) {
 			drawRegion(g);
-		} else if (!view.isEmpty()) {
-			drawView(g);
 		} else if (AUCTION) {
 			drawAUCTION(g);
 		} else if (FOURTH) {
 			drawFOURTH(g);
 		} else if (MAPUI) {
-			try {
-				drawMAPUI(g);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			drawMAPUI(g);
 		} else if (END) {
 			drawEND(g);
 		}*/
+		gs.setPhase(3);
+		drawMAPUI(g);
 
 	}
 
@@ -1550,19 +1541,22 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				if (index==0) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=0;
+					hasSelected=true;
 				}
-				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+20) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(1);
 				if (index==1) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=1;
+					hasSelected=true;
 				}
 				hasSelected=true;
 			}
@@ -1570,9 +1564,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
 				if (index==2) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=2;
+					hasSelected=true;
 				}
 				hasSelected=true;
 			}
