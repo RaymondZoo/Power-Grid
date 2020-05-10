@@ -461,7 +461,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Your powerplants
 		
 		//correct
-		/* TEST~
+		//TEST~
 		if (players.get(currPlayer).getPowerList().size()<3) {
 			ArrayList<String>cost1=new ArrayList<String>();
 			cost1.add("coal||oil");
@@ -479,7 +479,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
 		}//remove this ~
-		*/
+		
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -489,6 +489,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+				
+				if(gs.getPhase() == 3) //resource selection check marks
+				{
+					if(index == i)
+					{
+						drawCheck(MAPX+170,  MAPY + (i * (PPHEIGHT + 20))+10,g);
+					}
+				}
 				
 				if(gs.getPhase() == 5)
 				{
