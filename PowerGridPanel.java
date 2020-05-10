@@ -298,7 +298,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 * g.drawImage(mainMenuBackground, 0, 0, 1468, 1033, null); //1535, 1080
 		 */
 
-		// plus city and turn order ~
+		// CHECK ~
 		try {
 			BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
 			int sizeCoal=gs.countResource(gs.getCoalMarket());
@@ -1384,7 +1384,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-						players.get(currPlayer).subtractMoney(minBid);
+						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
