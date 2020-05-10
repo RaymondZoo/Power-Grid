@@ -1298,6 +1298,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			{
 				for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) 
 				{
+					HashMap<Player, Integer>numCitiesPowered=new HashMap<Player, Integer>();
 					int citiesPowered=0;
 						//g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 						if(players.get(currPlayer).getPowerList().get(i).isHybrid())
@@ -1414,6 +1415,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						else if(e.getX()>=527&&e.getX()<=(527+260)&&e.getY()>=20&&e.getY()<=(10+80)) //IF END TURN
 						{
+							numCitiesPowered.put(players.get(currPlayer), Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 							gs.getDecision().put(players.get(currPlayer), true);
 							int index=-1;
 							for (int i1=0;i1<players.size();i1--) {
@@ -1423,6 +1425,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 							if (index==-1) {
 								//go to determinePlayerOrder
+								gs.givingMoney(numCitiesPowered);
+								gs.setRestock();
+								gs.marketFix();
 								gs.nextPhase();
 								currPlayer=0;
 							}
