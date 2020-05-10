@@ -834,7 +834,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.out.println("Cannot find Map image!");
 			}
 
-		}
+		}/*
 		for (int i = 0; i < 3; i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(AUCTIONX + 10, AUCTIONY + (i * (side + 15)) + 10, side, side);
@@ -852,7 +852,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.out.println("Cannot find Map image!");
 			}
 
-		}
+		}*/
 		
 		
 		
@@ -1227,8 +1227,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				int size = 25;
 				int sep =20;
 				
-				if(pp != null)
-				{
+				//if(pp != null)
+				//{
 					for(int i = 0 ; i<pp.getStorage().size();i++)
 					{
 						if(pp.getStorage().get(i).equals("coal"))
@@ -1249,15 +1249,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						
 					}
-				}
-				else
+				//}
+				/*else
 				{
 					for(int i = 0 ; i< 6;i++) //remove later ~
 					{
 						g.drawImage(coal, resX+(i*sep), resY, size, size, null);
 						
 					}
-				}
+				}*/
 		}catch (IOException e) {
 			System.out.println("Cannot find Map image!");
 		}
