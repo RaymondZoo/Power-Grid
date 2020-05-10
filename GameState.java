@@ -811,8 +811,7 @@ public class GameState {
 	}
 
 	public TreeMap<Integer, ArrayList<String>> getMarket(String resourceType) {
-		if ("coal".equalsIgnoreCase(resourceType))
-			System.out.println(coalMarket==null);
+		if ("coal".equalsIgnoreCase(resourceType)) 
 			return coalMarket;
 		else if ("oil".equalsIgnoreCase(resourceType))
 			return oilMarket;
@@ -820,8 +819,10 @@ public class GameState {
 			return trashMarket;
 		else if ("nuclear".equalsIgnoreCase(resourceType))
 			return nuclearMarket;
-
-		return null;
+		else {
+			System.out.println("returned null");
+			return null;
+		}
 	}
 
 	public void rearrangeMarket() { // Sort
@@ -886,7 +887,8 @@ public class GameState {
 	public void moveResources(PowerPlant plant, String typeOfResource, Player player, int numReq) {
 		int originalMoney = player.getMoney();
 		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
-		market = gs.getMarket(typeOfResource);// getting the correct market based on the resource the player selected
+		market = getMarket(typeOfResource);
+		System.out.println(market==null);// getting the correct market based on the resource the player selected
 		TreeMap<Integer, ArrayList<String>> originalMarket;
 		originalMarket = copyMarket(market);// saving original market in case transaction of resources is not possible
 											// because the player can't afford it
