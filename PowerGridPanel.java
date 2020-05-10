@@ -1276,26 +1276,25 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				
 				if(e.getX()>=527&&e.getX()<=(527+260)&&e.getY()>=20&&e.getY()<=(10+80)) //IF END TURN
 				{
-					if (gs.isEndOfGame()) {
-						
-					}
-					else {
-					gs.getDecision().put(players.get(currPlayer), true);
-					int index=-1;
-					for (int i=players.size()-1;i>=0;i--) {
-						if (!gs.getDecision().get(players.get(i))) {
-							index=i;
+						gs.getDecision().put(players.get(currPlayer), true);
+						int index=-1;
+						for (int i=players.size()-1;i>=0;i--) {
+							if (!gs.getDecision().get(players.get(i))) {
+								index=i;
+							}
 						}
-					}
-					if (index==-1) {
-						//go to city building
-						gs.nextPhase();
-						currPlayer=0;
-					}
-					else {
-						currPlayer=index;
-					}			
-					}
+						if (index==-1) {
+							if (gs.isEndOfGame()) {
+								
+							}
+							else {
+								gs.nextPhase();
+								currPlayer=0;
+							}
+						}
+						else {
+							currPlayer=index;
+						}			
 				}
 				
 			}
