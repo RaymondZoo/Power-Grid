@@ -584,7 +584,6 @@ public class GameState {
 		}
 		step++;
 	}
-
 	public void addPowerPlant() {
 		PowerPlant toAdd = deck.remove(0);
 		if (step != 3) {
@@ -798,6 +797,9 @@ public class GameState {
 		for (Player t : numCities.keySet()) {
 			if (t.getColor().equals(p.getColor())) {
 				numCities.put(t, numCities.get(t) + 1);
+			}
+			if (step==1&&numCities.get(t)>6) {
+				nextStep(); //1-->2
 			}
 		}
 	}
