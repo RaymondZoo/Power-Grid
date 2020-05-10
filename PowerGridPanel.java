@@ -389,7 +389,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Your powerplants
 		
 		//correct
-		
+		if (players.get(currPlayer).getPowerList().size()<3) {
 		ArrayList<String>cost1=new ArrayList<String>();
 		cost1.add("coal||oil");
 		cost1.add("coal||oil");
@@ -403,6 +403,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		cost3.add("nuclear");
 		players.get(currPlayer).getPowerList().add(new PowerPlant(34,cost3,1));
 		System.out.println(players.get(currPlayer).getPowerList().size());
+		}
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
