@@ -1051,6 +1051,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
+			System.out.println(gs.getPhase());
 			if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
@@ -1109,6 +1110,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else if(gs.getPhase()==4) //city building
 			{
+				System.out.println("Stuff");
 				String name = findCity(e);
 				if(!name.contentEquals("Not in ranges"))
 				{
@@ -1118,10 +1120,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 					selectedCity = name;
 				}
+				else {
+					System.out.println("FAIL");
+				}
 				//g.fillRect(45, 685, 100, 50); //Buy Button
 				int cost = 0;
-				if(e.getX()>=0&&e.getX()<=1450&&e.getY()>=0&&e.getY()<=1500)
-				{
 					City c = gs.findCity(selectedCity);
 					System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName());
 					if(!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()))
@@ -1144,7 +1147,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						selectedCity = "";
 					}
-				}
 			}
 		}
 
