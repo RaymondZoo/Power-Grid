@@ -1116,12 +1116,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						selectedCity = "";
 					}
 					selectedCity = name;
-				}
-				else {
-					System.out.println("FAIL");
-				}
-				//g.fillRect(45, 685, 100, 50); //Buy Button
-				int cost = 0;
+					int cost = 0;
 					City c = gs.findCity(selectedCity);
 					if(!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()))
 					{
@@ -1145,7 +1140,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								list=new ArrayList<Coord>();	
 							}
 							else {}
-							/*int numPlayers=c.getPlayersAtCity().size();
+							int numPlayers=c.getPlayersAtCity().size();
 							Coord cityCoord=gs.getCityCoords().get(c.getName());
 							cityCoord.setX(cityCoord.getX()+14*numPlayers);
 							cityCoord.setY(cityCoord.getY()+14*numPlayers);
@@ -1154,27 +1149,21 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							repaint();
 							revalidate();
 							System.out.println(displayList);
-							c.addPlayer(players.get(currPlayer));*/
 							
+							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
-							gs.checkPowerPlantSize();
-							
-							ArrayList<Coord>list2=new ArrayList<Coord>();
-							Coord cityCoord2=new Coord(755, 758);
-							list2.add(cityCoord2);
-							displayList.put("red", list2);
-							
-							ArrayList<Coord>list3=new ArrayList<Coord>();
-							Coord cityCoord3=new Coord(769, 772);
-							list3.add(cityCoord3);
-							displayList.put("blue", list3);
-							
-							
+							gs.checkPowerPlantSize();							
 						}
 						selectedCity = "";
 					}
 			}
 		}
+				}
+				else {
+					System.out.println("FAIL");
+				}
+				//g.fillRect(45, 685, 100, 50); //Buy Button
+				
 
 		repaint();
 
