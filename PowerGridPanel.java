@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
 
+	private int fourthindex;
 	private int width;
 	private int index;
 	private int height;
@@ -65,6 +66,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		super();
 		index=-1;
+		fourthIndex=-1;
 		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
 		addKeyListener(this);
@@ -1218,7 +1220,29 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (FOURTH) {
 			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
 			{
-				System.out.println();
+				for (int i=0;i<4;i++) {
+					if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
+						fourthindex=i;
+				}
+				for (int j=0;j<players.get(currPlayer).getPowerList().size();j++) {
+					if (!(j==fourthindex)) {
+						PowerPlant temp=players.get(currPlayer).getPowerList().get(j);
+						if (temp.getCost().size()==0) {
+							//no buttons
+						}
+						if (temp.isHybrid()) {
+							//build 2 buttons
+						}
+						else {
+							//build 1 button
+						}
+					}
+				}
+				//detect which button clicked
+				//remove resource from players.get(currPlayer).getPowerList().get(j) and move them to the right Powerplant
+				
+				//end turn
+				//remove players.get(currPlayer).getPowerList().remove(j)
 
 				FOURTH = false;
 				view = "something";
