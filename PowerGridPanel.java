@@ -283,12 +283,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMAPUI(Graphics g) throws IOException {
 		
-		for (String s:displayList.keySet()) {
-			for (Coord c:displayList.get(s)) {
-				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
-				g.drawImage(house, c.getX(), c.getY(), 14, 14, null);
-			}
-		}
 		
 		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
@@ -434,6 +428,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
 
 			// ACTUAL Color
+		}
+		for (String s:displayList.keySet()) {
+			for (Coord c:displayList.get(s)) {
+				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
+				g.drawImage(house, c.getX(), c.getY(), 14, 14, null);
+				System.out.println(s+" at "+c.toString());
+			}
 		}
 	}
 
@@ -1144,17 +1145,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								list=new ArrayList<Coord>();	
 							}
 							else {}
-							int numPlayers=c.getPlayersAtCity().size();
+							/*int numPlayers=c.getPlayersAtCity().size();
 							Coord cityCoord=gs.getCityCoords().get(c.getName());
-							cityCoord.setX(cityCoord.getX()+14+20*numPlayers);
-							cityCoord.setY(cityCoord.getY()+14+20*numPlayers);
+							cityCoord.setX(cityCoord.getX()+14*numPlayers);
+							cityCoord.setY(cityCoord.getY()+14*numPlayers);
 							list.add(cityCoord);
 							displayList.put(players.get(currPlayer).getColor(), list);
 							repaint();
+							revalidate();
+							System.out.println(displayList);
+							c.addPlayer(players.get(currPlayer));*/
 							
-							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
 							gs.checkPowerPlantSize();
+							
+							ArrayList<Coord>list2=new ArrayList<Coord>();
+							Coord cityCoord2=new Coord(755, 758);
+							list2.add(cityCoord2);
+							displayList.put("red", list2);
+							
+							ArrayList<Coord>list3=new ArrayList<Coord>();
+							Coord cityCoord3=new Coord(769, 772);
+							list3.add(cityCoord3);
+							displayList.put("blue", list3);
+							
+							
 						}
 						selectedCity = "";
 					}
