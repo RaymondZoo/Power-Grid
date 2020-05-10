@@ -1322,7 +1322,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
+						winner.subtractMoney(minBid); //CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
@@ -1394,7 +1394,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
+						winner.subtractMoney(minBid); //CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
