@@ -351,7 +351,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.BLACK);
 		g.fillRect(593, 762, 100, 50);
 		g.setColor(Color.WHITE);
-		g.drawString("Oil", 608, 899);
+		g.drawString("Oil", 608, 799);
 		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(464, 841, 100, 50);
@@ -1043,16 +1043,29 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				hasSelected=true;
 			}
 			else if (canCoal&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
-				gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), numReq, indexOfPlant);
+				gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), 1);
 			}
 			else if (canOil&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
-				//oil
+				gs.moveResources(powerPlantforResource, "oil", players.get(currPlayer), 1);
 			}
 			else if (canTrash&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
-				//trash
+				gs.moveResources(powerPlantforResource, "trash", players.get(currPlayer), 1);
 			}
 			else if (canNuclear&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
-				//nuclear
+				gs.moveResources(powerPlantforResource, "nuclear", players.get(currPlayer), 1);
+			}
+			else if (e.getX()>=525&&e.getX()<=785&&e.getY()>=10&&e.getY()<=80);{
+				gs.getDecision().put(players.get(currPlayer), true);
+				int index=-1;
+				for (int i=players.size()-1;i>=0;i--) {
+					if (!gs.getDecision().get(players.get(i))) {
+						index=i;
+					}
+				}
+				if (index==-1) {
+					//go to city building
+					gs.nextPhase();
+				}
 			}
 			//resource is removed from market
 			//cost is added to a total cost for the player

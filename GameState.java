@@ -934,7 +934,7 @@ public class GameState {
 		return size;
 	}
 
-	public void moveResources(PowerPlant plant, String typeOfResource, Player player, int numReq, int indexOfPlant) {
+	public void moveResources(PowerPlant plant, String typeOfResource, Player player, int numReq) {
 		int originalMoney = player.getMoney();
 		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
 		market = gs.getMarket(typeOfResource);// getting the correct market based on the resource the player selected
@@ -967,7 +967,7 @@ public class GameState {
 		for (int i = 1; i <= numReq; i++) {
 			attainedResources.add(typeOfResource);
 		}
-		player.getPowerList().get(indexOfPlant).addResources(attainedResources);// adding all the resources the player
+		plant.addResources(attainedResources);// adding all the resources the player
 																				// gained
 	}
 	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
