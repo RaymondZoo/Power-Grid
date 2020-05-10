@@ -75,8 +75,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		selectedRegions = new ArrayList<String>();
 
 		// Initializing each UI
-		MainMenu = true;
-		MAPUI = false;
+		MainMenu = false;
+		MAPUI = true;
 		AUCTION = false;
 		REGIONS = false;
 		FOURTH = false;
@@ -1051,7 +1051,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
-			System.out.println(gs.getPhase());
 			if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
@@ -1110,7 +1109,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else if(gs.getPhase()==4) //city building
 			{
-				System.out.println("Stuff");
 				String name = findCity(e);
 				if(!name.contentEquals("Not in ranges"))
 				{
@@ -1126,7 +1124,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				//g.fillRect(45, 685, 100, 50); //Buy Button
 				int cost = 0;
 					City c = gs.findCity(selectedCity);
-					System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName());
 					if(!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()))
 					{
 						if(gs.getNumCities().get(players.get(currPlayer)) == 0)
@@ -1140,6 +1137,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						if (players.get(currPlayer).getMoney() > cost) 
 						{
+							System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName()+" for "+cost);
 							players.get(currPlayer).addMoney(cost * -1);//subtracting money
 							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
