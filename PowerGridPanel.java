@@ -1315,6 +1315,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 								
 							}
+						}//g.fillRect(MAPX+PPWIDTH, MAPY + (i * (PPHEIGHT + 20)), 200, PPHEIGHT);
+						else if(e.getX() >= MAPX+PPWIDTH&& e.getX()<= MAPX+PPWIDTH+200 && e.getY() >= MAPY + (i * (PPHEIGHT + 20))&& e.getY()<= MAPY + (i * (PPHEIGHT + 20))+PPHEIGHT)
+						{
+							//if non-hybrid
 						}
 			}
 			}
