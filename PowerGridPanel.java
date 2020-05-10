@@ -106,7 +106,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		//try {
 			//gs.setPhase(5);
 			//drawMAPUI(g);
-			drawEND(g);
+			//drawEND(g);
+			drawFOURTH(g);
 		//} catch (IOException e) {
 			// TODO Auto-generated catch block
 		//	e.printStackTrace();
@@ -790,6 +791,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
 																									// actual card~
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
+				if(!(i == fourthindex))
+				{
+					if(i == 0)//if(players.get(currPlayer).getPowerList().get(i).isHybrid())
+					{
+						g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE COAL", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 60);
+						
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20+75+10, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE OIL", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 10+75+10+ 50);
+						
+					}
+					else
+					{
+						g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 60);
+					}
+				}
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
@@ -798,14 +824,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 
 		g.setColor(TRANSPARENTBLACK);// shadow
-		g.fillRect(825, 610, 360, 100);
+		g.fillRect(825, 890, 360, 100);
 
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(815, 600, 360, 100);
+		g.fillRect(815, 880, 360, 100);
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(Color.WHITE);
-		g.drawString("END TURN", 905, 660);
+		g.drawString("END TURN", 905, 935);
 
 	}
 
