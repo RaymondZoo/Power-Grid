@@ -403,6 +403,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 		}*/
 		
+		// Other Players
+				g.setColor(TRANSPARENTBLACK);
+				g.fillRect(1300, 650, 150, 400);
+				g.setColor(GREEN);
+				g.fillRect(1290, 640, 150, 400);
+				g.setColor(TRANSPARENTBLACK);
+				g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
+				g.drawString("Other Players", 1303, 663);
+				g.setColor(Color.WHITE);
+				g.drawString("Other Players", 1300, 660);
+				
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 		//temp
 		for (int i = 0; i < 3; i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -430,15 +442,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("END TURN", 605, 45);
 
-		// Other Players
-		g.setColor(GREEN);
-		g.fillRect(1350, 640, 150, 400);
-		g.setColor(TRANSPARENTBLACK);
-		g.drawString("Other Players", 1363, 663);
-		g.setColor(Color.WHITE);
-		g.drawString("Other Players", 1360, 660);
 
-		int colorX = 1380, colorY = 690;
+		int colorX = 1310, colorY = 690;
 		for (int i = 0; i < 3; i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
