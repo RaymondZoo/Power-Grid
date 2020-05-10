@@ -103,7 +103,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	}
 
-	public void paint(Graphics g) throws IOException {
+	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
 		//try {
 			//gs.setPhase(5);
