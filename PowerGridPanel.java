@@ -84,8 +84,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		// Initializing each UI
 		MainMenu = false;
-		MAPUI = false;
-		AUCTION = true;
+		MAPUI = true;
+		AUCTION = false;
 		REGIONS = false;
 		FOURTH = false;
 		view =null;
@@ -137,7 +137,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawEND(g);
 		}*/
 		gs.setPhase(3);
-		drawMAPUI(g);
+		if(MAPUI)
+		{
+			drawMAPUI(g);
+		}
 
 	}
 
@@ -438,7 +441,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(Color.BLACK);
 			g.fillRect(454, 831, 100, 50);
 			g.setColor(Color.WHITE);
-			g.drawString("Trash", 469, 868);
+			g.drawString("Trash", 460, 868);
 			
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(603, 841, 100, 50);
