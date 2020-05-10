@@ -1127,6 +1127,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find main menu image!");
 		}
 	}
+	public void drawRes(int x, int y, Graphics g, PowerPlant pp)
+	{
+		
+	}
 
 	public void mousePressed(MouseEvent e) {
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
