@@ -875,12 +875,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				return p1.getMoney()-p1.getMoney();
 			}
 			else {
-				double d=Math.random();
-				if (d>0.5) {
-					return 1;
+				if (gs.getNumCities().get(p1)!=gs.getNumCities().get(p2)) {
+					return gs.getNumCities().get(p1)-gs.getNumCities().get(p2);
 				}
 				else {
-					return -1;
+					double d=Math.random();
+					if (d>0.5) {
+						return 1;
+					}
+					else {
+						return -1;
+					}
 				}
 			}
 		}
