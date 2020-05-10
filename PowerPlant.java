@@ -35,7 +35,10 @@ public class PowerPlant implements Comparable {
 	}
 
 	public boolean isHybrid() {
-		if (cost.get(0).contains("||")) {
+		if (cost.size()==0) {
+			return false;
+		}
+		else if (cost.get(0).contains("||")) {
 			return true;
 		}
 		return false;
