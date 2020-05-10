@@ -494,6 +494,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+				drawRes(MAPX, MAPY + (i * (PPHEIGHT + 20)), g, players.get(currPlayer).getPowerList().get(i));
 				
 				if(gs.getPhase() == 3) //resource selection check marks
 				{
@@ -1129,7 +1130,22 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 	public void drawRes(int x, int y, Graphics g, PowerPlant pp)
 	{
-		
+		try {
+			BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
+			BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
+			BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
+			BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
+			
+			int resX = x +110 , resY;
+			
+			for(int i = 0 ; i<pp.getStorage().size();i++)
+			{
+				
+			}
+			
+		} catch (IOException e) {
+			System.out.println("Cannot find Map image!");
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {
