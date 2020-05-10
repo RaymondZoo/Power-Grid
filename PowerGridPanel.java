@@ -432,7 +432,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		for (String s:displayList.keySet()) {
 			for (Coord c:displayList.get(s)) {
 				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
-				g.drawImage(house, c.getX(), c.getY(), 14, 14, null);
+				g.drawImage(house, c.getX(), c.getY(), 20, 20, null);
 				System.out.println(s+" at "+c.toString());
 			}
 		}
@@ -1142,8 +1142,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							else {}
 							int numPlayers=c.getPlayersAtCity().size();
 							Coord cityCoord=gs.getCityCoords().get(c.getName());
-							cityCoord.setX(cityCoord.getX()+14*numPlayers);
-							cityCoord.setY(cityCoord.getY()+14*numPlayers);
+							cityCoord.setX(-14+cityCoord.getX()+30*numPlayers);
+							cityCoord.setY(-14+cityCoord.getY()+30*numPlayers);
 							list.add(cityCoord);
 							displayList.put(players.get(currPlayer).getColor(), list);
 							repaint();
