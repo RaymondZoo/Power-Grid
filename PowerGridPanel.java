@@ -863,14 +863,30 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
             players.set(j + 1, key);
         }
 		try {
-			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.jpg"));
+			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.png"));
 			g.drawImage(end, 0, 0, width, height, null);
 
 		} catch (IOException e) {
 			System.out.println("Cannot find main menu image!");
 		}
 		
-		//players last to first, color, amount of money, endNumCitiesPowered.get(player) 
+		//players last to first, color, amount of money, endNumCitiesPowered.get(player), network
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(Color.BLACK);
+		for(int i = 0; i<players.size(); i++)
+		{
+			g.drawString(i+1+"", 115, 540+(i*100));
+		}
+		int ENDX = 460, ENDY = 840;
+		for(int i = 0; i<players.size(); i++)
+		{
+		
+			g.drawString("TEST"+players.get(i).getColor().toUpperCase(), ENDX, ENDY-(i*100));
+			g.drawString("TEST"+endNumCitiesPowered.get(players.get(i)), ENDX+350, ENDY-(i*100));
+			g.drawString("TEST"+players.get(i).getMoney(), ENDX+700, ENDY-(i*100));
+			g.drawString("TEST"+gs.getNumCities().get(players.get(i)), ENDX+1050, ENDY-(i*100));
+			
+		}
 		
 	}
 	public int playerComp(Player p1, Player p2, HashMap<Player, Integer>temp) {
