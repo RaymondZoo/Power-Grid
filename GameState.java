@@ -812,6 +812,7 @@ public class GameState {
 
 	public TreeMap<Integer, ArrayList<String>> getMarket(String resourceType) {
 		if ("coal".equalsIgnoreCase(resourceType))
+			System.out.println(coalMarket==null);
 			return coalMarket;
 		else if ("oil".equalsIgnoreCase(resourceType))
 			return oilMarket;

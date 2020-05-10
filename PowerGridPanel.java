@@ -1544,7 +1544,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}	
 			else if(gs.getPhase()==3) {
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
-			int index=-1;
 			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
 				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
@@ -1556,6 +1555,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				canNuclear=checkWhetherPossible(powerPlantforResource, "nuclear", 1);
 				System.out.println("Nuclear: "+canNuclear);
 				System.out.println("HasSelected: "+hasSelected);
+				System.out.println("Index: "+index);
 			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
@@ -1564,6 +1564,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					hasSelected=false;
 				}
 				else {
+					System.out.println("Stuff");
 					index=0;
 					hasSelected=true;
 				}
