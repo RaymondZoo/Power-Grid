@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
 
 	private int width;
+	private int index;
 	private int height;
 	private String keyInput;
 	private PowerPlant powerPlantforResource=null;
@@ -63,6 +64,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																	// instead
 	{
 		super();
+		index=-1;
 		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
 		addKeyListener(this);
@@ -424,6 +426,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				{
 				if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 				{
+					if(index == i)
+					{
+						drawCheck(MAPX + (i * (PPWIDTH + 20))+170, MAPY+10,g);
+					}
 					g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 					//System.out.println(players.get(currPlayer).getPowerList().get(i).getMinBid()+" is a hybrid");
 					for(int j = 0; j< (players.get(currPlayer).getPowerList().get(i).getCost().size())+1; j++)
@@ -464,6 +470,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						g.drawString("3 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+170);
 					}
 				}
+
 				else
 				{
 					g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
@@ -1209,6 +1216,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
+			int index=-1;
 			if (this.powerPlantforResource!=null) {
 				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
@@ -1217,14 +1225,32 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
+				if (index==0) {
+					index=-1;
+				}
+				else {
+					index=0;
+				}
 				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+20) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(1);
+				if (index==1) {
+					index=-1;
+				}
+				else {
+					index=1;
+				}
 				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT+20+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT+20+20) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
+				if (index==2) {
+					index=-1;
+				}
+				else {
+					index=2;
+				}
 				hasSelected=true;
 			}
 			else if (canCoal&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
@@ -1241,7 +1267,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else if (e.getX()>=525&&e.getX()<=785&&e.getY()>=10&&e.getY()<=80);{
 				gs.getDecision().put(players.get(currPlayer), true);
-				int index=-1;
+				index=-1;
 				for (int i=players.size()-1;i>=0;i--) {
 					if (!gs.getDecision().get(players.get(i))) {
 						index=i;
