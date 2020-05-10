@@ -470,6 +470,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Your powerplants
 		
 		//correct
+		/* TEST~
 		if (players.get(currPlayer).getPowerList().size()<3) {
 			ArrayList<String>cost1=new ArrayList<String>();
 			cost1.add("coal||oil");
@@ -487,6 +488,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
 		}//remove this ~
+		*/
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -1382,6 +1384,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
+						players.get(currPlayer).subtractMoney(minBid);
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
