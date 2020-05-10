@@ -96,6 +96,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
 		try {
+			gs.setPhase(4);
 			drawMAPUI(g);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -278,6 +279,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void drawMAPUI(Graphics g) throws IOException {
+		
+		for (City c:gs.getListOfCities()) {
+			ArrayList<Player>playersInCity=c.getPlayersAtCity();
+			int x=gs.getCityCoords().get(c.getName()).getX();
+			int y=gs.getCityCoords().get(c.getName()).getY();
+			for (int i=0;i<playersInCity.size();i++) {
+				Player p=playersInCity.get(i);
+				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+p.getColor()+".png"));
+				g.drawImage(house, x+20*i, y+20*i, 12, 12, null);
+			}
+		}
+		
 		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
@@ -339,33 +352,46 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
 		}
 		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(464, 772, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(454, 762, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Coal", 469, 799);
+		if(gs.getPhase() == 3 )
+		{
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(464, 772, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(454, 762, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Coal", 469, 799);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(603, 773, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(593, 762, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Oil", 608, 799);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(464, 841, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(454, 831, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Trash", 469, 868);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(603, 841, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(593, 831, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Nuke", 608, 868);
+		}
 		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(603, 773, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(593, 762, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Oil", 608, 899);
-		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(464, 841, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(454, 831, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Trash", 469, 868);
-		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(603, 841, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(593, 831, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Nuke", 608, 868);
+		if(gs.getPhase() ==4)
+		{
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(55, 695, 100, 50);
+			g.setColor(GREEN);
+			g.fillRect(45, 685, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("BUY", 60, 722);
+		}
 		
 		// Your powerplants
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
@@ -1022,7 +1048,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
+			if(gs.getPhase()==3) {
 			boolean hasSelected=false;
+			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
+			if (this.powerPlantforResource!=null) {
+				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
+				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+			}
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				hasSelected=true;
@@ -1035,21 +1069,39 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
 				hasSelected=true;
 			}
-			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
-				//coal
+			else if (canCoal&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
+				gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), 1);
 			}
-			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
-				//oil
+			else if (canOil&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
+				gs.moveResources(powerPlantforResource, "oil", players.get(currPlayer), 1);
 			}
-			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
-				//trash
+			else if (canTrash&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
+				gs.moveResources(powerPlantforResource, "trash", players.get(currPlayer), 1);
 			}
-			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
-				//nuclear
+			else if (canNuclear&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
+				gs.moveResources(powerPlantforResource, "nuclear", players.get(currPlayer), 1);
+			}
+			else if (e.getX()>=525&&e.getX()<=785&&e.getY()>=10&&e.getY()<=80);{
+				gs.getDecision().put(players.get(currPlayer), true);
+				int index=-1;
+				for (int i=players.size()-1;i>=0;i--) {
+					if (!gs.getDecision().get(players.get(i))) {
+						index=i;
+					}
+				}
+				if (index==-1) {
+					//go to city building
+					gs.nextPhase();
+				}
 			}
 			//resource is removed from market
 			//cost is added to a total cost for the player
 			//added to powerplant
+			}
+			else if(gs.getPhase()==4) //city building
+			{
+				
+			}
 		}
 
 		repaint();
@@ -1192,10 +1244,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			return "Dallas";
 		}
 		if (e.getX() >= 722 && e.getX() <= 772 && e.getY() >= 578 && e.getY() <= 628) {
-			return "Oklahoma City";
+			return "Oklahoma_City";
 		}
 		if (e.getX() >= 773 && e.getX() <= 823 && e.getY() >= 481 && e.getY() <= 531) {
-			return "Kansas City";
+			return "Kansas_City";
 		}
 		if (e.getX() >= 746 && e.getX() <= 796 && e.getY() >= 392 && e.getY() <= 442) {
 			return "Omaha";

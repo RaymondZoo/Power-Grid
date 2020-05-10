@@ -4,7 +4,7 @@ public class Player {
 	private ArrayList<PowerPlant> powerList;
 	private int money;
 	private String color;
-
+	
 
 	public Player() {
 		powerList = new ArrayList<PowerPlant>();
