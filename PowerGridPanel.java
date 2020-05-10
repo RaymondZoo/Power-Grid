@@ -387,8 +387,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 		*/
 		// Your powerplants
+		
 		//correct
-		/*for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
+		
+		ArrayList<String>cost1=new ArrayList<String>();
+		cost1.add("coal||oil");
+		cost1.add("coal||oil");
+		players.get(currPlayer).getPowerList().add(new PowerPlant(5,cost1,1));
+		
+		ArrayList<String>cost2=new ArrayList<String>();
+		cost2.add("coal||oil");
+		players.get(currPlayer).getPowerList().add(new PowerPlant(29,cost2,4));
+		
+		ArrayList<String>cost3=new ArrayList<String>();
+		cost3.add("nuclear");
+		players.get(currPlayer).getPowerList().add(new PowerPlant(34,cost3,1));
+		System.out.println(players.get(currPlayer).getPowerList().size());
+		
+		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MAPX + 10, MAPY + (i * (PPHEIGHT + 20)) + 10, PPWIDTH, PPHEIGHT);
 
@@ -401,7 +417,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
-		}*/
+		}
 		
 		// Other Players
 				g.setColor(TRANSPARENTBLACK);
@@ -416,7 +432,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 		//temp
-		for (int i = 0; i < 3; i++) {
+		/*for (int i = 0; i < 3; i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MAPX + 10, MAPY + (i * (PPHEIGHT + 20)) + 10, PPWIDTH, PPHEIGHT);
 
@@ -451,7 +467,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.out.println("Cannot find Map image!");
 			}
 			}
-		}
+		}*/
 		
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		// End Turn
