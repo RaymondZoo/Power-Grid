@@ -1111,10 +1111,30 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					selectedCity = name;
 				}
 				//g.fillRect(45, 685, 100, 50); //Buy Button
+				int cost = 0;
 				if(e.getX()>=45&&e.getX()<=45+100&&e.getY()>=685&&e.getY()<=735)
 				{
-					if()
-					selectedCity = "";
+					City c = gs.findCity(selectedCity);
+					if(!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()))
+					{
+						if(gs.getNumCities().get(players.get(currPlayer)) == 0)
+						{
+							cost = c.getCost();
+						}
+						else
+						{
+							cost = c.leastCost(players.get(currPlayer));//least cost algorithm
+							cost += c.getCost();
+						}
+						if (players.get(currPlayer).getMoney() > cost) 
+						{
+							players.get(currPlayer).addMoney(cost * -1);//subtracting money
+							c.addPlayer(players.get(currPlayer));
+							gs.addCityBuilt(players.get(currPlayer));
+							gs.checkPowerPlantSize();
+						}
+						selectedCity = "";
+					}
 				}
 			}
 		}
