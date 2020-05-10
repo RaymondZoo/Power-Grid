@@ -390,19 +390,21 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		//correct
 		if (players.get(currPlayer).getPowerList().size()<3) {
-		ArrayList<String>cost1=new ArrayList<String>();
-		cost1.add("coal||oil");
-		cost1.add("coal||oil");
-		players.get(currPlayer).getPowerList().add(new PowerPlant(5,cost1,1));
+			ArrayList<String>cost1=new ArrayList<String>();
+			cost1.add("coal||oil");
+			cost1.add("coal||oil");
+			players.get(currPlayer).getPowerList().add(new PowerPlant(5,cost1,1));
 		
-		ArrayList<String>cost2=new ArrayList<String>();
-		cost2.add("coal||oil");
-		players.get(currPlayer).getPowerList().add(new PowerPlant(29,cost2,4));
+			ArrayList<String>cost2=new ArrayList<String>();
+			cost2.add("coal||oil");
+			players.get(currPlayer).getPowerList().add(new PowerPlant(29,cost2,4));
 		
-		ArrayList<String>cost3=new ArrayList<String>();
-		cost3.add("nuclear");
-		players.get(currPlayer).getPowerList().add(new PowerPlant(34,cost3,1));
-		System.out.println(players.get(currPlayer).getPowerList().size());
+			ArrayList<String>cost3=new ArrayList<String>();
+			cost3.add("coal||oil");
+			cost3.add("coal||oil");
+			cost3.add("coal||oil");
+			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
+			System.out.println(players.get(currPlayer).getPowerList().size());
 		}
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
@@ -414,8 +416,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); // change this to actual card~
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 				
-
-				if( players.get(currPlayer).getPowerList().get(i).isHybrid())
+				if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 				{
 					g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 					//System.out.println(players.get(currPlayer).getPowerList().get(i).getMinBid()+" is a hybrid");
