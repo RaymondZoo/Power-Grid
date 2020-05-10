@@ -756,8 +756,57 @@ public class GameState {
 		return 0;
 	}
 	 
-	
-	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq)
+	public void moveResources(PowerPlant plant, String typeOfResource, Player player, int numReq, int indexOfPlant)
+	{
+		int originalMoney = player.getMoney();
+		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
+		market = gs.getMarket(typeOfResource);//getting the correct market based on the resource the player selected
+		TreeMap<Integer, ArrayList<String>> originalMarket;
+		originalMarket = copyMarket(market);//saving original market in case transaction of resources is not possible because the player can't afford it
+		int numCollectedResources = 0;
+		Iterator<Integer> iter = market.keySet().iterator();//iterating through the keys of the market
+		while (iter.hasNext()) {
+			int key = iter.next();
+			int size = market.get(key).size();
+			if (size > 0) {
+				for (int w = 0; w < size; w++) {
+					ArrayList<String> tempList = market.get(key);//each key  has an array list of resources like:(cost 1 = coal, coal, coal)
+					tempList.remove(0);//remove from arraylist
+					numCollectedResources++;
+					player.subtractMoney(key);
+					if (numCollectedResources == numReq)//if the number of collected resources equals the number required stop removing from market
+						break;
+				}
+			}
+			if (numCollectedResources == numReq)//coming out from from the while loop as well
+				break;
+		}
+		//pretty self-explanatory 
+		System.out.println("The amount of you have now is " + player.getMoney() + " dollars");
+		ArrayList<String> attainedResources = new ArrayList<String>();
+		for (int i = 1; i <= numReq; i++) {
+			attainedResources.add(typeOfResource);
+		}
+		player.getPowerList().get(indexOfPlant).addResources(attainedResources);//adding all the resources the player gained
+	}
+	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
+		TreeMap<Integer, ArrayList<String>> newMarket = new TreeMap<Integer, ArrayList<String>>();
+		Iterator<Integer> itr = market.keySet().iterator();
+		while (itr.hasNext()) {
+
+			int key = itr.next();
+			ArrayList<String> list = new ArrayList<String>();
+			ArrayList<String> listFromMarket = market.get(key);
+			for (int i = 0; i < listFromMarket.size(); i++) {
+				list.add(listFromMarket.get(i));
+			}
+			newMarket.put(key, list);
+		}
+
+		return newMarket;
+	}
+
+	public boolean checkWhetherPossible(Player p,PowerPlant plant, String typeOfResource, int numReq)
 	{
 		ArrayList<String> cost = plant.getCost();
 		
@@ -810,6 +859,32 @@ public class GameState {
 						}
 				}
 			}
+		}
+		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
+		market = gs.getMarket(typeOfResource);//getting the correct market based on the resource the player selected
+		TreeMap<Integer, ArrayList<String>> originalMarket;
+		originalMarket = copyMarket(market);//saving original market in case transaction of resources is not possible because the player can't afford it
+		int numCollectedResources = 0;
+		int totalCost = 0;
+		Iterator<Integer> iter = market.keySet().iterator();//iterating through the keys of the market
+		while (iter.hasNext()) {
+			int key = iter.next();
+			int size = market.get(key).size();
+			if (size > 0) {
+				for (int w = 0; w < size; w++) {
+					ArrayList<String> tempList = market.get(key);//each key  has an array list of resources like:(cost 1 = coal, coal, coal)
+					numCollectedResources++;
+					totalCost+=key;
+					if (numCollectedResources == numReq)//if the number of collected resources equals the number required stop removing from market
+						break;
+				}
+			}
+			if (numCollectedResources == numReq)//coming out from from the while loop as well
+				break;
+		}
+		if (numCollectedResources < numReq||totalCost>p.getMoney()) 
+		{
+			return false;
 		}
 		return true;
 	}
