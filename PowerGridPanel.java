@@ -113,36 +113,36 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		//DRAWVIEW SHOULD COME FIRST
 		
-		/*if (view != null || mapView) {
+		if (view != null || mapView) {
 			drawView(g);
 		}
 		else if(AUCTION)
 			{
 			drawAUCTION(g);
 			}
-			drawEND(g);*/
+			drawEND(g);
 			drawFOURTH(g);
 		
 		
-		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
 		} else if (REGIONS) {
 			drawRegion(g);
 		} else if (AUCTION) {
 			drawAUCTION(g);
-		/*} else if (FOURTH) {
+		} else if (FOURTH) {
 			drawFOURTH(g);
 		} else if (MAPUI) {
 			drawMAPUI(g);
 		} else if (END) {
 			drawEND(g);
 		}
-		/*gs.setPhase(3);
+		gs.setPhase(3);
 		if(MAPUI)
 		{
 			drawMAPUI(g);
-		}*/
+		}
 
 	}
 
