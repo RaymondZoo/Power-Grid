@@ -86,8 +86,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		// Initializing each UI
 		MainMenu = false;
-		MAPUI = true;
-		AUCTION = false;
+		MAPUI = false;
+		AUCTION = true;
 		REGIONS = false;
 		FOURTH = false;
 		view =null;
@@ -467,6 +467,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		//correct
 		//TEST~
+		/*
 		if (players.get(currPlayer).getPowerList().size()<3) {
 			ArrayList<String>cost1=new ArrayList<String>();
 			cost1.add("coal||oil");
@@ -484,7 +485,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
 		}//remove this ~
-		
+		*/
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -827,12 +828,34 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".jpg")); 
 																									
 				g.drawImage(card, AUCTIONX, AUCTIONY + (i * (side + 15)), side, side, null);
+				drawSmallRes(AUCTIONX, AUCTIONY + (i * (side + 15)), g , players.get(currPlayer).getPowerList().get(i));
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
 
 		}
+		for (int i = 0; i < 3; i++) {
+			g.setColor(TRANSPARENTBLACK);// shadow
+			g.fillRect(AUCTIONX + 10, AUCTIONY + (i * (side + 15)) + 10, side, side);
+
+			// ACTUAL PP
+			// g.setColor(Color.DARK_GRAY);
+			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); 
+																									
+				g.drawImage(card, AUCTIONX, AUCTIONY + (i * (side + 15)), side, side, null);
+				drawSmallRes(AUCTIONX, AUCTIONY + (i * (side + 15)), g , null);
+
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
+
+		}
+		
+		
+		
 		// Market
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
 		g.setColor(TRANSPARENTBLACK);
@@ -1170,6 +1193,54 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 			
 		} catch (IOException e) {
+			System.out.println("Cannot find Map image!");
+		}
+	}
+	public void drawSmallRes(int x, int y, Graphics g, PowerPlant pp)
+	{
+			try {
+				BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
+				BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
+				BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
+				BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
+				
+				
+				int resX = x , resY = y+35;
+				int size = 25;
+				int sep =20;
+				
+				if(pp != null)
+				{
+					for(int i = 0 ; i<pp.getStorage().size();i++)
+					{
+						if(pp.getStorage().get(i).equals("coal"))
+						{
+							g.drawImage(coal, resX+(i*sep), resY, size, size, null);
+						}
+						else if(pp.getStorage().get(i).equals("oil"))
+						{
+							g.drawImage(trash, resX+(i*sep), resY, size, size, null);
+						}
+						else if(pp.getStorage().get(i).equals("trash"))
+						{
+							g.drawImage(oil, resX+(i*sep), resY, size, size, null);
+						}
+						else if(pp.getStorage().get(i).equals("nuclear"))
+						{
+							g.drawImage(nuclear, resX+(i*sep), resY, size, size, null);
+						}
+						
+					}
+				}
+				else
+				{
+					for(int i = 0 ; i< 6;i++) //remove later ~
+					{
+						g.drawImage(coal, resX+(i*sep), resY, size, size, null);
+						
+					}
+				}
+		}catch (IOException e) {
 			System.out.println("Cannot find Map image!");
 		}
 	}
