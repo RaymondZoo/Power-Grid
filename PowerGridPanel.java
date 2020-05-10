@@ -34,7 +34,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	// Constants (tentative)~
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original
 															// proportions
-	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
+	public static final int MAPX = 1500, MAPY = 90; // Starting points for powerplants on mapUI
 	public static final int MARKETX = 500, MARKETY = 130;
 
 	private ArrayList<String> selectedRegions; // aka playableColors
@@ -387,7 +387,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 		*/
 		// Your powerplants
-		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
+		//correct
+		/*for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(MAPX + 10, MAPY + (i * (PPHEIGHT + 20)) + 10, PPWIDTH, PPHEIGHT);
 
@@ -400,7 +401,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
+		}*/
+		
+		//temp
+		for (int i = 0; i < 3; i++) {
+			g.setColor(TRANSPARENTBLACK);// shadow
+			g.fillRect(MAPX + 10, MAPY + (i * (PPHEIGHT + 20)) + 10, PPWIDTH, PPHEIGHT);
+
+			// ACTUAL PP
+			try {
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/36.PNG")); // change this to
+																									// actual card~
+				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
 		}
+		
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 		// End Turn
 		g.setColor(TRANSPARENTBLACK);
@@ -413,8 +431,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("END TURN", 605, 45);
 
 		// Other Players
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(1360, 650, 150, 400);
 		g.setColor(GREEN);
 		g.fillRect(1350, 640, 150, 400);
 		g.setColor(TRANSPARENTBLACK);
