@@ -1096,9 +1096,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					//go to city building
 					gs.nextPhase();
 					currPlayer=3;
+					powerPlantforResource=null;
 				}
 				else {
 					currPlayer=index;
+					powerPlantforResource=null;
 				}
 			}
 			//resource is removed from market
@@ -1118,7 +1120,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 				//g.fillRect(45, 685, 100, 50); //Buy Button
 				int cost = 0;
-				if(e.getX()>=45&&e.getX()<=45+100&&e.getY()>=685&&e.getY()<=735)
+				if(e.getX()>=0&&e.getX()<=1450&&e.getY()>=0&&e.getY()<=1500)
 				{
 					City c = gs.findCity(selectedCity);
 					System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName());
