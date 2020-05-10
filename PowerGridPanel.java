@@ -452,10 +452,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
 						String res2 = temp.get(0).substring(temp.get(0).indexOf("||")+2);
 						g.setColor(Color.WHITE);
-						g.drawString("3 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
-						g.drawString("1 "+res1+" 2 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
-						g.drawString("2 "+res1+" 1 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
-						g.drawString("3 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+						g.drawString("3 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+20);
+						g.drawString("1 "+res1+" 2 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+70);
+						g.drawString("2 "+res1+" 1 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+120);
+						g.drawString("3 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+170);
 					}
 				}
 				else
