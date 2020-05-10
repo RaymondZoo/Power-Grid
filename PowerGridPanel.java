@@ -23,7 +23,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
-
+	
+	private boolean hasSelected;
 	private int fourthindex;
 	private int width;
 	private int index;
@@ -67,6 +68,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		super();
 		index=-1;
+		hasSelected=false;
 		fourthindex=-1;
 		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
@@ -1541,15 +1543,19 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 			}	
 			else if(gs.getPhase()==3) {
-			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
 			int index=-1;
 			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
 				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				System.out.println("Coal: "+canCoal);
 				canOil=checkWhetherPossible(powerPlantforResource, "oil", 1);
-				canTrash=checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canNuclear=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				System.out.println("Oil: "+canOil);
+				canTrash=checkWhetherPossible(powerPlantforResource, "trash", 1);
+				System.out.println("Trash: "+canTrash);
+				canNuclear=checkWhetherPossible(powerPlantforResource, "nuclear", 1);
+				System.out.println("Nuclear: "+canNuclear);
+				System.out.println("HasSelected: "+hasSelected);
 			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
@@ -1572,7 +1578,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					index=1;
 					hasSelected=true;
 				}
-				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT+20+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT+20+20) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
@@ -1584,7 +1589,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					index=2;
 					hasSelected=true;
 				}
-				hasSelected=true;
 			}
 			else if (canCoal&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
 				gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), 1);
@@ -1610,10 +1614,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					//go to city building
 					gs.nextPhase();
 					currPlayer=3;
+					hasSelected=false;
 					powerPlantforResource=null;
 				}
 				else {
 					//System.out.println("bruh");
+					hasSelected=false;
 					currPlayer=index;
 					powerPlantforResource=null;
 				}
