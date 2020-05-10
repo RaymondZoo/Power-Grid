@@ -58,6 +58,7 @@ public class GameState {
 	@SuppressWarnings({ "unchecked", "resource" })
 	public GameState() {
 		// throws IOException {
+		cityCoords=new TreeMap<String, Coord>();
 		setCityCoord();
 		try {
 			marketStep3 = false;
@@ -988,7 +989,6 @@ public class GameState {
 		return newMarket;
 	}
 	public void setCityCoord() {
-		cityCoords=new TreeMap<String, Coord>();
 		cityCoords.put("Seattle",new Coord(85,148));
 		cityCoords.put("Portland",new Coord(53,238));
 		cityCoords.put("San_Francisco",new Coord(57,509));
@@ -1004,8 +1004,8 @@ public class GameState {
 		cityCoords.put("Billings",new Coord(447,248));
 		cityCoords.put("Houston",new Coord(755,758));
 		cityCoords.put("Dallas",new Coord(745,674));
-		cityCoords.put("Oklahoma City",new Coord(722,578));
-		cityCoords.put("Kansas City",new Coord(773,481));
+		cityCoords.put("Oklahoma_City",new Coord(722,578));
+		cityCoords.put("Kansas_City",new Coord(773,481));
 		cityCoords.put("Omaha",new Coord(746,392));
 		cityCoords.put("Minneapolis",new Coord(814,265));
 		cityCoords.put("Fargo",new Coord(723,217));

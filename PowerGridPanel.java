@@ -1226,10 +1226,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			return "Dallas";
 		}
 		if (e.getX() >= 722 && e.getX() <= 772 && e.getY() >= 578 && e.getY() <= 628) {
-			return "Oklahoma City";
+			return "Oklahoma_City";
 		}
 		if (e.getX() >= 773 && e.getX() <= 823 && e.getY() >= 481 && e.getY() <= 531) {
-			return "Kansas City";
+			return "Kansas_City";
 		}
 		if (e.getX() >= 746 && e.getX() <= 796 && e.getY() >= 392 && e.getY() <= 442) {
 			return "Omaha";
