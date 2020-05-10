@@ -96,6 +96,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
 		try {
+			gs.setPhase(4);
 			drawMAPUI(g);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -351,33 +352,36 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
 		}
 		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(464, 772, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(454, 762, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Coal", 469, 799);
-		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(603, 773, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(593, 762, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Oil", 608, 799);
-		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(464, 841, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(454, 831, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Trash", 469, 868);
-		
-		g.setColor(TRANSPARENTBLACK);
-		g.fillRect(603, 841, 100, 50);
-		g.setColor(Color.BLACK);
-		g.fillRect(593, 831, 100, 50);
-		g.setColor(Color.WHITE);
-		g.drawString("Nuke", 608, 868);
+		if(gs.getPhase() == 4 )
+		{
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(464, 772, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(454, 762, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Coal", 469, 799);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(603, 773, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(593, 762, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Oil", 608, 799);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(464, 841, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(454, 831, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Trash", 469, 868);
+			
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(603, 841, 100, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(593, 831, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("Nuke", 608, 868);
+		}
 		
 		// Your powerplants
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
@@ -1083,6 +1087,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//resource is removed from market
 			//cost is added to a total cost for the player
 			//added to powerplant
+			}
+			else if(gs.getPhase()==4)
+			{
+				
 			}
 		}
 
