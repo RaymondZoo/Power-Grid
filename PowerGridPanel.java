@@ -352,7 +352,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
 		}
 		
-		if(gs.getPhase() == 4 )
+		if(gs.getPhase() == 3 )
 		{
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(464, 772, 100, 50);
@@ -381,6 +381,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.fillRect(593, 831, 100, 50);
 			g.setColor(Color.WHITE);
 			g.drawString("Nuke", 608, 868);
+		}
+		
+		if(gs.getPhase() ==4)
+		{
+			g.setColor(TRANSPARENTBLACK);
+			g.fillRect(55, 695, 100, 50);
+			g.setColor(GREEN);
+			g.fillRect(45, 685, 100, 50);
+			g.setColor(Color.WHITE);
+			g.drawString("BUY", 60, 722);
 		}
 		
 		// Your powerplants
@@ -1088,7 +1098,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//cost is added to a total cost for the player
 			//added to powerplant
 			}
-			else if(gs.getPhase()==4)
+			else if(gs.getPhase()==4) //city building
 			{
 				
 			}
