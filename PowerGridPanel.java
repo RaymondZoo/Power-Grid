@@ -1214,6 +1214,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else {
 					gs.determinePlayerOrder();
 				}
+				
+				players = gs.getPlayerOrder();
 
 				gs.rearrangeMarket();
 
@@ -1924,6 +1926,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								gs.marketFix();
 								gs.nextPhase();
 								currPlayer = 0;
+								
+								gs.determinePlayerOrder();
+								players = gs.getPlayerOrder();
 
 								if (round1) {
 									round1 = false;
