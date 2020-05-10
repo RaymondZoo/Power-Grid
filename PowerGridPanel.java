@@ -1610,6 +1610,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					powerPlantforResource=null;
 				}
 				else {
+					//System.out.println("bruh");
 					currPlayer=index;
 					powerPlantforResource=null;
 				}
