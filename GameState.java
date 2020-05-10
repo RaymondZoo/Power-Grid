@@ -638,7 +638,7 @@ public class GameState {
 		return size;
 	}
 
-	public City findCity(String name) {// incomplete
+	public City findCity(String name) {
 		for (City c : listOfCities) {
 			if (name.equals(c.getName())) {
 				System.out.println(c.getName() + " found.");
