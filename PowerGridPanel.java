@@ -1637,38 +1637,70 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				// ACTUAL PP
 				// g.setColor(Color.DARK_GRAY);
 				// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
-				try {
 					if(!(i == fourthindex))
 					{
 						if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 						{
-							if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=MARKETX + (i * (PPWIDTH + 20))+PPWIDTH&&e.getY()>=MARKETY + PPHEIGHT + 20&&e.getY()>=MARKETY + PPHEIGHT + 95) {
+							if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=MARKETX + (i * (PPWIDTH + 20))+PPWIDTH&&e.getY()>=MARKETY + PPHEIGHT + 20&&e.getY()<=MARKETY + PPHEIGHT + 95) {
 								if(!players.get(currPlayer).getPowerList().get(i).isFull()&&players.get(currPlayer).getPowerList().get(fourthindex).getStorage().size()>0&&players.get(currPlayer).getPowerList().get(fourthindex).getCost().get(0).equals("coal")) {
 									ArrayList<String>test=new ArrayList<String>();
 									test.add(players.get(currPlayer).getPowerList().get(fourthindex).getStorage().remove(0));
 									players.get(currPlayer).getPowerList().get(i).addResources(test);
 								}
 							}
-							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
 
-							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20+75+10, PPWIDTH, 75);
+							if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=MARKETX + (i * (PPWIDTH + 20))+PPWIDTH&&e.getY()>=MARKETY + PPHEIGHT + 20+75+10&&e.getY()<=MARKETY + PPHEIGHT + 20+75+10+75) {
+								if(!players.get(currPlayer).getPowerList().get(i).isFull()&&players.get(currPlayer).getPowerList().get(fourthindex).getStorage().size()>0&&players.get(currPlayer).getPowerList().get(fourthindex).getCost().get(0).equals("oil")) {
+									ArrayList<String>test=new ArrayList<String>();
+									test.add(players.get(currPlayer).getPowerList().get(fourthindex).getStorage().remove(0));
+									players.get(currPlayer).getPowerList().get(i).addResources(test);
+								}
+							}
 							
 						}
 						else
 						{
-							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+							if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=MARKETX + (i * (PPWIDTH + 20))+PPWIDTH&&e.getY()>=MARKETY + PPHEIGHT + 20&&e.getY()<=MARKETY + PPHEIGHT + 95) {
+								if (players.get(currPlayer).getPowerList().get(i).getCost().size()!=0) {
+									if(!players.get(currPlayer).getPowerList().get(i).isFull()&&players.get(currPlayer).getPowerList().get(fourthindex).getStorage().size()>0&&players.get(currPlayer).getPowerList().get(fourthindex).getCost().get(0).equals(players.get(currPlayer).getPowerList().get(i).getCost().get(0))) {
+										ArrayList<String>test=new ArrayList<String>();
+										test.add(players.get(currPlayer).getPowerList().get(fourthindex).getStorage().remove(0));
+										players.get(currPlayer).getPowerList().get(i).addResources(test);
+									}
+								}
+							}
 						}
 					}
-
-				} catch (IOException e) {
-					System.out.println("Cannot find Map image!");
-				}
-
 			}
-				//remove resource from players.get(currPlayer).getPowerList().get(j) and move them to the right Powerplant
+			if (e.getX()>=815&&e.getX()<=815+360&&e.getY()>=880&&e.getY()<=980) {
+				players.get(currPlayer).getPowerList().remove(fourthindex);
 				
-				//end turn
-				//remove players.get(currPlayer).getPowerList().remove(j)
+				int nextIndex=0;
+				for(int i = 0 ; i<players.size(); i++)
+				{
+					if(gs.getDecision().get(players.get(i)) == false && i != currPlayer&&gs.getBids().get(players.get(i)) <= 0)
+					{
+						System.out.println("i and currPlayer" + i +" " + currPlayer);
+						System.out.println(players.get(i).getColor() +" " + players.get(currPlayer).getColor());
+						nextIndex = i;
+						break;
+					}
+				}
+				
+				if(nextIndex == -1)
+				{
+					AUCTION = false;
+					MAPUI = true;	
+					currPlayer=3;
+					gs.nextPhase();
+				}
+				else
+				{
+					System.out.println("curr and next"+currPlayer +" "+nextIndex);
+					currPlayer = nextIndex;
+					keyInput = "";
+				}
+			}
 
 		} else if (MAPUI) {
 			//System.out.println("bug");
