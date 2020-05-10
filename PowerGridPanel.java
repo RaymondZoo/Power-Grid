@@ -120,16 +120,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			{
 			drawAUCTION(g);
 			}
-			drawEND(g);
+			drawEND(g);*/
 			drawFOURTH(g);
 		
 		
-		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
 		} else if (REGIONS) {
 			drawRegion(g);
-		} else if (AUCTION) {*/
+		} else if (AUCTION) {
 			drawAUCTION(g);
 		/*} else if (FOURTH) {
 			drawFOURTH(g);
@@ -969,6 +969,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("MONEY: "+players.get(currPlayer).getMoney(), 10, 555); 
 //FIX~
+		//temp
+		if (players.get(currPlayer).getPowerList().size()<3) {
+			ArrayList<String> cost=new ArrayList<String>();
+			cost.add("coal||oil");
+			cost.add("coal||oil");
+			players.get(currPlayer).getPowerList().add(new PowerPlant(12, cost, 2));
+		
+			ArrayList<String> cost1=new ArrayList<String>();
+			players.get(currPlayer).getPowerList().add(new PowerPlant(13, cost1, 1));
+		
+			ArrayList<String> cost2=new ArrayList<String>();
+			cost2.add("coal");
+			cost2.add("coal");
+			players.get(currPlayer).getPowerList().add(new PowerPlant(25, cost2, 5));
+		}
+		
+		
+		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) // Powerplants
 		{
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -978,7 +996,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".jpg")); 
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
 				if(!(i == fourthindex))
 				{
