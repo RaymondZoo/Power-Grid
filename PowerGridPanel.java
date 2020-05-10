@@ -825,7 +825,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".jpg")); 
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 																									
 				g.drawImage(card, AUCTIONX, AUCTIONY + (i * (side + 15)), side, side, null);
 				drawSmallRes(AUCTIONX, AUCTIONY + (i * (side + 15)), g , players.get(currPlayer).getPowerList().get(i));
@@ -970,7 +970,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("MONEY: "+players.get(currPlayer).getMoney(), 10, 555); 
 //FIX~
 		//temp
-		if (players.get(currPlayer).getPowerList().size()<3) {
+		/*if (players.get(currPlayer).getPowerList().size()<3) {
 			ArrayList<String> cost=new ArrayList<String>();
 			cost.add("coal||oil");
 			cost.add("coal||oil");
@@ -983,7 +983,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			cost2.add("coal");
 			cost2.add("coal");
 			players.get(currPlayer).getPowerList().add(new PowerPlant(25, cost2, 5));
-		}
+		}*/
 		
 		
 		
