@@ -860,6 +860,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						{
 							AUCTION = false;
 							MAPUI = true;	
+							currPlayer=3;
 							gs.nextPhase();
 						}
 						else
@@ -891,6 +892,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					
 					if(nextIndex == -1)
 					{
+						currPlayer=3;
 						AUCTION = false;
 						MAPUI = true;	
 						gs.nextPhase();
@@ -1093,6 +1095,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (index==-1) {
 					//go to city building
 					gs.nextPhase();
+					currPlayer=3;
 				}
 				else {
 					currPlayer=index;
@@ -1118,6 +1121,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if(e.getX()>=45&&e.getX()<=45+100&&e.getY()>=685&&e.getY()<=735)
 				{
 					City c = gs.findCity(selectedCity);
+					System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName());
 					if(!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity()))
 					{
 						if(gs.getNumCities().get(players.get(currPlayer)) == 0)
