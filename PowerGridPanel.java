@@ -1547,7 +1547,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
 				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
-			}
+			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				if (index==0) {
