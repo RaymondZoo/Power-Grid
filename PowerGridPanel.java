@@ -84,8 +84,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		// Initializing each UI
 		MainMenu = false;
-		MAPUI = false;
-		AUCTION = true;
+		MAPUI = true;
+		AUCTION = false;
 		REGIONS = false;
 		FOURTH = false;
 		view =null;
@@ -111,42 +111,36 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		//DRAWVIEW SHOULD COME FIRST
 		
-		if (view != null || mapView) {
+		/*if (view != null || mapView) {
 			drawView(g);
 		}
 		else if(AUCTION)
 			{
 			drawAUCTION(g);
 			}
-			//drawEND(g);
-			//drawFOURTH(g);
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+			drawEND(g);
+			drawFOURTH(g);
 		
 		
-		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
 		} else if (REGIONS) {
 			drawRegion(g);
-		} else if (!view.isEmpty()) {
-			drawView(g);
 		} else if (AUCTION) {
 			drawAUCTION(g);
 		} else if (FOURTH) {
 			drawFOURTH(g);
 		} else if (MAPUI) {
-			try {
-				drawMAPUI(g);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			drawMAPUI(g);
 		} else if (END) {
 			drawEND(g);
 		}*/
+		gs.setPhase(3);
+		if(MAPUI)
+		{
+			drawMAPUI(g);
+		}
 
 	}
 
@@ -447,7 +441,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(Color.BLACK);
 			g.fillRect(454, 831, 100, 50);
 			g.setColor(Color.WHITE);
-			g.drawString("Trash", 469, 868);
+			g.drawString("Trash", 460, 868);
 			
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(603, 841, 100, 50);
@@ -470,7 +464,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Your powerplants
 		
 		//correct
-		/* TEST~
+		//TEST~
 		if (players.get(currPlayer).getPowerList().size()<3) {
 			ArrayList<String>cost1=new ArrayList<String>();
 			cost1.add("coal||oil");
@@ -488,7 +482,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
 		}//remove this ~
-		*/
+		
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -498,6 +492,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+				
+				if(gs.getPhase() == 3) //resource selection check marks
+				{
+					if(index == i)
+					{
+						drawCheck(MAPX+170,  MAPY + (i * (PPHEIGHT + 20))+10,g);
+					}
+				}
 				
 				if(gs.getPhase() == 5)
 				{
@@ -1313,6 +1315,24 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					
 					if(nextIndex == -1)
 					{
+						Player winner = null;
+						//give player powerplant
+						for(int i =0; i<players.size(); i++)
+						{
+							if(gs.getBids().get(players.get(i)) >-1)
+							{
+								winner = players.get(i);
+							}
+						}
+						winner.subtractMoney(minBid); //CHECK ~
+						gs.getCurrentMarket().remove(gs.getAuctionCard());
+						gs.addPowerPlant();
+						winner.addPowerPlant(gs.getAuctionCard());
+						gs.getDecision().put(winner, true);
+						gs.setAuctionCard(null);
+						gs.resetBid();
+						minBid = 0;
+						auctionIndex = -1;
 						currPlayer=3;
 						AUCTION = false;
 						MAPUI = true;	
@@ -1377,8 +1397,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
+<<<<<<< HEAD
 						displayMessage("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
 						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
+=======
+						winner.subtractMoney(minBid); //CHECK ~
+>>>>>>> 0df45ab44a60c6fabcd22e22c03947679587d4e6
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
@@ -1526,28 +1550,39 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			int index=-1;
 			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
+<<<<<<< HEAD
 				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canOil=checkWhetherPossible(powerPlantforResource, "oil", 1);
 				canTrash=checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canNuclear=checkWhetherPossible(powerPlantforResource, "coal", 1);
 			}
+=======
+				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
+				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+>>>>>>> 0df45ab44a60c6fabcd22e22c03947679587d4e6
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				if (index==0) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=0;
+					hasSelected=true;
 				}
-				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+20) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(1);
 				if (index==1) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=1;
+					hasSelected=true;
 				}
 				hasSelected=true;
 			}
@@ -1555,9 +1590,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
 				if (index==2) {
 					index=-1;
+					hasSelected=false;
 				}
 				else {
 					index=2;
+					hasSelected=true;
 				}
 				hasSelected=true;
 			}
@@ -1588,6 +1625,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					powerPlantforResource=null;
 				}
 				else {
+					//System.out.println("bruh");
 					currPlayer=index;
 					powerPlantforResource=null;
 				}
