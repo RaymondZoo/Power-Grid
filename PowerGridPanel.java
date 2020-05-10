@@ -87,9 +87,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Initializing each UI
 		MainMenu = false;
 		MAPUI = false;
-		AUCTION = true;
+		AUCTION = false;
 		REGIONS = false;
-		FOURTH = false;
+		FOURTH = true;
 		view =null;
 		mapView = false;
 		END = false;
@@ -998,6 +998,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			try {
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); 
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
+				drawRes(MARKETX + (i * (PPWIDTH + 20)), MARKETY,g,players.get(currPlayer).getPowerList().get(i));
 				if(!(i == fourthindex))
 				{
 					if(players.get(currPlayer).getPowerList().get(i).isHybrid())
@@ -1622,32 +1623,48 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 * }
 			 */
 		} else if (FOURTH) {
+			boolean hasSelectedAPowerPlant=false;
 			for (int i=0;i<4;i++) {
-				if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
-					if(fourthindex == i)
-					{
-						fourthindex = -1;
-					}
-					else
+				if (!hasSelectedAPowerPlant&&e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
 					{
 						fourthindex=i;
+						hasSelectedAPowerPlant=true;
 					}
 			}
-			for (int j=0;j<players.get(currPlayer).getPowerList().size();j++) {
-				if (!(j==fourthindex)) {
-					PowerPlant temp=players.get(currPlayer).getPowerList().get(j);
-					if (temp.getCost().size()==0) {
-						//no buttons
+			for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) // Powerplants
+			{
+
+				// ACTUAL PP
+				// g.setColor(Color.DARK_GRAY);
+				// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+				try {
+					if(!(i == fourthindex))
+					{
+						if(players.get(currPlayer).getPowerList().get(i).isHybrid())
+						{
+							if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=MARKETX + (i * (PPWIDTH + 20))+PPWIDTH&&e.getY()>=MARKETY + PPHEIGHT + 20&&e.getY()>=MARKETY + PPHEIGHT + 95) {
+								if(!players.get(currPlayer).getPowerList().get(i).isFull()&&players.get(currPlayer).getPowerList().get(fourthindex).getStorage().size()>0&&players.get(currPlayer).getPowerList().get(fourthindex).getCost().get(0).equals("coal")) {
+									ArrayList<String>test=new ArrayList<String>();
+									test.add(players.get(currPlayer).getPowerList().get(fourthindex).getStorage().remove(0));
+									players.get(currPlayer).getPowerList().get(i).addResources(test);
+								}
+							}
+							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+
+							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20+75+10, PPWIDTH, 75);
+							
+						}
+						else
+						{
+							g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+						}
 					}
-					if (temp.isHybrid()) {
-						//build 2 buttons
-					}
-					else {
-						//build 1 button
-					}
+
+				} catch (IOException e) {
+					System.out.println("Cannot find Map image!");
 				}
+
 			}
-				//detect which button clicked
 				//remove resource from players.get(currPlayer).getPowerList().get(j) and move them to the right Powerplant
 				
 				//end turn
