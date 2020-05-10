@@ -85,11 +85,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		selectedRegions = new ArrayList<String>();
 
 		// Initializing each UI
-		MainMenu = false;
+		MainMenu = true;
 		MAPUI = false;
 		AUCTION = false;
 		REGIONS = false;
-		FOURTH = true;
+		FOURTH = false;
 		view =null;
 		mapView = false;
 		END = false;
