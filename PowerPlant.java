@@ -93,23 +93,16 @@ public class PowerPlant implements Comparable {
 		}
 		else if(this.isHybrid())
 		{
-			int numInStorage = 0;
 			if(resources.size()==0)
 				return false;
-			String resourceToBeRemoved = resources.get(0);
-			for(int i = 0;i<storage.size();i++)
-			{
-				if(storage.get(i).equalsIgnoreCase(resourceToBeRemoved))
-				{
-					numInStorage++;
+			if (canBurnH(resources)) {
+				for (String str:resources) {
+					storage.remove(str);
 				}
 			}
-			if(numInStorage>=cost.size())
-			{
-					actualRemoval(resourceToBeRemoved);
-					return true;
+			else {
+				return false;
 			}
-			return false;
 		}
 		return false;
 		/*
