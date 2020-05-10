@@ -1546,10 +1546,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			int index=-1;
 			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
-				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
-				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canOil=checkWhetherPossible(powerPlantforResource, "oil", 1);
+				canTrash=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canNuclear=checkWhetherPossible(powerPlantforResource, "coal", 1);
 			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
@@ -1598,7 +1598,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			else if (canNuclear&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
 				gs.moveResources(powerPlantforResource, "nuclear", players.get(currPlayer), 1);
 			}
-			else if (e.getX()>=525&&e.getX()<=785&&e.getY()>=10&&e.getY()<=80);{
+			else if (e.getX()>=525&&e.getX()<=785&&e.getY()>=10&&e.getY()<=80){
 				gs.getDecision().put(players.get(currPlayer), true);
 				index=-1;
 				for (int i=players.size()-1;i>=0;i--) {
