@@ -1397,12 +1397,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-<<<<<<< HEAD
 						displayMessage("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
-						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
-=======
 						winner.subtractMoney(minBid); //CHECK ~
->>>>>>> 0df45ab44a60c6fabcd22e22c03947679587d4e6
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
@@ -1550,19 +1546,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			int index=-1;
 			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
-<<<<<<< HEAD
-				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canOil=checkWhetherPossible(powerPlantforResource, "oil", 1);
-				canTrash=checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canNuclear=checkWhetherPossible(powerPlantforResource, "coal", 1);
-			}
-=======
 				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
 				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
 				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
 			}///g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
->>>>>>> 0df45ab44a60c6fabcd22e22c03947679587d4e6
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				if (index==0) {
