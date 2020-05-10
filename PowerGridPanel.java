@@ -1000,7 +1000,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
 				if(!(i == fourthindex))
 				{
-					if(i == 0)//if(players.get(currPlayer).getPowerList().get(i).isHybrid())
+					if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 					{
 						g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
 						g.setColor(Color.GRAY);
