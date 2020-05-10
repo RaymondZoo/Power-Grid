@@ -1311,7 +1311,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								int buttonH = (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10;
 								if(e.getX()>=MAPX+PPWIDTH&&e.getX()<= MAPX+PPWIDTH+200 && e.getY()>=buttonY && e.getY()<=buttonY+buttonH)
 								{
-									
+									//if 1 resource then 1, 1
+									//if 2 resource then 2, 1 &1, 2
+									//if 3 resource then 3, 1&2, 2&1, 3
 								}
 								
 							}
