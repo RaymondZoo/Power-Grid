@@ -28,6 +28,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int height;
 	private String keyInput;
 	private PowerPlant powerPlantforResource=null;
+	HashMap<Player, Integer>endNumCitiesPowered=new HashMap<Player, Integer>();
 
 	GameState gs;
 
@@ -841,12 +842,41 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void drawEND(Graphics g) {
+		int n = players.size(); 
+        for (int i = 1; i < n; ++i) { 
+            Player key = players.get(i); 
+            int j = i - 1; 
+            while (j >= 0 && playerComp(players.get(j),  key, this.endNumCitiesPowered)>0) { 
+                players.set(j + 1,players.get(j)); 
+                j = j - 1; 
+            } 
+            players.set(j + 1, key);
+        }
 		try {
 			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.jpg"));
 			g.drawImage(end, 0, 0, width, height, null);
 
 		} catch (IOException e) {
 			System.out.println("Cannot find main menu image!");
+		}
+	}
+	public int playerComp(Player p1, Player p2, HashMap<Player, Integer>temp) {
+		if (temp.get(p1)!=temp.get(p2)) {
+			return temp.get(p1)-temp.get(p2);
+		}
+		else {
+			if (p1.getMoney()!=p2.getMoney()) {
+				return p1.getMoney()-p1.getMoney();
+			}
+			else {
+				double d=Math.random();
+				if (d>0.5) {
+					return 1;
+				}
+				else {
+					return -1;
+				}
+			}
 		}
 	}
 
@@ -1284,13 +1314,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 						}
 						if (index==-1) {
-							if (gs.isEndOfGame()) {
-								
-							}
-							else {
-								gs.nextPhase();
-								currPlayer=0;
-							}
+							gs.nextPhase();
+							currPlayer=0;
 						}
 						else {
 							currPlayer=index;
@@ -1429,11 +1454,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 							if (index==-1) {
 								//go to determinePlayerOrder
-								gs.givingMoney(numCitiesPowered);
-								gs.setRestock();
-								gs.marketFix();
-								gs.nextPhase();
-								currPlayer=0;
+								if(gs.isEndOfGame()) {
+									END=true;
+									MAPUI=false;
+									this.endNumCitiesPowered=numCitiesPowered;
+								}
+								else {
+									gs.givingMoney(numCitiesPowered);
+									gs.setRestock();
+									gs.marketFix();
+									gs.nextPhase();
+									currPlayer=0;
+								}
 							}
 							else {
 								currPlayer=index;
