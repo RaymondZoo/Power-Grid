@@ -56,11 +56,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private int auctionIndex;
 	private int minBid;
 	private String selectedCity;
+	HashMap<String, ArrayList<Coord>> displayList;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
 	{
 		super();
+		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
 		addKeyListener(this);
 		setFocusable(true);
@@ -281,14 +283,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void drawMAPUI(Graphics g) throws IOException {
 		
-		for (City c:gs.getListOfCities()) {
-			ArrayList<Player>playersInCity=c.getPlayersAtCity();
-			int x=gs.getCityCoords().get(c.getName()).getX();
-			int y=gs.getCityCoords().get(c.getName()).getY();
-			for (int i=0;i<playersInCity.size();i++) {
-				Player p=playersInCity.get(i);
-				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+p.getColor()+".png"));
-				g.drawImage(house, x+20*i, y+20*i, 12, 12, null);
+		for (String s:displayList.keySet()) {
+			for (Coord c:displayList.get(s)) {
+				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
+				g.drawImage(house, c.getX(), c.getY(), 14, 14, null);
 			}
 		}
 		
@@ -1139,6 +1137,21 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						{
 							System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName()+" for "+cost);
 							players.get(currPlayer).addMoney(cost * -1);//subtracting money
+							
+							//display
+							ArrayList<Coord>list=displayList.get(players.get(currPlayer).getColor());
+							if (list==null) {
+								list=new ArrayList<Coord>();	
+							}
+							else {}
+							int numPlayers=c.getPlayersAtCity().size();
+							Coord cityCoord=gs.getCityCoords().get(c.getName());
+							cityCoord.setX(cityCoord.getX()+14+20*numPlayers);
+							cityCoord.setY(cityCoord.getY()+14+20*numPlayers);
+							list.add(cityCoord);
+							displayList.put(players.get(currPlayer).getColor(), list);
+							repaint();
+							
 							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
 							gs.checkPowerPlantSize();

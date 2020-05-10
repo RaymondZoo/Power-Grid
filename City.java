@@ -41,7 +41,6 @@ public class City {
 				}
 			}
 			visited.add(current);
-			System.out.println("City "+current.getName());
 			current = getLowest(dist, visited);
 			//System.out.println(current.getName());
 			//System.out.println(dist.get(current));
