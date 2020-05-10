@@ -99,13 +99,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
-		try {
-			gs.setPhase(5);
-			drawMAPUI(g);
-		} catch (IOException e) {
+		//try {
+			//gs.setPhase(5);
+			//drawMAPUI(g);
+			drawEND(g);
+		//} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//	e.printStackTrace();
+		//}
+		
+		
 		/*((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if (MainMenu) {
 			drawMainMenu(g);
@@ -859,6 +862,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} catch (IOException e) {
 			System.out.println("Cannot find main menu image!");
 		}
+		
+		//players last to first, color, amount of money, endNumCitiesPowered.get(player) 
+		
 	}
 	public int playerComp(Player p1, Player p2, HashMap<Player, Integer>temp) {
 		if (temp.get(p1)!=temp.get(p2)) {
