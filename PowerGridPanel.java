@@ -375,7 +375,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(Color.WHITE);
 			g.drawString("Nuke", 608, 868);
 		}
-		
+		/*
 		if(gs.getPhase() ==4)
 		{
 			g.setColor(TRANSPARENTBLACK);
@@ -385,7 +385,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(Color.WHITE);
 			g.drawString("BUY", 60, 722);
 		}
-		
+		*/
 		// Your powerplants
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -1157,12 +1157,20 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						selectedCity = "";
 					}
 			}
+				//g.fillRect(527, 10, 260, 80);
+				
+				if(e.getX()>=527&&e.getX()<=(527+260)&&e.getY()>=20&&e.getY()<=(10+80)) //IF END TURN
+				{
+					//next player logic
+					
+				}
+				
 		}
-				}
-				else {
-					System.out.println("FAIL");
-				}
-				//g.fillRect(45, 685, 100, 50); //Buy Button
+		}
+		else {
+			System.out.println("FAIL");
+		}
+		//g.fillRect(45, 685, 100, 50); //Buy Button
 				
 
 		repaint();
