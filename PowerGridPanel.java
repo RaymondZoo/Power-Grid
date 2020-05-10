@@ -55,7 +55,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	private boolean round1;
 	private int auctionIndex;
 	private int minBid;
-	
+	private String selectedCity;
 
 	public PowerGridPanel(int width, int height) throws IOException // we should really be doing try catch statements
 																	// instead
@@ -90,6 +90,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		currPlayer = 0;
 		round1 = true;
 		auctionIndex = -1;
+		selectedCity = "";
 
 	}
 
@@ -1100,7 +1101,21 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else if(gs.getPhase()==4) //city building
 			{
-				
+				String name = findCity(e);
+				if(!name.contentEquals("Not in ranges"))
+				{
+					if(selectedCity.contentEquals(name))
+					{
+						selectedCity = "";
+					}
+					selectedCity = name;
+				}
+				//g.fillRect(45, 685, 100, 50); //Buy Button
+				if(e.getX()>=45&&e.getX()<=45+100&&e.getY()>=685&&e.getY()<=735)
+				{
+					if()
+					selectedCity = "";
+				}
 			}
 		}
 
