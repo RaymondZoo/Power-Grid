@@ -187,5 +187,23 @@ public class PowerPlant implements Comparable {
 	public String toString() {
 		return "Number: " + minBid + ". Cost" + cost.toString() + " powers " + numCitiesPowered + " cities.";
 	}
-
+	public boolean canBurn() {
+		return storage.size()>=cost.size();
+	}
+	public boolean canBurnH(ArrayList<String>toBurn) {
+		ArrayList<String>costCopy=new ArrayList<String>();
+		costCopy.addAll(cost);
+		for (String str:toBurn) {
+			for (int k=0;k<costCopy.size();k++) {
+				if (costCopy.get(k).contains(str)) {
+					costCopy.remove(k);
+					break;
+				}
+			}
+			if (costCopy.size()==0) {
+				return true;
+			}
+		}
+		return (costCopy.size()==0);
+	}
 }

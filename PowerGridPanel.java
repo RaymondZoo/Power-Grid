@@ -1298,6 +1298,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			{
 				for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) 
 				{
+					int citiesPowered=0;
 						//g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 						if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 						{
@@ -1311,16 +1312,104 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								int buttonH = (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10;
 								if(e.getX()>=MAPX+PPWIDTH&&e.getX()<= MAPX+PPWIDTH+200 && e.getY()>=buttonY && e.getY()<=buttonY+buttonH)
 								{
-									//if 1 resource then 1, 1
-									//if 2 resource then 2, 1 &1, 2
-									//if 3 resource then 3, 1&2, 2&1, 3
+									ArrayList<String>list=new ArrayList<String>();
+									if (temp==2) {
+										if (j==0) {
+											list.add("coal");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+												citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+											}
+										}
+										if (j==1) {
+											
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+									}
+									if (temp==2) {
+										if (j==0) {
+											
+											list.add("coal");
+											list.add("coal");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+										if (j==1) {
+											
+											list.add("coal");
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+										if (j==2) {
+											
+											list.add("oil");
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+									}
+									if (temp==2) {
+										if (j==0) {
+											
+											list.add("coal");
+											list.add("coal");
+											list.add("coal");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+										if (j==1) {
+											
+											list.add("coal");
+											list.add("oil");
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+										if (j==2) {
+											
+											list.add("coal");
+											list.add("coal");
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+										if (j==3) {
+											
+											list.add("oil");
+											list.add("oil");
+											list.add("oil");
+											if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+												players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											}
+											citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
+										}
+									}
+									gs.reSupplyAfterBurn(list, players.get(currPlayer).getPowerList().get(i));
 								}
 								
 							}
 						}//g.fillRect(MAPX+PPWIDTH, MAPY + (i * (PPHEIGHT + 20)), 200, PPHEIGHT);
-						else if(e.getX() >= MAPX+PPWIDTH&& e.getX()<= MAPX+PPWIDTH+200 && e.getY() >= MAPY + (i * (PPHEIGHT + 20))&& e.getY()<= MAPY + (i * (PPHEIGHT + 20))+PPHEIGHT)
+						else if(players.get(currPlayer).getPowerList().get(i).canBurn()&&e.getX() >= MAPX+PPWIDTH&& e.getX()<= MAPX+PPWIDTH+200 && e.getY() >= MAPY + (i * (PPHEIGHT + 20))&& e.getY()<= MAPY + (i * (PPHEIGHT + 20))+PPHEIGHT)
 						{
-							//if non-hybrid
+							players.get(currPlayer).getPowerList().get(i).burnResources(players.get(currPlayer).getPowerList().get(i).getCost());
+							citiesPowered+=players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
 						}
 			}
 			}

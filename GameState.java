@@ -1035,4 +1035,35 @@ public class GameState {
 	public TreeMap<String,Coord> getCityCoords(){
 		return cityCoords;
 	}
+	public void reSupplyAfterBurn(ArrayList<String>list, PowerPlant plant) {
+		int[]countResource=new int[4];
+		for (String str:list) {
+			if (str.equals("coal")) {
+				countResource[0]=countResource[0]+1;
+			}
+			if (str.equals("oil")) {
+				countResource[1]=countResource[1]+1;
+			}
+			if (str.equals("trash")) {
+				countResource[2]=countResource[2]+1;
+			}
+			if (str.equals("nuclear")) {
+				countResource[3]=countResource[3]+1;
+			}
+		}
+		
+		if (list.contains("coal")) {
+			int newCoal = gs.getCoalSupply() + countResource[0];
+			gs.setCoalSupply(newCoal);
+		} else if (list.contains("trash")) {
+			int newTrash = gs.getTrashSupply() + countResource[2];
+			gs.setTrashSupply(newTrash);
+		} else if (list.contains("oil")) {
+			int newOil = gs.getTrashSupply() + countResource[1];
+			gs.setOilSupply(newOil);
+		} else if (list.contains("nuclear")) {
+			int newNuclear = gs.getTrashSupply() + countResource[3];
+			gs.setNuclearSupply(newNuclear);
+		}
+	}
 }
