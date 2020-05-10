@@ -563,8 +563,7 @@ public class TextRunner {
 			gs.setMarket(resource, originalMarket);
 
 		}
-		System.out
-				.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
+		System.out.println("The amount of you have now is " + gs.getPlayerOrder().get(playerNum).getMoney() + " dollars");
 		ArrayList<String> attainedResources = new ArrayList<String>();
 		for (int i = 1; i <= numReq; i++) {
 			attainedResources.add(resource);
