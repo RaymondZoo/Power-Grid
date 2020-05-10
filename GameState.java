@@ -44,6 +44,7 @@ public class GameState {
 	public static final int[] step1Restock = { 5, 3, 2, 1 };
 	public static final int[] step2Restock = { 6, 4, 3, 2 };
 	public static final int[] step3Restock = { 4, 5, 4, 2 };
+	private TreeMap<String, Coord>cityCoords;
 
 	public static GameState gs = null;
 
@@ -57,7 +58,7 @@ public class GameState {
 	@SuppressWarnings({ "unchecked", "resource" })
 	public GameState() {
 		// throws IOException {
-
+		setCityCoord();
 		try {
 			marketStep3 = false;
 			marketStep3 = false;
@@ -985,5 +986,53 @@ public class GameState {
 		}
 
 		return newMarket;
+	}
+	public void setCityCoord() {
+		cityCoords=new TreeMap<String, Coord>();
+		cityCoords.put("Seattle",new Coord(85,148));
+		cityCoords.put("Portland",new Coord(53,238));
+		cityCoords.put("San_Francisco",new Coord(57,509));
+		cityCoords.put("Los_Angeles",new Coord(145,623));
+		cityCoords.put("San_Diego",new Coord(200,688));
+		cityCoords.put("Phoenix",new Coord(343,652));
+		cityCoords.put("Las_Vegas",new Coord(257,555));
+		cityCoords.put("Salt_Lake_City",new Coord(346,424));
+		cityCoords.put("Boise",new Coord(235,309));
+		cityCoords.put("Santa_Fe",new Coord(488,579));
+		cityCoords.put("Denver",new Coord(521,445));
+		cityCoords.put("Cheyenne",new Coord(536,377));
+		cityCoords.put("Billings",new Coord(447,248));
+		cityCoords.put("Houston",new Coord(755,758));
+		cityCoords.put("Dallas",new Coord(745,674));
+		cityCoords.put("Oklahoma City",new Coord(722,578));
+		cityCoords.put("Kansas City",new Coord(773,481));
+		cityCoords.put("Omaha",new Coord(746,392));
+		cityCoords.put("Minneapolis",new Coord(814,265));
+		cityCoords.put("Fargo",new Coord(723,217));
+		cityCoords.put("Duluth",new Coord(831,188));
+		cityCoords.put("Chicago",new Coord(938,378));
+		cityCoords.put("St._Louis",new Coord(892,477));
+		cityCoords.put("Memphis",new Coord(898,592));
+		cityCoords.put("New_Orleans",new Coord(895,749));
+		cityCoords.put("Birmingham",new Coord(978,647));
+		cityCoords.put("Atlanta",new Coord(1068,648));
+		cityCoords.put("Knoxville",new Coord(1059,559));
+		cityCoords.put("Cincinnati",new Coord(1049,465));
+		cityCoords.put("Detroit",new Coord(1055,346));
+		cityCoords.put("Miami",new Coord(1181,880));
+		cityCoords.put("Tampa",new Coord(1094,818));
+		cityCoords.put("Jacksonville",new Coord(1151,736));
+		cityCoords.put("Savannah",new Coord(1150,672));
+		cityCoords.put("Raleigh",new Coord(1220,582));
+		cityCoords.put("Norfolk",new Coord(1288,536));
+		cityCoords.put("Washington_D.C",new Coord(1234,472));
+		cityCoords.put("Pittsburgh",new Coord(1164,424));
+		cityCoords.put("Buffalo",new Coord(1202,333));
+		cityCoords.put("Philadelphia",new Coord(1304,439));
+		cityCoords.put("New_York",new Coord(1337,391));
+		cityCoords.put("Boston",new Coord(1393,331));
+	}
+	public TreeMap<String,Coord> getCityCoords(){
+		return cityCoords;
 	}
 }

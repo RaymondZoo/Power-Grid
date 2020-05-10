@@ -278,6 +278,18 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void drawMAPUI(Graphics g) throws IOException {
+		
+		for (City c:gs.getListOfCities()) {
+			ArrayList<Player>playersInCity=c.getPlayersAtCity();
+			int x=gs.getCityCoords().get(c.getName()).getX();
+			int y=gs.getCityCoords().get(c.getName()).getY();
+			for (int i=0;i<playersInCity.size();i++) {
+				Player p=playersInCity.get(i);
+				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+p.getColor()+".png"));
+				g.drawImage(house, x+20*i, y+20*i, 12, 12, null);
+			}
+		}
+		
 		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
@@ -1022,6 +1034,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				MAPUI = true;
 			}
 		} else if (MAPUI) {
+			if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
 			if (this.powerPlantforResource!=null) {
@@ -1070,6 +1083,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			//resource is removed from market
 			//cost is added to a total cost for the player
 			//added to powerplant
+			}
 		}
 
 		repaint();
