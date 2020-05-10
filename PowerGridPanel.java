@@ -1094,6 +1094,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					//go to city building
 					gs.nextPhase();
 				}
+				else {
+					currPlayer=index;
+				}
 			}
 			//resource is removed from market
 			//cost is added to a total cost for the player
