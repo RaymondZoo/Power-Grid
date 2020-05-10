@@ -411,9 +411,61 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 			// ACTUAL PP
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); // change this to
-																									// actual card~
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); // change this to actual card~
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+				
+
+				if( players.get(currPlayer).getPowerList().get(i).isHybrid())
+				{
+					g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+					//System.out.println(players.get(currPlayer).getPowerList().get(i).getMinBid()+" is a hybrid");
+					for(int j = 0; j< (players.get(currPlayer).getPowerList().get(i).getCost().size())+1; j++)
+					{
+						int temp = (players.get(currPlayer).getPowerList().get(i).getCost().size())+1;
+						g.setColor(Color.GRAY);
+						g.fillRect(MAPX+PPWIDTH, (MAPY + (i * (PPHEIGHT + 20))) +(j*(PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))), 200, (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10);
+					}
+					
+					if( players.get(currPlayer).getPowerList().get(i).getCost().size() == 1)
+					{
+						ArrayList<String> temp = players.get(currPlayer).getPowerList().get(i).getCost();
+						String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
+						String res2 = temp.get(0).substring(temp.get(0).indexOf("||")+2);
+						g.setColor(Color.WHITE);
+						g.drawString("1 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+50);
+						g.drawString("1 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+150);
+					}
+					if( players.get(currPlayer).getPowerList().get(i).getCost().size() == 2)
+					{
+						ArrayList<String> temp = players.get(currPlayer).getPowerList().get(i).getCost();
+						String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
+						String res2 = temp.get(0).substring(temp.get(0).indexOf("||")+2);
+						g.setColor(Color.WHITE);
+						g.drawString("2 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+30);
+						g.drawString("1 "+res1+" 1 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+						g.drawString("2 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+170);
+					}
+					if( players.get(currPlayer).getPowerList().get(i).getCost().size() == 3)
+					{
+						ArrayList<String> temp = players.get(currPlayer).getPowerList().get(i).getCost();
+						String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
+						String res2 = temp.get(0).substring(temp.get(0).indexOf("||")+2);
+						g.setColor(Color.WHITE);
+						g.drawString("3 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+						g.drawString("1 "+res1+" 2 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+						g.drawString("2 "+res1+" 1 "+res1, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+						g.drawString("3 "+res2, MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+					}
+				}
+				else
+				{
+					g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+					g.setColor(Color.GRAY);
+					g.fillRect(MAPX+PPWIDTH, MAPY + (i * (PPHEIGHT + 20)), 200, PPHEIGHT);
+					g.setColor(Color.WHITE);
+					g.drawString("BURN", MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
+				}
+
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
