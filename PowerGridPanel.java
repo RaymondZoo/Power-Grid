@@ -990,6 +990,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					BufferedImage card = ImageIO.read(
 							PowerGridPanel.class.getResource("UI/" + view.getPowerList().get(i).getMinBid() + ".PNG"));
 					g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
+					
+					drawRes(viewX + (i * (PPWIDTH + 20)), viewY, g, view.getPowerList().get(i));
 
 				} catch (IOException e) {
 					System.out.println("Cannot find Map image!");
