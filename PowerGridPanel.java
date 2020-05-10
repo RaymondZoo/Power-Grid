@@ -21,17 +21,17 @@ import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
 
 	private int width;
 	private int height;
 	private String keyInput;
-	private PowerPlant toResource;
+	private PowerPlant powerPlantforResource=null;
 
-	private GameState gs;
+	GameState gs;
 
 	// Constants (tentative)~
-	toResource=null;
 	public static final int PPWIDTH = 210, PPHEIGHT = 200; // PP = powerplant //this is for map only //265*256 original
 															// proportions
 	public static final int MAPX = 1612, MAPY = 90; // Starting points for powerplants on mapUI
@@ -1024,15 +1024,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (MAPUI) {
 			boolean hasSelected=false;
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
-				toResource=players.get(currPlayer).getPowerList().get(0);
+				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+20) {
-				toResource=players.get(currPlayer).getPowerList().get(1);
+				powerPlantforResource=players.get(currPlayer).getPowerList().get(1);
 				hasSelected=true;
 			}
 			else if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY+PPHEIGHT+PPHEIGHT+20+20)&&e.getY()<=MAPY+PPHEIGHT+PPHEIGHT+PPHEIGHT+20+20) {
-				toResource=players.get(currPlayer).getPowerList().get(2);
+				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
 				hasSelected=true;
 			}
 			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
