@@ -641,6 +641,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 */
 
 		// Other Players
+		System.out.println("AuctionBACKGROUND:"+currPlayer);
+		System.out.println(players.get(currPlayer).getColor());
 
 		ArrayList<Player> Others = new ArrayList<Player>();
 		for (int i = 0; i < players.size(); i++) {
@@ -862,8 +864,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("BID", 640, 875);
 		g.drawString("PASS", 1000, 875); // 880, 810
-
-		g.drawString(gs.getPlayerOrder().get(currPlayer).getColor().toUpperCase() + " player", 295, 45); // 880, 810
+		
+		
+		System.out.println("Auction:"+currPlayer);
+		System.out.println(players.get(currPlayer).getColor());
+		g.drawString(players.get(currPlayer).getColor().toUpperCase() + " player", 295, 45); // 880, 810
 
 		int highest = 0;
 		for (int i = 0; i < players.size(); i++) {
