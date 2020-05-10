@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
 
+	private int fourthindex;
 	private int width;
 	private int index;
 	private int height;
@@ -45,7 +46,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-	private String view;
+	private Player view;
+	private boolean mapView;
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH, END;
 	// FOURTH is when there is a fourth powerplant
 	// gamestate's endOfGame will also be one
@@ -65,6 +67,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		super();
 		index=-1;
+		fourthindex=-1;
 		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
 		addKeyListener(this);
@@ -81,11 +84,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		// Initializing each UI
 		MainMenu = false;
-		MAPUI = true;
-		AUCTION = false;
+		MAPUI = false;
+		AUCTION = true;
 		REGIONS = false;
 		FOURTH = false;
-		view = "";
+		view =null;
+		mapView = false;
 		END = false;
 
 		gs = new GameState();
@@ -103,8 +107,19 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Anti-aliases text so that it is smooth
 		//try {
 			//gs.setPhase(5);
-			//drawMAPUI(g);
-			drawEND(g);
+		
+		
+		//DRAWVIEW SHOULD COME FIRST
+		
+		if (view != null || mapView) {
+			drawView(g);
+		}
+		else if(AUCTION)
+			{
+			drawAUCTION(g);
+			}
+			//drawEND(g);
+			//drawFOURTH(g);
 		//} catch (IOException e) {
 			// TODO Auto-generated catch block
 		//	e.printStackTrace();
@@ -284,10 +299,67 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 */
 
 		// plus city and turn order ~
+		try {
+			BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
+			int sizeCoal=gs.countResource(gs.getCoalMarket());
+			for (int i=24-sizeCoal+1;i<=24;i++) {
+				g.drawImage(coal, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
+			}
+			
+			BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
+			int sizeOil=gs.countResource(gs.getOilMarket());
+			for (int i=24-sizeOil+1;i<=24;i++) {
+				g.drawImage(oil, 7+25*i+40*((i-1)/3), 945, 30, 30, null);
+			}
+			
+			BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
+			int sizeTrash=gs.countResource(gs.getTrashMarket());
+			for (int i=24-sizeTrash+1;i<=24;i++) {
+				g.drawImage(trash, -2+35*i+10*((i-1)/3), 980, 30, 30, null);
+			}
+			
+			BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
+			int sizeNuclear=gs.countResource(gs.getNuclearMarket());
+			int num=sizeNuclear;
+			if (num>0) {
+				g.drawImage(nuclear, 950, 967, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 998, 967, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 950, 905, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 998, 905, 45, 45, null);
+				num--;
+			}
+			int inv=8-num+1;
+			for (int i=inv;i<=8;i++) {
+				g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot find Map image!");
+		}
+		try {
+			
+			for (String s:displayList.keySet()) {
+				for (Coord c:displayList.get(s)) {
+					BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
+					g.drawImage(house, c.getX(), c.getY(), 20, 20, null);
+					System.out.println(s+" at "+c.toString());
+				}
+			}
+			} catch (IOException e) {
+				System.out.println("Cannot find Map image!");
+			}
 
 	}
 
-	public void drawMAPUI(Graphics g) throws IOException {
+	public void drawMAPUI(Graphics g) /*throws IOException*/ {
 		
 		
 		drawMAPONLY(g);// We could do the player's color here ~ like for the side bar
@@ -308,49 +380,52 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("MESSAGE BOARD:", 1573, 783);
 		g.setColor(Color.WHITE);
 		g.drawString("MESSAGE BOARD:", 1570, 780);
-
-		BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
-		int sizeCoal=gs.countResource(gs.getCoalMarket());
-		for (int i=24-sizeCoal+1;i<=24;i++) {
-			g.drawImage(coal, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
-		}
-		
-		BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
-		int sizeOil=gs.countResource(gs.getOilMarket());
-		for (int i=24-sizeOil+1;i<=24;i++) {
-			g.drawImage(oil, 7+25*i+40*((i-1)/3), 945, 30, 30, null);
-		}
-		
-		BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
-		int sizeTrash=gs.countResource(gs.getTrashMarket());
-		for (int i=24-sizeTrash+1;i<=24;i++) {
-			g.drawImage(trash, -2+35*i+10*((i-1)/3), 980, 30, 30, null);
-		}
-		
-		BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
-		int sizeNuclear=gs.countResource(gs.getNuclearMarket());
-		int num=sizeNuclear;
-		if (num>0) {
-			g.drawImage(nuclear, 950, 967, 45, 45, null);
-			num--;
-		}
-		if (num>0) {
-			g.drawImage(nuclear, 998, 967, 45, 45, null);
-			num--;
-		}
-		if (num>0) {
-			g.drawImage(nuclear, 950, 905, 45, 45, null);
-			num--;
-		}
-		if (num>0) {
-			g.drawImage(nuclear, 998, 905, 45, 45, null);
-			num--;
-		}
-		int inv=8-num+1;
-		for (int i=inv;i<=8;i++) {
-			g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
-		}
-		
+		/*
+		try {
+			BufferedImage coal = ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG"));
+			int sizeCoal=gs.countResource(gs.getCoalMarket());
+			for (int i=24-sizeCoal+1;i<=24;i++) {
+				g.drawImage(coal, -2+35*i+10*((i-1)/3), 908, 30, 30, null);
+			}
+			
+			BufferedImage oil = ImageIO.read(PowerGridPanel.class.getResource("UI/oil.PNG"));
+			int sizeOil=gs.countResource(gs.getOilMarket());
+			for (int i=24-sizeOil+1;i<=24;i++) {
+				g.drawImage(oil, 7+25*i+40*((i-1)/3), 945, 30, 30, null);
+			}
+			
+			BufferedImage trash = ImageIO.read(PowerGridPanel.class.getResource("UI/trash.PNG"));
+			int sizeTrash=gs.countResource(gs.getTrashMarket());
+			for (int i=24-sizeTrash+1;i<=24;i++) {
+				g.drawImage(trash, -2+35*i+10*((i-1)/3), 980, 30, 30, null);
+			}
+			
+			BufferedImage nuclear = ImageIO.read(PowerGridPanel.class.getResource("UI/nuclear.PNG"));
+			int sizeNuclear=gs.countResource(gs.getNuclearMarket());
+			int num=sizeNuclear;
+			if (num>0) {
+				g.drawImage(nuclear, 950, 967, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 998, 967, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 950, 905, 45, 45, null);
+				num--;
+			}
+			if (num>0) {
+				g.drawImage(nuclear, 998, 905, 45, 45, null);
+				num--;
+			}
+			int inv=8-num+1;
+			for (int i=inv;i<=8;i++) {
+				g.drawImage(nuclear, 113+114*(i-1), 948, 30, 30, null);
+			}
+		} catch (IOException e) {
+			System.out.println("Cannot find Map image!");
+		}*/
 		if(gs.getPhase() == 3 )
 		{
 			g.setColor(TRANSPARENTBLACK);
@@ -411,7 +486,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			cost3.add("coal||oil");
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
-		}
+		}//remove this ~
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
@@ -543,14 +618,60 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("END TURN", 605, 45);
 
-
+		//System.out.println("top"+currPlayer);
+		ArrayList<Player> Others = new ArrayList<Player>();
+		for(int i = 0; i<players.size(); i++)
+		{
+			if(i != currPlayer)
+			{
+				Others.add(players.get(i));
+				//System.out.println("top"+players.get(i).getColor());
+			}
+		}
+		
 		int colorX = 1310, colorY = 690;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < Others.size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
 			g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
 
 			// ACTUAL Color
+			
+			if(Others.get(i).getColor().equals("purple"))
+			{
+				g.setColor(Color.MAGENTA);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			else if(Others.get(i).getColor().equals("yellow"))
+			{
+				g.setColor(Color.YELLOW);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			else if(Others.get(i).getColor().equals("blue"))
+			{
+				g.setColor(Color.BLUE);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			else if(Others.get(i).getColor().equals("green"))
+			{
+				g.setColor(Color.GREEN);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			else if(Others.get(i).getColor().equals("red"))
+			{
+				g.setColor(Color.RED);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			else if(Others.get(i).getColor().equals("black"))
+			{
+				g.setColor(Color.BLACK);
+				g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+			}
+			
+			
 		}
+		/*
+		try {
+		
 		for (String s:displayList.keySet()) {
 			for (Coord c:displayList.get(s)) {
 				BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/"+s+".PNG"));
@@ -558,20 +679,42 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.out.println(s+" at "+c.toString());
 			}
 		}
+		} catch (IOException e) {
+			System.out.println("Cannot find Map image!");
+		}*/
+		
+		//Player color
+		g.setColor(GREEN);
+		g.fillRect(0, 0, 340, 112);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.drawString(players.get(currPlayer).getColor().toUpperCase()+" player", 30,60);
+		
+		
 	}
 
 	public void drawAUCTIONBACKGROUND(Graphics g) {
 		g.setColor(GREEN);
 		g.fillRect(0, 0, width, height);
-
+		/*
 		// TEMPORARY BUTTON ~
 		g.setColor(Color.WHITE);
 		g.fillRect(1715, 990, 205, 90);
 		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 		g.setColor(Color.BLACK);
-		g.drawString("Switch UI", 1760, 1010);
+		g.drawString("Switch UI", 1760, 1010);*/
 
 		// Other Players
+		
+		ArrayList<Player> Others = new ArrayList<Player>();
+		for(int i = 0; i<players.size(); i++)
+		{
+			if(i != currPlayer)
+			{
+				Others.add(players.get(i));
+			}
+		}
+		
 		g.setColor(TRANSPARENTBLACK);
 		g.fillRect(10, 10, 150, 520);
 		g.setColor(GREEN);
@@ -592,6 +735,36 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				 * g.setColor(Color.DARK_GRAY); g.fillRect(colorX, colorY+(i*(100+10)), 100,
 				 * 100);
 				 */
+				if(Others.get(i).getColor().equals("purple"))
+				{
+					g.setColor(Color.MAGENTA);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
+				else if(Others.get(i).getColor().equals("yellow"))
+				{
+					g.setColor(Color.YELLOW);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
+				else if(Others.get(i).getColor().equals("blue"))
+				{
+					g.setColor(Color.BLUE);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
+				else if(Others.get(i).getColor().equals("green"))
+				{
+					g.setColor(Color.GREEN);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
+				else if(Others.get(i).getColor().equals("red"))
+				{
+					g.setColor(Color.RED);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
+				else if(Others.get(i).getColor().equals("black"))
+				{
+					g.setColor(Color.BLACK);
+					g.fillRect(colorX , colorY + (i * (100 + 10)), 100, 100);
+				}
 			} else {
 				g.setColor(TRANSPARENTBLACK);// shadow
 				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
@@ -784,6 +957,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
 																									// actual card~
 				g.drawImage(card, MARKETX + (i * (PPWIDTH + 20)), MARKETY, PPWIDTH, PPHEIGHT, null);
+				if(!(i == fourthindex))
+				{
+					if(i == 0)//if(players.get(currPlayer).getPowerList().get(i).isHybrid())
+					{
+						g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE COAL", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 60);
+						
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20+75+10, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE OIL", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 10+75+10+ 50);
+						
+					}
+					else
+					{
+						g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+						g.setColor(Color.GRAY);
+						g.fillRect(MARKETX + (i * (PPWIDTH + 20)), MARKETY + PPHEIGHT + 20, PPWIDTH, 75);
+						g.setColor(Color.WHITE);
+						g.drawString("MOVE", MARKETX + (i * (PPWIDTH + 20))+50, MARKETY + PPHEIGHT + 60);
+					}
+				}
 
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
@@ -792,52 +990,60 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 
 		g.setColor(TRANSPARENTBLACK);// shadow
-		g.fillRect(825, 610, 360, 100);
+		g.fillRect(825, 890, 360, 100);
 
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(815, 600, 360, 100);
+		g.fillRect(815, 880, 360, 100);
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(Color.WHITE);
-		g.drawString("END TURN", 905, 660);
+		g.drawString("END TURN", 905, 935);
 
 	}
 
 	public void drawView(Graphics g) {
-		g.setColor(GREEN);
-		g.fillRect(0, 0, width, height);
-
-		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
-		g.setColor(TRANSPARENTBLACK);
-		g.drawString("____'s situation", 843, 48);// player color here~
-		g.setColor(Color.WHITE);
-		g.drawString("____'s situation", 840, 45);
-
-		int viewX = 663, viewY = 315;
-
-		for (int i = 0; i < 3; i++) // Powerplants
+		
+		if(mapView)
 		{
-			g.setColor(TRANSPARENTBLACK);// shadow
-			g.fillRect(viewX + (i * (PPWIDTH + 20)) + 10, viewY + 10, PPWIDTH, PPHEIGHT);
-
-			// ACTUAL PP
-			// g.setColor(Color.DARK_GRAY);
-			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
-			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/35.jpg")); // change this to
-																									// actual card~
-				g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
-
-			} catch (IOException e) {
-				System.out.println("Cannot find Map image!");
-			}
-
+			drawMAPONLY(g);
 		}
-		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
-		g.setColor(Color.WHITE);
-		g.drawString("MONEY:", 880, 590); // add currentPlayer money here ~
-		g.drawString("Number of Cities:", 800, 650); // add numCities here ~
-
+		else
+		{
+			
+			g.setColor(GREEN);
+			g.fillRect(0, 0, width, height);
+	
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+			g.setColor(TRANSPARENTBLACK);
+			g.drawString(view.getColor().toUpperCase()+"'s situation", 843, 48);// player color here~
+			g.setColor(Color.WHITE);
+			g.drawString(view.getColor().toUpperCase()+"'s situation", 840, 45);
+	
+			int viewX = 663, viewY = 315;
+	
+			for (int i = 0; i < view.getPowerList().size(); i++) // Powerplants
+			{
+				g.setColor(TRANSPARENTBLACK);// shadow
+				g.fillRect(viewX + (i * (PPWIDTH + 20)) + 10, viewY + 10, PPWIDTH, PPHEIGHT);
+	
+				// ACTUAL PP
+				// g.setColor(Color.DARK_GRAY);
+				// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
+				try {
+					BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+view.getPowerList().get(i).getMinBid()+".PNG")); // change this to
+																										// actual card~
+					g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
+	
+				} catch (IOException e) {
+					System.out.println("Cannot find Map image!");
+				}
+	
+			}
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+			g.setColor(Color.WHITE);
+			g.drawString("MONEY: "+view.getMoney(), 880, 590); // add currentPlayer money here ~
+			g.drawString("Number of Cities: " + gs.getNumCities().get(view), 800, 650); // add numCities here ~
+		}
 		g.setColor(Color.RED);
 		g.fillRect(1720, 0, 200, 80);
 
@@ -859,14 +1065,30 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
             players.set(j + 1, key);
         }
 		try {
-			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.jpg"));
+			BufferedImage end = ImageIO.read(PowerGridPanel.class.getResource("UI/END.png"));
 			g.drawImage(end, 0, 0, width, height, null);
 
 		} catch (IOException e) {
 			System.out.println("Cannot find main menu image!");
 		}
 		
-		//players last to first, color, amount of money, endNumCitiesPowered.get(player) 
+		//players last to first, color, amount of money, endNumCitiesPowered.get(player), network
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
+		g.setColor(Color.BLACK);
+		for(int i = 0; i<players.size(); i++)
+		{
+			g.drawString(i+1+"", 115, 540+(i*100));
+		}
+		int ENDX = 460, ENDY = 840;
+		for(int i = 0; i<players.size(); i++)
+		{
+		
+			g.drawString("TEST"+players.get(i).getColor().toUpperCase(), ENDX, ENDY-(i*100));
+			g.drawString("TEST"+endNumCitiesPowered.get(players.get(i)), ENDX+350, ENDY-(i*100));
+			g.drawString("TEST"+players.get(i).getMoney(), ENDX+700, ENDY-(i*100));
+			g.drawString("TEST"+gs.getNumCities().get(players.get(i)), ENDX+1050, ENDY-(i*100));
+			
+		}
 		
 	}
 	public int playerComp(Player p1, Player p2, HashMap<Player, Integer>temp) {
@@ -927,7 +1149,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				System.exit(0);
 
 			}
-		} else if (REGIONS) {
+		} 
+		else if (view != null || mapView) 
+		{
+			if (e.getX() >= 1720 && e.getY() <= 80) 
+			{
+				view = null;
+				mapView = false;
+			}
+		}
+		else if (REGIONS) {
 			String[] colors = { "purple", "orange", "blue", "green", "red", "yellow" };
 			ArrayList thing = new ArrayList(Arrays.asList(colors));
 			String region = findRegion(e);
@@ -965,11 +1196,45 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		} else if (AUCTION) {
 
-			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
+			//if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
+			//{
+			//	AUCTION = false;
+			//	FOURTH = true;
+			//} //TEST ~
+			
+			//int colorX = 30, colorY = 50;
+			//g.fillRect(0, 0, 150, 520);
+		
+			ArrayList<Player> Others = new ArrayList<Player>();
+			for(int i = 0; i<players.size(); i++)
 			{
-				AUCTION = false;
-				FOURTH = true;
+				if(i != currPlayer)
+				{
+					Others.add(players.get(i));
+				}
 			}
+			//System.out.println("bug");
+			if(e.getX()>= 0 && e.getX() <= 150 && e.getY() >= 0 && e.getY() <= 520) //if other player view
+			{
+				//System.out.println()
+
+				int colorX = 30, colorY = 50;
+				for (int i = 0; i < Others.size()+1; i++) 
+				{//(colorX, colorY + (i * (100 + 10)), 100, 100);
+					if(i<3 && e.getX()>= colorX && e.getX() <= colorX +100 && e.getY()>=colorY + (i * (100 + 10)) && e.getY()<=colorY + (i * (100 + 10))+100)
+					{
+						//System.out.println("bug");
+						view = Others.get(i);
+					}
+					else if(i ==3 && e.getX()>= colorX && e.getX() <= colorX +100 && e.getY()>=colorY + (i * (100 + 10)) && e.getY()<=colorY + (i * (100 + 10))+100) //map view
+					{
+						mapView = true;
+						System.out.println("reached");
+					}
+					//System.out.println(i);
+				}
+			}	
+			
 			
 			if(gs.getAuctionCard() == null) {
 			//ArrayList<Player> tempPlayers = gs.getPlayerOrder();
@@ -1196,20 +1461,65 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 * }
 			 */
 		} else if (FOURTH) {
-			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
-			{
-				System.out.println();
+			for (int i=0;i<4;i++) {
+				if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
+					if(fourthindex == i)
+					{
+						fourthindex = -1;
+					}
+					else
+					{
+						fourthindex=i;
+					}
+			}
+			for (int j=0;j<players.get(currPlayer).getPowerList().size();j++) {
+				if (!(j==fourthindex)) {
+					PowerPlant temp=players.get(currPlayer).getPowerList().get(j);
+					if (temp.getCost().size()==0) {
+						//no buttons
+					}
+					if (temp.isHybrid()) {
+						//build 2 buttons
+					}
+					else {
+						//build 1 button
+					}
+				}
+			}
+				//detect which button clicked
+				//remove resource from players.get(currPlayer).getPowerList().get(j) and move them to the right Powerplant
+				
+				//end turn
+				//remove players.get(currPlayer).getPowerList().remove(j)
 
-				FOURTH = false;
-				view = "something";
-			}
-		} else if (!view.isEmpty()) {
-			if (e.getX() >= 1720 && e.getY() <= 80) {
-				view = "";
-				MAPUI = true;
-			}
 		} else if (MAPUI) {
-			if(gs.getPhase()==3) {
+			//System.out.println("bug");
+			//System.out.println(currPlayer);
+			ArrayList<Player> Others = new ArrayList<Player>();
+			for(int i = 0; i<players.size(); i++)
+			{
+				if(i != currPlayer)
+				{
+					Others.add(players.get(i));
+					//System.out.println(players.get(i).getColor());
+				}
+			}
+			//g.fillRect(1290, 640, 150, 400);
+			if(e.getX()>= 1290 && e.getX() <= 1290+150 && e.getY() >= 640 && e.getY() <= 640+400) //if other player view
+			{
+				//System.out.println()
+
+				int colorX = 1310, colorY = 690;
+				for (int i = 0; i < Others.size(); i++) 
+				{//(colorX, colorY + (i * (100 + 10)), 100, 100);
+					if(e.getX()>= colorX && e.getX() <= colorX +100 && e.getY()>=colorY + (i * (100 + 10)) && e.getY()<=colorY + (i * (100 + 10))+100)
+					{
+						//System.out.println("bug");
+						view = Others.get(i);
+					}
+				}
+			}	
+			else if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
 			int index=-1;
@@ -1504,14 +1814,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								currPlayer=index;
 							}
 						}
-			}
+				}
 			}
 		}
 		else {
 			System.out.println("FAIL");
 		}
 		//g.fillRect(45, 685, 100, 50); //Buy Button
-		repaint();
+		repaint();	
 
 	}
 
