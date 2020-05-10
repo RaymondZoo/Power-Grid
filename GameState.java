@@ -45,7 +45,7 @@ public class GameState {
 	public static final int[] step2Restock = { 6, 4, 3, 2 };
 	public static final int[] step3Restock = { 4, 5, 4, 2 };
 	private TreeMap<String, Coord>cityCoords;
-
+ 
 	public static GameState gs = null;
 
 	public static GameState getGamestate() {
@@ -758,61 +758,7 @@ public class GameState {
 		return 0;
 	}
 
-	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq) {
-		// the system.outs will be replaced by adding them to the message board
-		ArrayList<String> cost = plant.getCost();
-
-		if (!plant.isHybrid()) {
-			if (!cost.contains(typeOfResource)) {// if the cost doesn't match with the resources they're trying to place
-				System.out.println("You can't place " + typeOfResource + " on this card");
-				return false;
-
-			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {// they are overfilling the powerplant
-				System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
-				return false;
-			}
-		} else {
-			// this whole block of code is figuring out how much of each type of resource
-			// are there in the
-			// powerplant storage
-			String firstElement = cost.get(0);
-			String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
-			String secondResource = firstElement.substring(firstElement.indexOf("||") + 2, firstElement.length());
-			int numOfFirstResource = 0;
-			int numOfSecondResource = 0;
-			for (String x : plant.getStorage()) {
-				if (x.equalsIgnoreCase(firstResource)) {
-					numOfFirstResource++;
-				} else if (x.equalsIgnoreCase(secondResource)) {
-					numOfSecondResource++;
-				}
-			}
-			if (!(firstElement.contains(typeOfResource))) {
-				System.out.println("You can't place " + typeOfResource + " on this card");
-				return false;
-			}
-
-			else {
-				if (typeOfResource.equalsIgnoreCase(firstResource))// if the resource selected is the first resource
-				{
-					if (numOfFirstResource + numReq > plant.getCost().size() * 2)// if trying to store greater than the
-																					// amount allowed
-					{
-						System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
-						return false;
-					}
-				} else if (typeOfResource.equalsIgnoreCase(secondResource)) {
-					if (numOfSecondResource + numReq > plant.getCost().size() * 2) {
-						System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
-						return false;
-
-					}
-				}
-			}
-		}
-		return true;
-	}
-
+	
 	public void restock(TreeMap<Integer, ArrayList<String>> market, int numToBeSupplied) {
 
 		int lowestKeyAvailable = findLowestKeyAvailable(market);

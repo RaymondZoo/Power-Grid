@@ -995,6 +995,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("END TURN", 905, 935);
 
 	}
+	public void displayMessage(String line)
+	{
+		
+	}
 
 	public void drawView(Graphics g) {
 		
@@ -1198,7 +1202,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 			//int colorX = 30, colorY = 50;
 			//g.fillRect(0, 0, 150, 520);
-		
+			displayMessage("Select a card to bid on and then type up the bid amount ");
 			ArrayList<Player> Others = new ArrayList<Player>();
 			for(int i = 0; i<players.size(); i++)
 			{
@@ -1323,6 +1327,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else
 			{
+				displayMessage("It's round 1 so you need to bid for a powerplant");
 				if (!keyInput.equals("")&&e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) //bid
 				{
 					if(Integer.parseInt(keyInput) >= minBid)
@@ -1372,6 +1377,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
+						displayMessage("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
 						players.get(currPlayer).subtractMoney(minBid); //CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
@@ -1518,11 +1524,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
 			int index=-1;
+			displayMessage("Please select the powerplant you want to place resources on and then select resources");
 			if (this.powerPlantforResource!=null) {
-				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
-				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
-				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canCoal=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canOil=checkWhetherPossible(powerPlantforResource, "oil", 1);
+				canTrash=checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canNuclear=checkWhetherPossible(powerPlantforResource, "coal", 1);
 			}
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
@@ -1591,6 +1598,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else if(gs.getPhase()==4) //city building
 			{
+				displayMessage("Select which city you want to build on");
 				String name = findCity(e);
 				if(!name.contentEquals("Not in ranges"))
 				{
@@ -1614,7 +1622,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						if (players.get(currPlayer).getMoney() > cost) 
 						{
-							System.out.println(players.get(currPlayer).getColor()+" has bought "+c.getName()+" for "+cost);
+							displayMessage(players.get(currPlayer).getColor()+" has bought "+c.getName()+" for "+cost);
 							players.get(currPlayer).addMoney(cost * -1);//subtracting money
 							
 							//display
@@ -1638,6 +1646,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							gs.checkPowerPlantSize();							
 						}
 						selectedCity = "";
+					}
+					else
+					{
+						displayMessage("There is no more space in this city. Please choose another one");
 					}
 			}
 				//g.fillRect(527, 10, 260, 80);
@@ -1678,8 +1690,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								//200, (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10);
 								int buttonY = (MAPY + (i * (PPHEIGHT + 20))) +(j*(PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1)));
 								int buttonH = (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10;
+								displayMessage("Choose the powerplant and the resources you want to burn by clicking on the button");
 								if(e.getX()>=MAPX+PPWIDTH&&e.getX()<= MAPX+PPWIDTH+200 && e.getY()>=buttonY && e.getY()<=buttonY+buttonH)
 								{
+									
 									ArrayList<String>list=new ArrayList<String>();
 									if (temp==2) {
 										if (j==0) {
@@ -2038,6 +2052,61 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 
 		return "Not in ranges";
+	}
+	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq) {
+		// the system.outs will be replaced by adding them to the message board
+		ArrayList<String> cost = plant.getCost();
+
+		if (!plant.isHybrid()) {
+			if (!cost.contains(typeOfResource)) {// if the cost doesn't match with the resources they're trying to place
+				displayMessage("You can't place " + typeOfResource + " on this card");
+				return false;
+
+			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {// they are overfilling the powerplant
+				displayMessage("You can't place " + typeOfResource + " on this card");
+				return false;
+			}
+		} else {
+			// this whole block of code is figuring out how much of each type of resource
+			// are there in the
+			// powerplant storage
+			String firstElement = cost.get(0);
+			String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
+			String secondResource = firstElement.substring(firstElement.indexOf("||") + 2, firstElement.length());
+			int numOfFirstResource = 0;
+			int numOfSecondResource = 0;
+			for (String x : plant.getStorage()) {
+				if (x.equalsIgnoreCase(firstResource)) {
+					numOfFirstResource++;
+				} else if (x.equalsIgnoreCase(secondResource)) {
+					numOfSecondResource++;
+				}
+			}
+			if (!(firstElement.contains(typeOfResource))) {
+				displayMessage("You can't place " + typeOfResource + " on this card");
+				return false;
+			}
+
+			else {
+				if (typeOfResource.equalsIgnoreCase(firstResource))// if the resource selected is the first resource
+				{
+					if (numOfFirstResource + numReq > plant.getCost().size() * 2)// if trying to store greater than the
+																					// amount allowed
+					{
+						displayMessage("Sorry you don't have space to put " + typeOfResource + " on this card");
+						return false;
+					}
+				} else if (typeOfResource.equalsIgnoreCase(secondResource)) {
+					if (numOfSecondResource + numReq > plant.getCost().size() * 2) {
+						
+						displayMessage("Sorry you don't have space to put " + typeOfResource + " on this card");
+						return false;
+
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	public void mouseClicked(MouseEvent e) {
