@@ -1023,6 +1023,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 		} else if (MAPUI) {
 			boolean hasSelected=false;
+			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
+			if (this.powerPlantforResource!=null) {
+				canCoal=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canOil=gs.checkWhetherPossible(powerPlantforResource, "oil", 1);
+				canTrash=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+				canNuclear=gs.checkWhetherPossible(powerPlantforResource, "coal", 1);
+			}
 			if((e.getX()>=MAPX)&&(e.getX()<=MAPX+PPWIDTH)&&(e.getY()>=MAPY)&&e.getY()<=MAPY+PPHEIGHT) {
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(0);
 				hasSelected=true;
@@ -1035,16 +1042,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				powerPlantforResource=players.get(currPlayer).getPowerList().get(2);
 				hasSelected=true;
 			}
-			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
-				//coal
+			else if (canCoal&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=762&&e.getX()<=762+50) {
+				gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), numReq, indexOfPlant);
 			}
-			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
+			else if (canOil&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=762&&e.getX()<=762+50) {
 				//oil
 			}
-			else if (hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
+			else if (canTrash&&hasSelected&&e.getX()>=454&&e.getX()<=554&&e.getY()>=831&&e.getX()<=881) {
 				//trash
 			}
-			else if (hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
+			else if (canNuclear&&hasSelected&&e.getX()>=593&&e.getX()<=693&&e.getY()>=831&&e.getX()<=881) {
 				//nuclear
 			}
 			//resource is removed from market

@@ -124,8 +124,8 @@ public class GameState {
 			nuclearMarket.put(10, blank);
 			ArrayList<String> blank2 = new ArrayList<String>();
 			nuclearMarket.put(12, blank2);
-			for (int i=1; i<=8;i++) {
-				ArrayList<String>stuff=new ArrayList<String>();
+			for (int i = 1; i <= 8; i++) {
+				ArrayList<String> stuff = new ArrayList<String>();
 				nuclearMarket.put(i, stuff);
 			}
 			coalSupply -= 24;
@@ -465,11 +465,11 @@ public class GameState {
 	public boolean isEndOfGame() {
 		for (Player p : numCities.keySet()) {
 			if (numCities.get(p) > 16) {
-				endOfGame=true;
+				endOfGame = true;
 				return true;
 			}
 		}
-		endOfGame=false;
+		endOfGame = false;
 		return false;
 	}
 
@@ -605,7 +605,7 @@ public class GameState {
 		}
 	}
 
-	public void restructureMarket() { //step 3 conversion
+	public void restructureMarket() { // step 3 conversion
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
@@ -672,7 +672,7 @@ public class GameState {
 		}
 	}
 
-	public void marketFix() { //Phase 5
+	public void marketFix() { // Phase 5
 		if (step != 3) {
 			deck.add(deck.size(), futureMarket.remove(futureMarket.size() - 1));
 			addPowerPlant();
@@ -755,24 +755,24 @@ public class GameState {
 		}
 		return 0;
 	}
-	 
-	
-	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq)
-	{
+
+	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq) {
+		// the system.outs will be replaced by adding them to the message board
 		ArrayList<String> cost = plant.getCost();
-		
+
 		if (!plant.isHybrid()) {
-			if (!cost.contains(typeOfResource)) {//if the cost doesn't match with the resources they're trying to place
+			if (!cost.contains(typeOfResource)) {// if the cost doesn't match with the resources they're trying to place
 				System.out.println("You can't place " + typeOfResource + " on this card");
 				return false;
 
-			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {//they are overfilling the powerplant
+			} else if (plant.getStorage().size() + numReq > cost.size() * 2) {// they are overfilling the powerplant
 				System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
 				return false;
 			}
 		} else {
-			//this whole block of code is figuring out how much of each type of resource are there in the 
-			//powerplant storage
+			// this whole block of code is figuring out how much of each type of resource
+			// are there in the
+			// powerplant storage
 			String firstElement = cost.get(0);
 			String firstResource = firstElement.substring(0, firstElement.indexOf("||"));
 			String secondResource = firstElement.substring(firstElement.indexOf("||") + 2, firstElement.length());
@@ -790,24 +790,21 @@ public class GameState {
 				return false;
 			}
 
-			else 
-			{
-				if (typeOfResource.equalsIgnoreCase(firstResource))//if the resource selected is the first resource
+			else {
+				if (typeOfResource.equalsIgnoreCase(firstResource))// if the resource selected is the first resource
 				{
-						if(numOfFirstResource + numReq > plant.getCost().size() * 2)//if trying to store greater than the amount allowed
-						{
-							System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
-							return  false;
-						}
-				}
-				else if(typeOfResource.equalsIgnoreCase(secondResource))
-				{
-						if(numOfSecondResource + numReq > plant.getCost().size() * 2)
-						{
-							System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
-							return false;
-				
-						}
+					if (numOfFirstResource + numReq > plant.getCost().size() * 2)// if trying to store greater than the
+																					// amount allowed
+					{
+						System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
+						return false;
+					}
+				} else if (typeOfResource.equalsIgnoreCase(secondResource)) {
+					if (numOfSecondResource + numReq > plant.getCost().size() * 2) {
+						System.out.println("Sorry you don't have space to put " + typeOfResource + " on this card");
+						return false;
+
+					}
 				}
 			}
 		}
@@ -878,7 +875,7 @@ public class GameState {
 		return null;
 	}
 
-	public void rearrangeMarket() { //Sort
+	public void rearrangeMarket() { // Sort
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		Collections.sort(currentMarket);
@@ -907,33 +904,86 @@ public class GameState {
 	public ArrayList<City> getListOfCites() {
 		return listOfCities;
 	}
-	
+
 	public Player nextPlayer(int i) {
-		if (phase==2||phase==5) {
+		if (phase == 2 || phase == 5) {
 			i++;
-			if (i==4) {
-				i=0;
+			if (i == 4) {
+				i = 0;
 			}
-		}
-		else {
+		} else {
 			i--;
-			if (i==0) {
-				i=4;
+			if (i == 0) {
+				i = 4;
 			}
 		}
 		return playerOrder.get(i);
 	}
-	
+
 	public void resetBid() {
-		for (Player p:bids.keySet()) {
+		for (Player p : bids.keySet()) {
 			bids.put(p, 0);
 		}
 	}
-	public int countResource(TreeMap<Integer, ArrayList<String>>map) {
-		int size=0;
-		for (int i:map.keySet()) {
-			size+=map.get(i).size();
+
+	public int countResource(TreeMap<Integer, ArrayList<String>> map) {
+		int size = 0;
+		for (int i : map.keySet()) {
+			size += map.get(i).size();
 		}
 		return size;
+	}
+
+	public void moveResources(PowerPlant plant, String typeOfResource, Player player, int numReq, int indexOfPlant) {
+		int originalMoney = player.getMoney();
+		TreeMap<Integer, ArrayList<String>> market = new TreeMap<Integer, ArrayList<String>>();
+		market = gs.getMarket(typeOfResource);// getting the correct market based on the resource the player selected
+		TreeMap<Integer, ArrayList<String>> originalMarket;
+		originalMarket = copyMarket(market);// saving original market in case transaction of resources is not possible
+											// because the player can't afford it
+		int numCollectedResources = 0;
+		Iterator<Integer> iter = market.keySet().iterator();// iterating through the keys of the market
+		while (iter.hasNext()) {
+			int key = iter.next();
+			int size = market.get(key).size();
+			if (size > 0) {
+				for (int w = 0; w < size; w++) {
+					ArrayList<String> tempList = market.get(key);// each key has an array list of resources like:(cost 1
+																	// = coal, coal, coal)
+					tempList.remove(0);// remove from arraylist
+					numCollectedResources++;
+					player.subtractMoney(key);
+					if (numCollectedResources == numReq)// if the number of collected resources equals the number
+														// required stop removing from market
+						break;
+				}
+			}
+			if (numCollectedResources == numReq)// coming out from from the while loop as well
+				break;
+		}
+		// pretty self-explanatory
+		System.out.println("The amount of you have now is " + player.getMoney() + " dollars");
+		ArrayList<String> attainedResources = new ArrayList<String>();
+		for (int i = 1; i <= numReq; i++) {
+			attainedResources.add(typeOfResource);
+		}
+		player.getPowerList().get(indexOfPlant).addResources(attainedResources);// adding all the resources the player
+																				// gained
+	}
+	public static TreeMap<Integer, ArrayList<String>> copyMarket(TreeMap<Integer, ArrayList<String>> market) {
+		TreeMap<Integer, ArrayList<String>> newMarket = new TreeMap<Integer, ArrayList<String>>();
+		Iterator<Integer> itr = market.keySet().iterator();
+		while (itr.hasNext()) {
+
+			int key = itr.next();
+			ArrayList<String> list = new ArrayList<String>();
+			ArrayList<String> listFromMarket = market.get(key);
+			for (int i = 0; i < listFromMarket.size(); i++) {
+				list.add(listFromMarket.get(i));
+			}
+			newMarket.put(key, list);
+		}
+
+		return newMarket;
 	}
 }
