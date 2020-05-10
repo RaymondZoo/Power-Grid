@@ -66,7 +66,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	{
 		super();
 		index=-1;
-		fourthIndex=-1;
+		fourthindex=-1;
 		displayList=new HashMap<String, ArrayList<Coord>>();
 		addMouseListener(this);
 		addKeyListener(this);
