@@ -414,7 +414,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			cost3.add("coal||oil");
 			players.get(currPlayer).getPowerList().add(new PowerPlant(46,cost3,7));
 			System.out.println(players.get(currPlayer).getPowerList().size());
-		}
+		}//remove this ~
 		
 		for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 			g.setColor(TRANSPARENTBLACK);// shadow
