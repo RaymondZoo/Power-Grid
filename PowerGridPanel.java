@@ -99,7 +99,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void paint(Graphics g) {
 		// Anti-aliases text so that it is smooth
 		try {
-			gs.setPhase(4);
+			gs.setPhase(5);
 			drawMAPUI(g);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -416,6 +416,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+players.get(currPlayer).getPowerList().get(i).getMinBid()+".PNG")); // change this to actual card~
 				g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
 				
+				if(gs.getPhase() == 5)
+				{
 				if(players.get(currPlayer).getPowerList().get(i).isHybrid())
 				{
 					g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
@@ -467,7 +469,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					g.drawString("BURN", MAPX+PPWIDTH+50, MAPY + (i * (PPHEIGHT + 20))+100);
 				}
 
-
+				}
 			} catch (IOException e) {
 				System.out.println("Cannot find Map image!");
 			}
@@ -1291,7 +1293,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 				
-		}
+			}
+			else if(gs.getPhase() == 5)
+			{
+				for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) 
+				{
+						//g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT, null);
+						if(players.get(currPlayer).getPowerList().get(i).isHybrid())
+						{
+							//System.out.println(players.get(currPlayer).getPowerList().get(i).getMinBid()+" is a hybrid");
+							for(int j = 0; j< (players.get(currPlayer).getPowerList().get(i).getCost().size())+1; j++)
+							{
+								int temp = (players.get(currPlayer).getPowerList().get(i).getCost().size())+1;
+								//g.fillRect(MAPX+PPWIDTH, (MAPY + (i * (PPHEIGHT + 20))) +(j*(PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))), 
+								//200, (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10);
+								int buttonY = (MAPY + (i * (PPHEIGHT + 20))) +(j*(PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1)));
+								int buttonH = (PPHEIGHT/(players.get(currPlayer).getPowerList().get(i).getCost().size()+1))-10;
+								if(e.getX()>=MAPX+PPWIDTH&&e.getX()<= MAPX+PPWIDTH+200 && e.getY()>=buttonY && e.getY()<=buttonY+buttonH)
+								{
+									
+								}
+								
+							}
+						}
+			}
+			}
 		}
 		else {
 			System.out.println("FAIL");
