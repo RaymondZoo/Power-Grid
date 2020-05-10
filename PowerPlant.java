@@ -60,11 +60,9 @@ public class PowerPlant implements Comparable {
 			}
 		}
 		int index = 0;
-
 		while (!isFull()) {
 			while (storage.size() <= cost.size() * 2) {
 				if (cost.get(0).contains(resources.get(index))) {
-
 				}
 				storage.add(resources.get(index));
 			}
@@ -93,23 +91,16 @@ public class PowerPlant implements Comparable {
 		}
 		else if(this.isHybrid())
 		{
-			int numInStorage = 0;
 			if(resources.size()==0)
 				return false;
-			String resourceToBeRemoved = resources.get(0);
-			for(int i = 0;i<storage.size();i++)
-			{
-				if(storage.get(i).equalsIgnoreCase(resourceToBeRemoved))
-				{
-					numInStorage++;
+			if (canBurnH(resources)) {
+				for (String str:resources) {
+					storage.remove(str);
 				}
 			}
-			if(numInStorage>=cost.size())
-			{
-					actualRemoval(resourceToBeRemoved);
-					return true;
+			else {
+				return false;
 			}
-			return false;
 		}
 		return false;
 		/*
@@ -117,7 +108,6 @@ public class PowerPlant implements Comparable {
 		for (String s : cost) {
 			costCopy.add(s);
 		}
-
 		for (String s : costCopy) {
 			if (!specialRemove(resources, s))
 				return false;
@@ -187,5 +177,23 @@ public class PowerPlant implements Comparable {
 	public String toString() {
 		return "Number: " + minBid + ". Cost" + cost.toString() + " powers " + numCitiesPowered + " cities.";
 	}
-
+	public boolean canBurn() {
+		return storage.size()>=cost.size();
+	}
+	public boolean canBurnH(ArrayList<String>toBurn) {
+		ArrayList<String>costCopy=new ArrayList<String>();
+		costCopy.addAll(cost);
+		for (String str:toBurn) {
+			for (int k=0;k<costCopy.size();k++) {
+				if (costCopy.get(k).contains(str)) {
+					costCopy.remove(k);
+					break;
+				}
+			}
+			if (costCopy.size()==0) {
+				return true;
+			}
+		}
+		return (costCopy.size()==0);
+	}
 }
