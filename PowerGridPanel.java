@@ -1145,7 +1145,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							cityCoord.setX(-14+cityCoord.getX()+30*numPlayers);
 							cityCoord.setY(-14+cityCoord.getY()+30*numPlayers);
 							list.add(cityCoord);
-							displayList.put(players.get(currPlayer).getColor(), list);
+							displayList.put("blue", list);
 							repaint();
 							revalidate();
 							System.out.println(displayList);
