@@ -1338,6 +1338,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						currPlayer=3;
 						AUCTION = false;
 						MAPUI = true;	
+						if (gs.getMarketStep3()) {
+							gs.restructureMarket();
+						}
 						gs.nextPhase();
 					}
 					else
@@ -1850,6 +1853,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									gs.marketFix();
 									gs.nextPhase();
 									currPlayer=0;
+									
+									if (round1) {
+										round1=false;
+									}
 								}
 							}
 							else {
