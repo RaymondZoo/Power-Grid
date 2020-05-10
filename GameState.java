@@ -1025,7 +1025,7 @@ public class GameState {
 		cityCoords.put("Savannah",new Coord(1150,672));
 		cityCoords.put("Raleigh",new Coord(1220,582));
 		cityCoords.put("Norfolk",new Coord(1288,536));
-		cityCoords.put("Washington_D.C",new Coord(1234,472));
+		cityCoords.put("Washington_D.C.",new Coord(1234,472));
 		cityCoords.put("Pittsburgh",new Coord(1164,424));
 		cityCoords.put("Buffalo",new Coord(1202,333));
 		cityCoords.put("Philadelphia",new Coord(1304,439));
