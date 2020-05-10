@@ -46,7 +46,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public static final Color TRANSPARENTBLACK = new Color(0, 0, 0, 150);
 
 	// UIs
-	private String view;
+	private Player view;
 	private boolean MainMenu, REGIONS, MAPUI, AUCTION, FOURTH, END;
 	// FOURTH is when there is a fourth powerplant
 	// gamestate's endOfGame will also be one
@@ -87,7 +87,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		AUCTION = false;
 		REGIONS = false;
 		FOURTH = false;
-		view = "";
+		view =null;
 		END = false;
 
 		gs = new GameState();
@@ -105,7 +105,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// Anti-aliases text so that it is smooth
 		//try {
 			//gs.setPhase(5);
+		
+		
+		//DRAWVIEW SHOULD COME FIRST
+		
+		if (view != null) {
+			drawView(g);
+		}
+		else if(MAPUI)
+			{
 			drawMAPUI(g);
+			}
 			//drawEND(g);
 			//drawFOURTH(g);
 		//} catch (IOException e) {
@@ -615,7 +625,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			System.out.println("Cannot find Map image!");
 		}
 		
-		
+		//Player color
+		g.setColor(GREEN);
+		g.fillRect(0, 0, 340, 112);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.drawString(players.get(currPlayer).getColor().toUpperCase()+" player", 30,60);
 		
 		
 	}
@@ -1297,42 +1312,62 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 * }
 			 */
 		} else if (FOURTH) {
-			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
-			{
-				for (int i=0;i<4;i++) {
-					if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
-						fourthindex=i;
-				}
-				for (int j=0;j<players.get(currPlayer).getPowerList().size();j++) {
-					if (!(j==fourthindex)) {
-						PowerPlant temp=players.get(currPlayer).getPowerList().get(j);
-						if (temp.getCost().size()==0) {
-							//no buttons
-						}
-						if (temp.isHybrid()) {
-							//build 2 buttons
-						}
-						else {
-							//build 1 button
-						}
+			for (int i=0;i<4;i++) {
+				if (e.getX()>=MARKETX + (i * (PPWIDTH + 20))&&e.getX()<=(MARKETX + (i * (PPWIDTH + 20))+PPWIDTH)&&e.getY()>=MARKETY&&e.getY()<=MARKETY+PPHEIGHT)
+					fourthindex=i;
+			}
+			for (int j=0;j<players.get(currPlayer).getPowerList().size();j++) {
+				if (!(j==fourthindex)) {
+					PowerPlant temp=players.get(currPlayer).getPowerList().get(j);
+					if (temp.getCost().size()==0) {
+						//no buttons
+					}
+					if (temp.isHybrid()) {
+						//build 2 buttons
+					}
+					else {
+						//build 1 button
 					}
 				}
+			}
 				//detect which button clicked
 				//remove resource from players.get(currPlayer).getPowerList().get(j) and move them to the right Powerplant
 				
 				//end turn
 				//remove players.get(currPlayer).getPowerList().remove(j)
 
-				FOURTH = false;
-				view = "something";
-			}
-		} else if (!view.isEmpty()) {
+			
+		} else if (view != null) {
 			if (e.getX() >= 1720 && e.getY() <= 80) {
-				view = "";
-				MAPUI = true;
+				view = null;
 			}
 		} else if (MAPUI) {
-			if(gs.getPhase()==3) {
+			
+			
+			
+			//g.fillRect(1290, 640, 150, 400);
+			if(e.getX()>= 1290 && e.getX() <= 1290+150 && e.getY() >= 640 && e.getY() <= 640+400)
+			{
+				ArrayList<Player> Others = new ArrayList<Player>();
+				for(int i = 0; i<players.size(); i++)
+				{
+					if(i != currPlayer)
+					{
+						Others.add(players.get(i));
+					}
+				}
+			
+
+				int colorX = 1310, colorY = 690;
+				for (int i = 0; i < Others.size(); i++) 
+				{//(colorX, colorY + (i * (100 + 10)), 100, 100);
+					if(e.getX()>= colorX && e.getX() <= colorX +100 && e.getY()>=colorY + (i * (100 + 10)) && e.getY()<=colorY + (i * (100 + 10))+100)
+					{
+						view = players.get(i);
+					}
+				}
+			}	
+			else if(gs.getPhase()==3) {
 			boolean hasSelected=false;
 			boolean canCoal=false, canOil=false, canTrash=false, canNuclear=false;
 			int index=-1;
@@ -1627,7 +1662,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								currPlayer=index;
 							}
 						}
-			}
+				}
 			}
 		}
 		else {
