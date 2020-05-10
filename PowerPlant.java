@@ -190,6 +190,7 @@ public class PowerPlant implements Comparable {
 			for (int k=0;k<costCopy.size();k++) {
 				if (costCopy.get(k).contains(str)) {
 					costCopy.remove(k);
+					k--;
 					break;
 				}
 			}
