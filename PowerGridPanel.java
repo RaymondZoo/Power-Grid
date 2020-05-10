@@ -83,10 +83,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		// Initializing each UI
 		MainMenu = false;
-		MAPUI = false;
-		AUCTION = true;
+		MAPUI = true;
+		AUCTION = false;
 		REGIONS = false;
-		FOURTH = true;
+		FOURTH = false;
 		view =null;
 		END = false;
 
@@ -112,9 +112,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		if (view != null) {
 			drawView(g);
 		}
-		else if(FOURTH)
+		else if(MAPUI)
 			{
-			drawFOURTH(g);
+			drawMAPUI(g);
 			}
 			//drawEND(g);
 			//drawFOURTH(g);
@@ -911,7 +911,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(TRANSPARENTBLACK);
 		g.drawString(view.getColor().toUpperCase()+"'s situation", 843, 48);// player color here~
 		g.setColor(Color.WHITE);
-		g.drawString(view.getColor().toUpperCase()+"s situation", 840, 45);
+		g.drawString(view.getColor().toUpperCase()+"'s situation", 840, 45);
 
 		int viewX = 663, viewY = 315;
 
@@ -924,7 +924,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			// g.setColor(Color.DARK_GRAY);
 			// g.fillRect(AUCTIONX, AUCTIONY+(i*(side+15)), side, side);
 			try {
-				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+view.getPowerList().get(i).getMinBid()+".jpg")); // change this to
+				BufferedImage card = ImageIO.read(PowerGridPanel.class.getResource("UI/"+view.getPowerList().get(i).getMinBid()+".PNG")); // change this to
 																									// actual card~
 				g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
 
@@ -1081,11 +1081,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		} else if (AUCTION) {
 
-			if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
-			{
-				AUCTION = false;
-				FOURTH = true;
-			}
+			//if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching UIs~
+			//{
+			//	AUCTION = false;
+			//	FOURTH = true;
+			//} //TEST ~
 			
 			if(gs.getAuctionCard() == null) {
 			//ArrayList<Player> tempPlayers = gs.getPlayerOrder();
@@ -1349,27 +1349,28 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				view = null;
 			}
 		} else if (MAPUI) {
+			//System.out.println("bug");
 			
-			
-			
-			//g.fillRect(1290, 640, 150, 400);
-			if(e.getX()>= 1290 && e.getX() <= 1290+150 && e.getY() >= 640 && e.getY() <= 640+400)
+			ArrayList<Player> Others = new ArrayList<Player>();
+			for(int i = 0; i<players.size(); i++)
 			{
-				ArrayList<Player> Others = new ArrayList<Player>();
-				for(int i = 0; i<players.size(); i++)
+				if(i != currPlayer)
 				{
-					if(i != currPlayer)
-					{
-						Others.add(players.get(i));
-					}
+					Others.add(players.get(i));
 				}
-			
+			}
+		
+			//g.fillRect(1290, 640, 150, 400);
+			if(e.getX()>= 1290 && e.getX() <= 1290+150 && e.getY() >= 640 && e.getY() <= 640+400) //if other player view
+			{
+				//System.out.println()
 
 				int colorX = 1310, colorY = 690;
 				for (int i = 0; i < Others.size(); i++) 
 				{//(colorX, colorY + (i * (100 + 10)), 100, 100);
 					if(e.getX()>= colorX && e.getX() <= colorX +100 && e.getY()>=colorY + (i * (100 + 10)) && e.getY()<=colorY + (i * (100 + 10))+100)
 					{
+						//System.out.println("bug");
 						view = players.get(i);
 					}
 				}
