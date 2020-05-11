@@ -362,6 +362,20 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("MESSAGE BOARD:", 1573, 783);
 		g.setColor(Color.WHITE);
 		g.drawString("MESSAGE BOARD:", 1570, 780);
+		
+		int messX = 1495;
+		
+		if(gs.getPhase() == 3)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 850);
+			g.drawString("-Click the resource button to buy a single unit", messX, 900);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
+		
+		
+		
+		
 		/*
 		 * try { BufferedImage coal =
 		 * ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG")); int
