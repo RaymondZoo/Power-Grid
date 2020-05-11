@@ -193,6 +193,7 @@ public class PowerPlant implements Comparable {
 			for (int k=0;k<storageCopy.size();k++) {
 				if (storageCopy.get(k).contains(str)) {
 					storageCopy.remove(k);
+					toBurn.remove(str);
 					k--;
 				}
 			}
