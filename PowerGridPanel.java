@@ -749,7 +749,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if(round1 = true)
 			{
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
+				g.drawString("-(You can't pass starting an auction in round 1)", messX, 250);
 			}
 		}
 		else
@@ -1533,7 +1533,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (!keyInput.equals("") && e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810
 						&& e.getY() <= (810 + 100)) // bid
 				{
-					if (Integer.parseInt(keyInput) >= minBid) {
+					if (Integer.parseInt(keyInput) > minBid) {
 						minBid = Integer.parseInt(keyInput);
 
 						gs.getBids().put(players.get(currPlayer), Integer.parseInt(keyInput));
@@ -1637,6 +1637,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 							}
 						}
+						keyInput = "";
 						currPlayer = nextIndex;
 						if(currPlayer == -1)
 						{
