@@ -558,9 +558,9 @@ public class GameState {
 		} else if (p1num < p2num) {
 			return false;
 		} else {
-			if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
+			if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()) {
 				return true;
-			} else if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()) {
+			} else if (p1.getHighestPowerPlant() > p2.getHighestPowerPlant()) {
 				return false;
 			} else {
 				return Math.random() >= 0.5;
