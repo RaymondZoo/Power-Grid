@@ -17,7 +17,7 @@ public class Player {
 		this.color = color;
 		
 		//temp
-		ArrayList<String>cost=new ArrayList<String>();
+		/*ArrayList<String>cost=new ArrayList<String>();
 		cost.add("coal");
 		cost.add("coal");
 		PowerPlant p1=new PowerPlant(4, cost, 1);
@@ -37,7 +37,7 @@ public class Player {
 		p2.addResources(resources1);
 		addPowerPlant(p2);
 		
-		addPowerPlant(new PowerPlant(13, new ArrayList<String>(), 1));
+		addPowerPlant(new PowerPlant(13, new ArrayList<String>(), 1));*/
 	}
 
 	public void addPowerPlant(PowerPlant p) {
