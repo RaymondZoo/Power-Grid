@@ -897,6 +897,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("4th Powerplant", 843, 48);
 		g.setColor(Color.WHITE);
 		g.drawString("4th Powerplant", 840, 45);
+		
+		g.drawString(players.get(currPlayer).getColor().toUpperCase() + " player", 295, 45); 
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
 		g.setColor(TRANSPARENTBLACK);
