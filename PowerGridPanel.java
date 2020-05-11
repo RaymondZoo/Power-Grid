@@ -1328,6 +1328,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
+							index =-1;
 							gs.nextPhase();
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1365,6 +1366,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						if (gs.getMarketStep3()) {
 							gs.restructureMarket();
 						}
+						index =-1;
 						gs.nextPhase();
 					} else {
 						currPlayer = nextIndex;
@@ -1468,6 +1470,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
+							index = -1;
 							gs.nextPhase();
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1609,6 +1612,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					FOURTH = false;
 					MAPUI = true;
 					currPlayer = 3;
+					index = -1;
 					gs.nextPhase();
 				} else {
 					AUCTION = true;
