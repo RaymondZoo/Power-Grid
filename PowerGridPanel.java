@@ -1621,6 +1621,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 			} else if (gs.getPhase() == 3) {
+				gs.resetDecision();
 				boolean canCoal = false, canOil = false, canTrash = false, canNuclear = false;
 				displayMessage("Please select the powerplant you want to place resources on and then select resources");
 				if (this.powerPlantforResource != null) {
@@ -1706,6 +1707,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				// added to powerplant
 			} else if (gs.getPhase() == 4) // city building
 			{
+				gs.resetDecision();
 				displayMessage("Select which city you want to build on");
 				String name = findCity(e);
 				if (!name.contentEquals("Not in ranges")) {
@@ -1773,6 +1775,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 
 			} else if (gs.getPhase() == 5) {
+				gs.resetDecision();
 				for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
 					HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 					int citiesPowered = 0;

@@ -1021,4 +1021,9 @@ public class GameState {
 			gs.setNuclearSupply(newNuclear);
 		}
 	}
+	public void resetDecision() {
+		for (Player p:this.decision.keySet()) {
+			decision.put(p, false);
+		}
+	}
 }
