@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -1647,13 +1648,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				boolean canCoal = false, canOil = false, canTrash = false, canNuclear = false;
 				displayMessage("Please select the powerplant you want to place resources on and then select resources");
 				if (this.powerPlantforResource != null) {
-					canCoal = checkWhetherPossible(powerPlantforResource, "coal", 1);
+					canCoal = checkWhetherPossible(powerPlantforResource, "coal", 1, players.get(currPlayer));
 					System.out.println("Coal: " + canCoal);
-					canOil = checkWhetherPossible(powerPlantforResource, "oil", 1);
+					canOil = checkWhetherPossible(powerPlantforResource, "oil", 1, players.get(currPlayer));
 					System.out.println("Oil: " + canOil);
-					canTrash = checkWhetherPossible(powerPlantforResource, "trash", 1);
+					canTrash = checkWhetherPossible(powerPlantforResource, "trash", 1, players.get(currPlayer));
 					System.out.println("Trash: " + canTrash);
-					canNuclear = checkWhetherPossible(powerPlantforResource, "nuclear", 1);
+					canNuclear = checkWhetherPossible(powerPlantforResource, "nuclear", 1, players.get(currPlayer));
 					System.out.println("Nuclear: " + canNuclear);
 					System.out.println("HasSelected: " + hasSelected);
 					System.out.println("Index: " + index);
@@ -2215,7 +2216,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		return "Not in ranges";
 	}
 
-	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq) {
+	public boolean checkWhetherPossible(PowerPlant plant, String typeOfResource, int numReq, Player player) {
 		// the system.outs will be replaced by adding them to the message board
 		ArrayList<String> cost = plant.getCost();
 
@@ -2267,7 +2268,48 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 			}
+			
 		}
+		TreeMap<Integer, ArrayList<String>> market= new TreeMap<Integer, ArrayList<String>>();
+		
+		if(typeOfResource.equalsIgnoreCase("coal"))
+		{
+			market = gs.getCoalMarket();
+		}
+		else if(typeOfResource.equalsIgnoreCase("oil"))
+		{
+			market = gs.getOilMarket();
+		}
+		else if(typeOfResource.equalsIgnoreCase("trash"))
+		{
+			market = gs.getTrashMarket();
+		}
+		else if(typeOfResource.equalsIgnoreCase("nuclear"))
+		{
+			market = gs.getNuclearMarket();
+		}
+		Iterator<Integer> iter = market.keySet().iterator();// iterating through the keys of the market
+		int numCollectedResources = 0;
+		int totalCost = 0;
+		while (iter.hasNext()) {
+			int key = iter.next();
+			int size = market.get(key).size();
+			if (size > 0) {
+				for (int w = 0; w < size; w++) {
+					ArrayList<String> tempList = market.get(key);// each key has an array list of resources like:(cost 1
+																	// = coal, coal, coal)
+					tempList.remove(0);// remove from arraylist
+					numCollectedResources++;
+					totalCost+=key;
+					if (numCollectedResources == numReq)// if the number of collected resources equals the number		// required stop removing from market
+						break;
+				}
+			}
+			if (numCollectedResources == numReq)// coming out from from the while loop as well
+				break;
+		}
+		if(totalCost>player.getMoney())
+			return false;
 		return true;
 	}
 
