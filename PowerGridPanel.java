@@ -1826,7 +1826,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 													.getNumCitiesPowered();
 										}
 									}
-									if (j == 1) {
+									else if (j == 1) {
 
 										list.add("oil");
 										if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
@@ -1836,7 +1836,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 												.getNumCitiesPowered();
 									}
 								}
-								if (temp == 3) {
+								else if (temp == 3) {
 									if (j == 0) {
 
 										list.add("coal");
@@ -1847,7 +1847,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
 									}
-									if (j == 1) {
+									else if (j == 1) {
 
 										list.add("coal");
 										list.add("oil");
@@ -1857,7 +1857,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
 									}
-									if (j == 2) {
+									else if (j == 2) {
 
 										list.add("oil");
 										list.add("oil");
@@ -1868,7 +1868,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 												.getNumCitiesPowered();
 									}
 								}
-								if (temp == 4) {
+								else if (temp == 4) {
 									if (j == 0) {
 
 										list.add("coal");
@@ -1880,7 +1880,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
 									}
-									if (j == 1) {
+									else if (j == 1) {
 
 										list.add("coal");
 										list.add("oil");
@@ -1891,7 +1891,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
 									}
-									if (j == 2) {
+									else if (j == 2) {
 
 										list.add("coal");
 										list.add("coal");
@@ -1902,7 +1902,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
 									}
-									if (j == 3) {
+									else if (j == 3) {
 
 										list.add("oil");
 										list.add("oil");
