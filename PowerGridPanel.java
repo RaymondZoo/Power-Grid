@@ -311,11 +311,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				num--;
 			}
 			if (num > 0) {
-				g.drawImage(nuclear, 950, 905, 45, 45, null);
+				g.drawImage(nuclear, 998, 905, 45, 45, null);
 				num--;
 			}
 			if (num > 0) {
-				g.drawImage(nuclear, 998, 905, 45, 45, null);
+				g.drawImage(nuclear, 950, 905, 45, 45, null);
 				num--;
 			}
 			int inv = 8 - num + 1;
@@ -1325,9 +1325,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								FOURTH = true;
 								AUCTION = false;
 							 }
+							if (gs.getMarketStep3()) {
+								gs.restructureMarket();
+							}
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
+							index =-1;
 							gs.nextPhase();
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1365,6 +1369,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						if (gs.getMarketStep3()) {
 							gs.restructureMarket();
 						}
+						index =-1;
 						gs.nextPhase();
 					} else {
 						currPlayer = nextIndex;
@@ -1468,6 +1473,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
+							index = -1;
+							if (gs.getMarketStep3()) {
+								gs.restructureMarket();
+							}
 							gs.nextPhase();
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1609,6 +1618,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					FOURTH = false;
 					MAPUI = true;
 					currPlayer = 3;
+					index = -1;
+					if (gs.getMarketStep3()) {
+						gs.restructureMarket();
+					}
 					gs.nextPhase();
 				} else {
 					AUCTION = true;
