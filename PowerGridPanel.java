@@ -1634,6 +1634,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 							}
 						}
+						keyInput = "";
 						currPlayer = nextIndex;
 						if(currPlayer == -1)
 						{
