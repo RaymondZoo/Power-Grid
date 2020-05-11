@@ -1477,6 +1477,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 						}
 						currPlayer = nextIndex;
+						if(currPlayer == -1)
+						{
+							System.out.println("AUCTION FAIL AT LINE 1482");
+						}
 					}
 
 				}
