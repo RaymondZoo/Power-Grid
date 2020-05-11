@@ -97,8 +97,13 @@ public class PowerPlant implements Comparable {
 			if(storage.size()==0)
 				return false;
 			if (canBurnH(resources)) {
-				for (String str:resources) {
-					storage.remove(str);
+				for (int i=resources.size()-1;i>=0;i--) {
+					for (int j=storage.size()-1;j>=0;j--) {
+						if (resources.get(i).equals(storage.get(j))) {
+							resources.remove(i);
+							storage.remove(j);
+						}
+					}
 				}
 				if (resources.size()==0) {
 					return true;
@@ -189,11 +194,11 @@ public class PowerPlant implements Comparable {
 	public boolean canBurnH(ArrayList<String>toBurn) {
 		ArrayList<String>storageCopy=new ArrayList<String>();
 		storageCopy.addAll(storage);
-		for (String str:toBurn) {
+		for (int i=toBurn.size()-1;i>=0;i--) {
 			for (int k=0;k<storageCopy.size();k++) {
-				if (storageCopy.get(k).contains(str)) {
+				if (storageCopy.get(k).contains(toBurn.get(i))) {
 					storageCopy.remove(k);
-					toBurn.remove(str);
+					toBurn.remove(i);
 					k--;
 				}
 			}
