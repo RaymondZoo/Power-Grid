@@ -117,7 +117,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			drawRegion(g);
 		} else if (view != null || mapView) {
 			drawView(g);
-		}else if (AUCTION) {
+		} else if (AUCTION) {
 			drawAUCTION(g);
 		} else if (FOURTH) {
 			drawFOURTH(g);
@@ -639,7 +639,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 */
 
 		// Other Players
-		System.out.println("AuctionBACKGROUND:"+currPlayer);
+		System.out.println("AuctionBACKGROUND:" + currPlayer);
 		System.out.println(players.get(currPlayer).getColor());
 
 		ArrayList<Player> Others = new ArrayList<Player>();
@@ -702,14 +702,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
 			}
 		}
-		if(gs.getStep()!=3) {
+		if (gs.getStep() != 3) {
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("MESSAGE BOARD:", 1573, 48);
 			g.setColor(Color.WHITE);
 			g.drawString("MESSAGE BOARD:", 1570, 45);
-		}
-		else {
+		} else {
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 			g.setColor(TRANSPARENTBLACK);
 			g.drawString("MESSAGE BOARD:", 1573, 412);
@@ -833,7 +832,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 
 			}
-		} 
+		}
 		g.setColor(Color.WHITE);
 		g.fillRect(940, 644, 300, 50);
 
@@ -862,9 +861,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.drawString("BID", 640, 875);
 		g.drawString("PASS", 1000, 875); // 880, 810
-		
-		
-		System.out.println("Auction:"+currPlayer);
+
+		System.out.println("Auction:" + currPlayer);
 		System.out.println(players.get(currPlayer).getColor());
 		g.drawString(players.get(currPlayer).getColor().toUpperCase() + " player", 295, 45); // 880, 810
 
@@ -993,7 +991,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					BufferedImage card = ImageIO.read(
 							PowerGridPanel.class.getResource("UI/" + view.getPowerList().get(i).getMinBid() + ".PNG"));
 					g.drawImage(card, viewX + (i * (PPWIDTH + 20)), viewY, PPWIDTH, PPHEIGHT, null);
-					
+
 					drawRes(viewX + (i * (PPWIDTH + 20)), viewY, g, view.getPowerList().get(i));
 
 				} catch (IOException e) {
@@ -1213,7 +1211,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else {
 					gs.determinePlayerOrder();
 				}
-				
+
 				players = gs.getPlayerOrder();
 
 				gs.rearrangeMarket();
@@ -1291,27 +1289,28 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 						gs.getBids().put(players.get(currPlayer), Integer.parseInt(keyInput));
 
-						int nextIndex=nextIndex();
-						
+						int nextIndex = nextIndex();
+
 						if (nextIndex == -1) {
-							System.out.println("Index is -1");
-							Player winner = null;
-							// give player powerplant
-							for (int i = 0; i < players.size(); i++) {
-								if (gs.getBids().get(players.get(i)) > -1) {
-									winner = players.get(i);
-								}
-							}
-							winner.subtractMoney(minBid); // CHECK ~
-							gs.getCurrentMarket().remove(gs.getAuctionCard());
-							gs.addPowerPlant();
-							winner.addPowerPlant(gs.getAuctionCard());
-							gs.getDecision().put(winner, true);
-							gs.setAuctionCard(null);
-							if (winner.getPowerList().size() == 4) {
-								FOURTH = true;
-								AUCTION = false;
-							}
+
+//							System.out.println("Index is -1");
+//							Player winner = null;
+//							// give player powerplant
+//							for (int i = 0; i < players.size(); i++) {
+//								if (gs.getBids().get(players.get(i)) > -1) {
+//									winner = players.get(i);
+//								}
+//							}
+//							winner.subtractMoney(minBid); // CHECK ~
+//							gs.getCurrentMarket().remove(gs.getAuctionCard());
+//							gs.addPowerPlant();
+//							winner.addPowerPlant(gs.getAuctionCard());
+//							gs.getDecision().put(winner, true);
+//							gs.setAuctionCard(null);
+//							if (winner.getPowerList().size() == 4) {
+//								FOURTH = true;
+//								AUCTION = false;
+							// }
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
@@ -1387,10 +1386,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									break;
 								}
 							}
-						}
-						else {
-						currPlayer = nextIndex;
-						keyInput = "";
+						} else {
+							currPlayer = nextIndex;
+							keyInput = "";
 						}
 
 					}
@@ -1405,7 +1403,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-						System.out.println("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
+						System.out
+								.println("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
 						winner.subtractMoney(minBid); // CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
@@ -1427,17 +1426,35 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						 * if(gs.getDecision().get(players.get(i)) == false && i != currPlayer) {
 						 * nextIndex = i; } } currPlayer = nextIndex;
 						 */
-						int nextIndex = -1;
+						int nextIndex = nextIndex();
+						if (nextIndex == -1) {
 
-						for (int i = 0; i < players.size(); i++) {
-							if (gs.getDecision().get(players.get(i)) == false && i != currPlayer
-									&& gs.getBids().get(players.get(i)) <= 0) {
-								System.out.println("i and currPlayer" + i + " " + currPlayer);
-								System.out
-										.println(players.get(i).getColor() + " " + players.get(currPlayer).getColor());
-								nextIndex = i;
-								break;
-							}
+//							System.out.println("Index is -1");
+//							Player winner = null;
+//							// give player powerplant
+//							for (int i = 0; i < players.size(); i++) {
+//								if (gs.getBids().get(players.get(i)) > -1) {
+//									winner = players.get(i);
+//								}
+//							}
+//							winner.subtractMoney(minBid); // CHECK ~
+//							gs.getCurrentMarket().remove(gs.getAuctionCard());
+//							gs.addPowerPlant();
+//							winner.addPowerPlant(gs.getAuctionCard());
+//							gs.getDecision().put(winner, true);
+//							gs.setAuctionCard(null);
+//							if (winner.getPowerList().size() == 4) {
+//								FOURTH = true;
+//								AUCTION = false;
+							// }
+							AUCTION = false;
+							MAPUI = true;
+							currPlayer = 3;
+							gs.nextPhase();
+						} else {
+							System.out.println(players.get(nextIndex).getColor());
+							currPlayer = nextIndex;
+							keyInput = "";
 						}
 					} else {
 						int nextIndex = -1;
@@ -1915,7 +1932,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								gs.marketFix();
 								gs.nextPhase();
 								currPlayer = 0;
-								
+
 								gs.determinePlayerOrder();
 								players = gs.getPlayerOrder();
 
@@ -1942,15 +1959,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		for (int i = 0; i < players.size(); i++) {
 			if (gs.getDecision().get(players.get(i)) == false) {
-				System.out.println(players.get(i).getColor()+" made no decision.");
-					if( i != currPlayer) {
-						System.out.println(players.get(i).getColor()+" isn't current player.");
-						if(gs.getBids().get(players.get(i)) <= 0) {
-							System.out.println(players.get(i).getColor()+" bid is pass");
-							nextIndex = i;
-							break;
-						}
+				System.out.println(players.get(i).getColor() + " made no decision.");
+				if (i != currPlayer) {
+					System.out.println(players.get(i).getColor() + " isn't current player.");
+					if (gs.getBids().get(players.get(i)) <= 0) {
+						System.out.println(players.get(i).getColor() + " bid is pass");
+						nextIndex = i;
+						break;
 					}
+				}
 			}
 		}
 		return nextIndex;
