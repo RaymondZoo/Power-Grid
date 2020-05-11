@@ -26,10 +26,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	private boolean hasSelected;
 	private int fourthindex;
+	private HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 	private int width;
 	private int index;
 	private int height;
 	private String keyInput;
+	private int citiesPowered=0;
 	private PowerPlant powerPlantforResource = null;
 	HashMap<Player, Integer> endNumCitiesPowered = new HashMap<Player, Integer>();
 
@@ -1792,9 +1794,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 			} else if (gs.getPhase() == 5) {
 				gs.resetDecision();
-				
-				HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
-				int citiesPowered = 0;
 				if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // END TURN
 				{
 					
@@ -1821,6 +1820,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							gs.marketFix();
 							gs.nextPhase();
 							currPlayer = 0;
+							numCitiesPowered.clear();
+							citiesPowered=0;
 							MAPUI=false;
 							AUCTION=true;
 
