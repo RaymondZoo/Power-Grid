@@ -372,6 +372,19 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawString("-Click the resource button to buy a single unit", messX, 900);
 			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
 		}
+		if(gs.getPhase() == 4)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Click the center of a city to occupy it", messX, 850);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
+		if(gs.getPhase() == 4)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 850);
+			g.drawString("-Click the the respective burn button", messX, 900);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
 		
 		
 		
@@ -702,6 +715,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void drawAUCTION(Graphics g) {
+		
 		drawAUCTIONBACKGROUND(g);
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
@@ -721,6 +735,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("YOUR POWERPLANTS:", 13, 583);
 		g.setColor(Color.WHITE);
 		g.drawString("YOUR POWERPLANTS:", 10, 580);
+		
+		
+		int messX = 1600;
+		if (gs.getStep() != 3) 
+		{
+			g.setColor(Color.white);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 100);
+			g.drawString("-Type in your bid", messX, 150);
+			g.drawString("-Click either bid or pass", messX, 200);
+			if(round1 = true)
+			{
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
+			}
+		}
+		else
+		{
+			g.setColor(Color.white);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 460));
+			g.drawString("-Select the desired powerplant", messX, 510);
+			g.drawString("-Type in your bid", messX, 150);
+			g.drawString("-Click either bid or pass", messX, 560);
+		}
+		
 
 		int AUCTIONX = 10, AUCTIONY = 595;
 		int side = 120; // only for this UI
@@ -1049,6 +1088,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
 			}
 		}
+		int messX = 1600;
+		g.setColor(Color.white);
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		g.drawString("-Select the powerplant to remove", messX, 100);
+		g.drawString("-Click the move button to move a single unit", messX, 150);
+		g.drawString("-Click END TURN to discard remaining resources", messX, 200);
+		g.drawString("--This will remove the selected card", messX, 250);
+		g.drawString("--This will also end your turn", messX, 250);
 
 	}
 
