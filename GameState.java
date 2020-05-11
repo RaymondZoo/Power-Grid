@@ -603,6 +603,7 @@ public class GameState {
 				//System.out.println(futureMarket);
 				currentMarket.add(futureMarket.remove(0));
 				Collections.sort(currentMarket);
+				
 				//System.out.println(currentMarket);
 			}
 			else {
