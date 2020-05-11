@@ -420,6 +420,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 * System.out.println("Cannot find Map image!"); }
 		 */
 		if (gs.getPhase() == 3) {
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(464, 772, 100, 50);
 			g.setColor(Color.BLACK);
