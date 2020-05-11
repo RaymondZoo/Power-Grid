@@ -1648,6 +1648,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					AUCTION = false;
 					FOURTH = false;
 					MAPUI = true;
+					fourthPlayer=-1;
 					currPlayer = 3;
 					index = -1;
 					if (gs.getMarketStep3()) {
@@ -1664,6 +1665,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else {
 					AUCTION = true;
 					FOURTH = false;
+					fourthPlayer=-1;
 					hasSelectedAPowerPlant = false;
 					System.out.println("curr and next" + currPlayer + " " + nextIndex);
 					currPlayer = nextIndex;
