@@ -296,7 +296,7 @@ public class GameState {
 			socket.addAll(plug);
 			Collections.shuffle(socket);
 			socket.add(0, topCard);
-			socket.add(socket.size(), new PowerPlant(1234));
+			socket.add(0, new PowerPlant(1234));
 			deck.addAll(socket);
 
 			Collections.sort(tempList);
@@ -625,6 +625,7 @@ public class GameState {
 		futureMarket.clear();
 		currentMarket.remove(0);
 		currentMarket.remove(new PowerPlant(1234));
+		System.out.println("Current Market: "+currentMarket);
 	}
 
 	public boolean isAuctionDone() {
