@@ -748,16 +748,18 @@ public class GameState {
 		if (nuclearToBeSupplied > nuclearSupply) {
 			nuclearToBeSupplied = nuclearSupply;
 		}
-		restock(coalMarket, coalToBeSupplied);
+		restock(coalMarket, coalToBeSupplied, "coal");
 		coalSupply -= coalToBeSupplied;
-		restock(oilMarket, oilToBeSupplied);
+		restock(oilMarket, oilToBeSupplied, "oil");
 		oilSupply -= oilToBeSupplied;
-		restock(trashMarket, trashToBeSupplied);
+		restock(trashMarket, trashToBeSupplied, "trash");
 		trashSupply -= trashToBeSupplied;
 		int lowestKeyNuclear = findLowestKeyAvailable(nuclearMarket);
-		String wordToPut = nuclearMarket.get(lowestKeyNuclear).get(0);
+		String wordToPut = "nuclear";
 		TreeSet<Integer> costs = new TreeSet<Integer>(nuclearMarket.keySet());
 		Iterator<Integer> descend = costs.descendingIterator();
+		if(lowestKeyNuclear!=0)
+		{
 		while (descend.hasNext()) {
 			int key = descend.next();
 			if (key < lowestKeyNuclear) {
@@ -768,6 +770,20 @@ public class GameState {
 				break;
 		}
 		nuclearSupply -= nuclearToBeSupplied;
+		}
+		else
+		{
+			while (descend.hasNext()) {
+				int key = descend.next();
+				if (key <= nuclearMarket.keySet().size()) {
+					nuclearMarket.get(key).add(wordToPut);
+					nuclearToBeSupplied--;
+				}
+				if (nuclearToBeSupplied == 0)
+					break;
+			}
+			nuclearSupply -= nuclearToBeSupplied;
+		}
 	}
 
 	public int findLowestKeyAvailable(TreeMap<Integer, ArrayList<String>> market) {
@@ -784,38 +800,56 @@ public class GameState {
 	}
 
 	
-	public void restock(TreeMap<Integer, ArrayList<String>> market, int numToBeSupplied) {
+	public void restock(TreeMap<Integer, ArrayList<String>> market, int numToBeSupplied, String wordToPut) {
 
 		int lowestKeyAvailable = findLowestKeyAvailable(market);
-		String wordToPut = market.get(lowestKeyAvailable).get(0);
-		TreeSet<Integer> costs = new TreeSet<Integer>(market.keySet());
-		Iterator<Integer> descend = costs.descendingIterator();
-		while (descend.hasNext()) {
-			int key = descend.next();
-			if (key == lowestKeyAvailable) {
-				for (int i = market.get(lowestKeyAvailable).size(); i < 3; i++) {
-					market.get(lowestKeyAvailable).add(wordToPut);
-					numToBeSupplied--;
-
+		if(lowestKeyAvailable!=0)
+		{
+			TreeSet<Integer> costs = new TreeSet<Integer>(market.keySet());
+			Iterator<Integer> descend = costs.descendingIterator();
+			while (descend.hasNext()) {
+				int key = descend.next();
+				if (key == lowestKeyAvailable) {
+					for (int i = market.get(lowestKeyAvailable).size(); i < 3; i++) {
+						market.get(lowestKeyAvailable).add(wordToPut);
+						numToBeSupplied--;
+	
+					}
+				} else if (key < lowestKeyAvailable && numToBeSupplied % 3 == 0) {
+					for (int i = 1; i <= 3; i++) {
+						market.get(key).add(wordToPut);
+						numToBeSupplied--;
+					}
+				} else if (numToBeSupplied % 3 != 0 && numToBeSupplied < 3 && key < lowestKeyAvailable) {
+					int originalNumTobeSupplied = numToBeSupplied;
+					for (int i = 1; i <= originalNumTobeSupplied; i++) {
+						market.get(key).add(wordToPut);
+						numToBeSupplied--;
+					}
+					break;
 				}
-			} else if (key < lowestKeyAvailable && numToBeSupplied % 3 == 0) {
-				for (int i = 1; i <= 3; i++) {
-					market.get(key).add(wordToPut);
-					numToBeSupplied--;
-				}
-			} else if (numToBeSupplied % 3 != 0 && numToBeSupplied < 3 && key < lowestKeyAvailable) {
-				int originalNumTobeSupplied = numToBeSupplied;
-				for (int i = 1; i <= originalNumTobeSupplied; i++) {
-					market.get(key).add(wordToPut);
-					numToBeSupplied--;
-				}
-				break;
+				if (numToBeSupplied == 0)
+					break;
 			}
-			if (numToBeSupplied == 0)
-				break;
+			if (numToBeSupplied != 0) {
+				printIfMarketDoesNotHaveSpace(numToBeSupplied);
+			}
 		}
-		if (numToBeSupplied != 0) {
-			printIfMarketDoesNotHaveSpace(numToBeSupplied);
+		else
+		{
+			TreeSet<Integer> costs = new TreeSet<Integer>(market.keySet());
+			Iterator<Integer> descend = costs.descendingIterator();
+			while (descend.hasNext()) {
+				int key = descend.next();
+				if (key <= market.keySet().size()) {
+					for(int i = 1;i<=3;i++)
+					{
+						market.get(i).add(wordToPut);
+					}
+				}
+				if (numToBeSupplied == 0)
+					break;
+			}
 		}
 	}
 

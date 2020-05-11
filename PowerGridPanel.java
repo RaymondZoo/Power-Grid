@@ -747,7 +747,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawString("-Select the desired powerplant", messX, 100);
 			g.drawString("-Type in your bid", messX, 150);
 			g.drawString("-Click either bid or pass", messX, 200);
-			if(round1 = true)
+			if(round1 == true)
 			{
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
 				g.drawString("-(You can't pass starting an auction in round 1)", messX, 250);
@@ -1299,6 +1299,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void mousePressed(MouseEvent e) {
+		System.out.println("Round 1: "+round1);
 		System.out.println(gs.getDecision());
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
 		if (MainMenu) {
@@ -1488,6 +1489,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 					}
 				}
+				System.out.println("Round 1: "+round1);
 				if (!round1 && e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) // pass
 																															// starting
 																															// auction
@@ -1505,7 +1507,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							break;
 						}
 					}
-
+					System.out.println("Next Index: "+nextIndex);
 					if (nextIndex == -1) {
 						gs.resetBid();
 						minBid = 0;
@@ -1525,6 +1527,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 						gs.nextPhase();
 					} else {
+						System.out.println("Next Player: "+players.get(nextIndex));
 						currPlayer = nextIndex;
 
 					}
@@ -2004,6 +2007,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							this.endNumCitiesPowered = numCitiesPowered;
 						} else {
 							System.out.println("gs.getMarketStep3(): "+gs.getMarketStep3());
+							
+							if (round1) {
+								round1 = false;
+							}
+							System.out.println("Round1: "+round1);
+							
 							if (gs.getMarketStep3()) {
 								gs.restructureMarket();
 								gs.setMarketStep3(false);
@@ -2024,9 +2033,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							gs.determinePlayerOrder();
 							players = gs.getPlayerOrder();
 
-							if (round1) {
-								round1 = false;
-							}
+							
 						}
 					} else {
 						currPlayer = bindex;
