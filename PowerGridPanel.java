@@ -1207,7 +1207,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 
 			if (selectedRegions.size() == 4) {
-
+				System.out.println("Sel Region List: "+selectedRegions);
 				ArrayList<City> cityList = gs.getListOfCites();
 				ArrayList<City> adjustedCityList = new ArrayList<City>();
 				for (City c : cityList) {
@@ -1216,6 +1216,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 				gs.setListOfCites(adjustedCityList);
+				System.out.println("Adj Region List: "+adjustedCityList);
 
 				if (round1) {
 					gs.randomizePlayerOrder();
