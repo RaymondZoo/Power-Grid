@@ -1909,20 +1909,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						citiesPowered += players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
 						gs.reSupplyAfterBurn(players.get(currPlayer).getPowerList().get(i).getCost(),
 								players.get(currPlayer).getPowerList().get(i));
-					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 20 && e.getY() <= (10 + 80)) // IF
-																														// END
-																														// TURN
+					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 20 && e.getY() <= (10 + 80)) // END TURN
 					{
 						numCitiesPowered.put(players.get(currPlayer),
 								Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 						gs.getDecision().put(players.get(currPlayer), true);
-						int index = -1;
-						for (int i1 = 0; i1 < players.size(); i1++) {
-							if (!gs.getDecision().get(players.get(i1))) {
-								index = i1;
-							}
-						}
-						if (index == -1) {
+						int bindex = currPlayer+1;
+						if (bindex == 4) {
 							// go to determinePlayerOrder
 							if (gs.isEndOfGame()) {
 								END = true;
@@ -1943,7 +1936,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 							}
 						} else {
-							currPlayer = index;
+							currPlayer = bindex;
 						}
 					}
 				}
