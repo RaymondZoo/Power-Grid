@@ -1688,6 +1688,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else if (e.getX() >= 525 && e.getX() <= 785 && e.getY() >= 10 && e.getY() <= 80) {
 					gs.getDecision().put(players.get(currPlayer), true);
 					int resindex = currPlayer-1;
+					System.out.println("Index"+resindex);
 					if (resindex == -1) {
 						// go to city building
 						gs.setPhase(4);
@@ -1696,6 +1697,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						powerPlantforResource = null;
 					} else {
 						// System.out.println("bruh");
+						index=-1;
 						hasSelected = false;
 						currPlayer = resindex;
 						powerPlantforResource = null;
