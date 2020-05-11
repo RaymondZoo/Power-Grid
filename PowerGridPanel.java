@@ -1531,7 +1531,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 */
 			
 		} else if (FOURTH) {
-			
+			System.out.println("PowerList: "+players.get(currPlayer).getPowerList());
 			for (int i = 0; i < 4; i++) {
 				if (!hasSelectedAPowerPlant && e.getX() >= MARKETX + (i * (PPWIDTH + 20))
 						&& e.getX() <= (MARKETX + (i * (PPWIDTH + 20)) + PPWIDTH) && e.getY() >= MARKETY
