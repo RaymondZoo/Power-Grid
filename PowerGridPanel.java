@@ -749,7 +749,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if(round1 = true)
 			{
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
+				g.drawString("-(You can't pass starting an auction in round 1)", messX, 250);
 			}
 		}
 		else
