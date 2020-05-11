@@ -23,10 +23,10 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class PowerGridPanel extends JPanel implements MouseListener, KeyListener {
-
+	private boolean hasSelectedAPowerPlant = false;
 	private boolean hasSelected;
 	private int fourthindex;
-	boolean firstTimeThrough=true;
+	private boolean firstTimeThrough=true;
 	private HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 	private int width;
 	private int index;
@@ -1531,7 +1531,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 */
 			
 		} else if (FOURTH) {
-			boolean hasSelectedAPowerPlant = false;
+			
 			for (int i = 0; i < 4; i++) {
 				if (!hasSelectedAPowerPlant && e.getX() >= MARKETX + (i * (PPWIDTH + 20))
 						&& e.getX() <= (MARKETX + (i * (PPWIDTH + 20)) + PPWIDTH) && e.getY() >= MARKETY
@@ -1627,10 +1627,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						System.out.println("players after round1 auction: "+players);
 						firstTimeThrough=false;
 					}
+					hasSelectedAPowerPlant = false;
 					gs.nextPhase();
 				} else {
 					AUCTION = true;
 					FOURTH = false;
+					hasSelectedAPowerPlant = false;
 					System.out.println("curr and next" + currPlayer + " " + nextIndex);
 					currPlayer = nextIndex;
 					keyInput = "";

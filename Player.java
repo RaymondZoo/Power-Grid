@@ -15,6 +15,19 @@ public class Player {
 		powerList = new ArrayList<PowerPlant>();
 		money = 50;
 		this.color = color;
+		
+		//temp
+		ArrayList<String>cost=new ArrayList<String>();
+		cost.add("coal");
+		cost.add("coal");
+		addPowerPlant(new PowerPlant(4, cost, 1));
+		
+		ArrayList<String>cost1=new ArrayList<String>();
+		cost1.add("coal||oil");
+		cost1.add("coal||oil");
+		addPowerPlant(new PowerPlant(5, cost1, 1));
+		
+		addPowerPlant(new PowerPlant(13, new ArrayList<String>(), 1));
 	}
 
 	public void addPowerPlant(PowerPlant p) {
