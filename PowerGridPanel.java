@@ -1641,7 +1641,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					System.out.println("Index: " + index);
 				} /// g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT,
 					/// null);
-				if ((e.getX() >= MAPX) && (e.getX() <= MAPX + PPWIDTH) && (e.getY() >= MAPY)
+				if ((e.getX() >= MAPX) && (e.getX() <= MAPX + PPWIDTH) && (e.getY() >= MAPY) 
 						&& e.getY() <= MAPY + PPHEIGHT) {
 					powerPlantforResource = players.get(currPlayer).getPowerList().get(0);
 					if (index == 0) {
@@ -1674,16 +1674,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						hasSelected = true;
 					}
 				} else if (canCoal && hasSelected && e.getX() >= 454 && e.getX() <= 554 && e.getY() >= 762
-						&& e.getX() <= 762 + 50) {
+						&& e.getY() <= 762 + 50) {
 					gs.moveResources(powerPlantforResource, "coal", players.get(currPlayer), 1);
 				} else if (canOil && hasSelected && e.getX() >= 593 && e.getX() <= 693 && e.getY() >= 762
-						&& e.getX() <= 762 + 50) {
+						&& e.getY() <= 762 + 50) {
 					gs.moveResources(powerPlantforResource, "oil", players.get(currPlayer), 1);
 				} else if (canTrash && hasSelected && e.getX() >= 454 && e.getX() <= 554 && e.getY() >= 831
-						&& e.getX() <= 881) {
+						&& e.getY() <= 881) {
 					gs.moveResources(powerPlantforResource, "trash", players.get(currPlayer), 1);
 				} else if (canNuclear && hasSelected && e.getX() >= 593 && e.getX() <= 693 && e.getY() >= 831
-						&& e.getX() <= 881) {
+						&& e.getY() <= 881) {
 					gs.moveResources(powerPlantforResource, "nuclear", players.get(currPlayer), 1);
 				} else if (e.getX() >= 525 && e.getX() <= 785 && e.getY() >= 10 && e.getY() <= 80) {
 					gs.getDecision().put(players.get(currPlayer), true);
