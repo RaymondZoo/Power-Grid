@@ -1971,7 +1971,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							
 							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
-							gs.checkPowerPlantSize();
+							//gs.checkPowerPlantSize();
 
 							
 						}
