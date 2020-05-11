@@ -1455,7 +1455,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						int nextIndex = -1;
 
 						for (int i = currPlayer; i < players.size(); i++) {
-							if (gs.getDecision().get(players.get(i)) == false && i != currPlayer
+							if (gs.getDecision().get(players.get(i)) == false
 									&& gs.getBids().get(players.get(i)) >= 0
 									&& gs.getBids().get(players.get(i)) < minBid) {
 								nextIndex = i;
