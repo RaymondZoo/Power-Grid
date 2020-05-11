@@ -665,51 +665,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("Other Views", 43, 43);
 		g.setColor(Color.WHITE);
 		g.drawString("Other Views", 40, 40);
-
-		int colorX = 30, colorY = 50;
-		for (int i = 0; i < 4; i++) {
-			if (i < 3) {
-				g.setColor(TRANSPARENTBLACK);// shadow
-				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
-
-				// ACTUAL Color ~
-				/*
-				 * g.setColor(Color.DARK_GRAY); g.fillRect(colorX, colorY+(i*(100+10)), 100,
-				 * 100);
-				 */
-				if (Others.get(i).getColor().equals("purple")) {
-					g.setColor(Color.MAGENTA);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				} else if (Others.get(i).getColor().equals("yellow")) {
-					g.setColor(Color.YELLOW);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				} else if (Others.get(i).getColor().equals("blue")) {
-					g.setColor(Color.BLUE);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				} else if (Others.get(i).getColor().equals("green")) {
-					g.setColor(Color.GREEN);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				} else if (Others.get(i).getColor().equals("red")) {
-					g.setColor(Color.RED);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				} else if (Others.get(i).getColor().equals("black")) {
-					g.setColor(Color.BLACK);
-					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-				}
-			} else {
-				g.setColor(TRANSPARENTBLACK);// shadow
-				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
-
-				g.setColor(Color.DARK_GRAY);
-				g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
-
-				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
-				g.setColor(TRANSPARENTBLACK);
-				g.drawString("MAP", colorX + 38, colorY + (i * (100 + 10)) + 53);
-				g.setColor(Color.WHITE);
-				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
-			}
-		}
 		if (gs.getStep() != 3) {
 			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 			g.setColor(TRANSPARENTBLACK);
@@ -889,6 +844,58 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		}
 
 		g.drawString("Current Bid: " + highest, 1170, 45); // 880, 810
+		
+		ArrayList<Player> Others = new ArrayList<Player>();
+		for (int i = 0; i < players.size(); i++) {
+			if (i != currPlayer) {
+				Others.add(players.get(i));
+			}
+		}
+
+		int colorX = 30, colorY = 50;
+		for (int i = 0; i < 4; i++) {
+			if (i < 3) {
+				g.setColor(TRANSPARENTBLACK);// shadow
+				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
+
+				// ACTUAL Color ~
+				/*
+				 * g.setColor(Color.DARK_GRAY); g.fillRect(colorX, colorY+(i*(100+10)), 100,
+				 * 100);
+				 */
+				if (Others.get(i).getColor().equals("purple")) {
+					g.setColor(Color.MAGENTA);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("yellow")) {
+					g.setColor(Color.YELLOW);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("blue")) {
+					g.setColor(Color.BLUE);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("green")) {
+					g.setColor(Color.GREEN);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("red")) {
+					g.setColor(Color.RED);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("black")) {
+					g.setColor(Color.BLACK);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				}
+			} else {
+				g.setColor(TRANSPARENTBLACK);// shadow
+				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
+
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+				g.setColor(TRANSPARENTBLACK);
+				g.drawString("MAP", colorX + 38, colorY + (i * (100 + 10)) + 53);
+				g.setColor(Color.WHITE);
+				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
+			}
+		}
 	}
 
 	public void drawFOURTH(Graphics g) {
@@ -976,6 +983,58 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(Color.WHITE);
 		g.drawString("END TURN", 905, 935);
+		
+		ArrayList<Player> Others = new ArrayList<Player>();
+		for (int i = 0; i < players.size(); i++) {
+			if (i != fourthPlayer) {
+				Others.add(players.get(i));
+			}
+		}
+
+		int colorX = 30, colorY = 50;
+		for (int i = 0; i < 4; i++) {
+			if (i < 3) {
+				g.setColor(TRANSPARENTBLACK);// shadow
+				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
+
+				// ACTUAL Color ~
+				/*
+				 * g.setColor(Color.DARK_GRAY); g.fillRect(colorX, colorY+(i*(100+10)), 100,
+				 * 100);
+				 */
+				if (Others.get(i).getColor().equals("purple")) {
+					g.setColor(Color.MAGENTA);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("yellow")) {
+					g.setColor(Color.YELLOW);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("blue")) {
+					g.setColor(Color.BLUE);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("green")) {
+					g.setColor(Color.GREEN);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("red")) {
+					g.setColor(Color.RED);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				} else if (Others.get(i).getColor().equals("black")) {
+					g.setColor(Color.BLACK);
+					g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+				}
+			} else {
+				g.setColor(TRANSPARENTBLACK);// shadow
+				g.fillRect(colorX + 10, colorY + (i * (100 + 10)) + 10, 100, 100);
+
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(colorX, colorY + (i * (100 + 10)), 100, 100);
+
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+				g.setColor(TRANSPARENTBLACK);
+				g.drawString("MAP", colorX + 38, colorY + (i * (100 + 10)) + 53);
+				g.setColor(Color.WHITE);
+				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
+			}
+		}
 
 	}
 
