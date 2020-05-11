@@ -1331,7 +1331,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							currPlayer = 3;
 							gs.nextPhase();
 						} else {
-							System.out.println("curr and next" + currPlayer + " " + nextIndex);
+							System.out.println(players.get(nextIndex).getColor());
 							currPlayer = nextIndex;
 							keyInput = "";
 						}
@@ -1419,12 +1419,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								winner = players.get(i);
 							}
 						}
-						displayMessage("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
+						System.out.println("Player " + winner.getColor() + " won power plant for" + minBid + " elektro");
 						winner.subtractMoney(minBid); // CHECK ~
 						gs.getCurrentMarket().remove(gs.getAuctionCard());
 						gs.addPowerPlant();
 						winner.addPowerPlant(gs.getAuctionCard());
 						gs.getDecision().put(winner, true);
+						System.out.println(gs.getDecision());
 						gs.setAuctionCard(null);
 						gs.resetBid();
 						minBid = 0;

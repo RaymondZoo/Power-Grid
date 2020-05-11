@@ -106,5 +106,8 @@ public class Player {
 		}
 		return maxTrash*2;
 	}
+	public String toString() {
+		return this.color;
+	}
 	
 }
