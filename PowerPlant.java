@@ -94,11 +94,14 @@ public class PowerPlant implements Comparable {
 		}
 		else if(this.isHybrid())
 		{
-			if(resources.size()==0)
+			if(storage.size()==0)
 				return false;
 			if (canBurnH(resources)) {
 				for (String str:resources) {
 					storage.remove(str);
+				}
+				if (resources.size()==0) {
+					return true;
 				}
 			}
 			else {
@@ -184,19 +187,20 @@ public class PowerPlant implements Comparable {
 		return storage.size()>=cost.size();
 	}
 	public boolean canBurnH(ArrayList<String>toBurn) {
-		ArrayList<String>costCopy=new ArrayList<String>();
-		costCopy.addAll(cost);
+		ArrayList<String>storageCopy=new ArrayList<String>();
+		storageCopy.addAll(storage);
 		for (String str:toBurn) {
-			for (int k=0;k<costCopy.size();k++) {
-				if (costCopy.get(k).contains(str)) {
-					costCopy.remove(k);
+			for (int k=0;k<storageCopy.size();k++) {
+				if (storageCopy.get(k).contains(str)) {
+					storageCopy.remove(k);
+					toBurn.remove(str);
 					k--;
 				}
 			}
-			if (costCopy.size()==0) {
+			if (toBurn.size()==0) {
 				return true;
 			}
 		}
-		return (costCopy.size()==0);
+		return (toBurn.size()==0);
 	}
 }

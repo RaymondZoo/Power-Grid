@@ -25,7 +25,7 @@ public class GameState {
 	private int nuclearSupply = 12;
 	private int trashSupply = 24;
 	private int phase = 1;
-	private int step;
+	private int step = 1;
 	private int maxHouseInCity;
 	private PowerPlant auctionCard;
 	private int numberOfPlayers;
@@ -586,6 +586,7 @@ public class GameState {
 	}
 	public void addPowerPlant() {
 		PowerPlant toAdd = deck.remove(0);
+		System.out.println(step);
 		if (step != 3) {
 			if (toAdd.getMinBid() == 1234) {
 				if (step == 1) {
@@ -596,10 +597,12 @@ public class GameState {
 					nextStep(); // 2-->3
 				}
 			}
-			futureMarket.add(toAdd);
-			Collections.sort(futureMarket);
-			currentMarket.add(futureMarket.remove(0));
+			currentMarket.add(toAdd);
 			Collections.sort(currentMarket);
+			//System.out.println(futureMarket);
+			futureMarket.add(currentMarket.remove(currentMarket.size()-1));
+			Collections.sort(futureMarket);
+			//System.out.println(currentMarket);
 		} else {
 			currentMarket.add(toAdd);
 			rearrangeMarket();
