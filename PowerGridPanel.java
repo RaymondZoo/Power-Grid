@@ -2241,7 +2241,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			else {
 				if (typeOfResource.equalsIgnoreCase(firstResource))// if the resource selected is the first resource
 				{
-					if (numOfFirstResource + numReq > plant.getCost().size() * 2)// if trying to store greater than the
+					if (plant.getStorage().size()+numReq > plant.getCost().size() * 2)// if trying to store greater than the
 																					// amount allowed
 					{
 						displayMessage("Sorry you don't have space to put " + typeOfResource + " on this card");
