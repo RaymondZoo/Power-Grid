@@ -1091,9 +1091,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			for (int i = 0; i < pp.getStorage().size(); i++) {
 				if (pp.getStorage().get(i).equals("coal")) {
 					g.drawImage(coal, resX + (i * sep), resY, size, size, null);
-				} else if (pp.getStorage().get(i).equals("oil")) {
-					g.drawImage(trash, resX + (i * sep), resY, size, size, null);
 				} else if (pp.getStorage().get(i).equals("trash")) {
+					g.drawImage(trash, resX + (i * sep), resY, size, size, null);
+				} else if (pp.getStorage().get(i).equals("oil")) {
 					g.drawImage(oil, resX + (i * sep), resY, size, size, null);
 				} else if (pp.getStorage().get(i).equals("nuclear")) {
 					g.drawImage(nuclear, resX + (i * sep), resY, size, size, null);
