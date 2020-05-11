@@ -1803,8 +1803,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					auctionIndex=-1;
 					keyInput="";
 					
+					System.out.println("numCitiesPowered: "+numCitiesPowered);
 					numCitiesPowered.put(players.get(currPlayer),
 							Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
+					System.out.println("Player: "+players.get(currPlayer).getColor()+". NumCities: "+Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 					gs.getDecision().put(players.get(currPlayer), true);
 					int bindex = currPlayer+1;
 					if (bindex == 4) {
