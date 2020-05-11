@@ -20,7 +20,6 @@ public class Player {
 
 	public void addPowerPlant(PowerPlant p) {
 		if (powerList.size() >= 3) {
-			// call method to force the player to remove a powerplant
 			addPowerPlant(p);
 		}
 		else {

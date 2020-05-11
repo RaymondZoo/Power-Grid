@@ -1160,6 +1160,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void mousePressed(MouseEvent e) {
+		System.out.println(gs.getDecision());
 		System.out.println(e.getX() + ", " + e.getY()); // for debugging and testing
 		if (MainMenu) {
 			int boxW = 300;
@@ -1475,6 +1476,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 				}
 			}
+			System.out.println(gs.getDecision());
 
 			/*
 			 * if (auctionIndex == -1) { gs.getDecision().put(tempPlayers.get(0), true);
