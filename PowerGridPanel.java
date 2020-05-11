@@ -621,6 +621,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 		g.drawString(players.get(currPlayer).getColor().toUpperCase() + " player", 30, 60);
+		
+		g.setColor(GREEN);
+		g.fillRect(935, 0, 543, 125);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("STEP "+gs.getStep()+", PHASE "+gs.getPhase(), 973, 60);
+		g.setColor(Color.WHITE);
+		g.drawString("STEP "+gs.getStep()+", PHASE "+gs.getPhase(), 970, 60);
+		
+		
 
 	}
 
@@ -710,6 +721,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.setColor(Color.WHITE);
 			g.drawString("MESSAGE BOARD:", 1570, 409);
 		}
+		
+		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+		g.setColor(TRANSPARENTBLACK);
+		g.drawString("STEP "+gs.getStep()+", PHASE "+gs.getPhase(), 263, 103);
+		g.setColor(Color.WHITE);
+		g.drawString("STEP "+gs.getStep()+", PHASE "+gs.getPhase(), 260, 100);
+		
 	}
 
 	public void drawAUCTION(Graphics g) {
