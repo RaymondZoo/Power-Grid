@@ -1933,6 +1933,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								players.get(currPlayer).getPowerList().get(i));
 					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // END TURN
 					{
+						auctionIndex=-1;
+						keyInput="";
+						
 						numCitiesPowered.put(players.get(currPlayer),
 								Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 						gs.getDecision().put(players.get(currPlayer), true);
