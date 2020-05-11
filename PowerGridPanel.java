@@ -1321,18 +1321,20 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							winner.addPowerPlant(gs.getAuctionCard());
 							gs.getDecision().put(winner, true);
 							gs.setAuctionCard(null);
-							if (winner.getPowerList().size() == 4) {
-								FOURTH = true;
-								AUCTION = false;
-							 }
 							if (gs.getMarketStep3()) {
 								gs.restructureMarket();
 							}
-							AUCTION = false;
-							MAPUI = true;
-							currPlayer = 3;
-							index =-1;
-							gs.nextPhase();
+							if (winner.getPowerList().size() == 4) {
+								FOURTH = true;
+								AUCTION = false;
+							}
+							else {
+								AUCTION = false;
+								MAPUI = true;
+								currPlayer = 3;
+								index =-1;
+								gs.nextPhase();
+							}
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
 							currPlayer = nextIndex;
@@ -1438,38 +1440,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						gs.resetBid();
 						minBid = 0;
 						auctionIndex = -1;
+						int nextIndex = nextIndex();
 						if (winner.getPowerList().size() == 4) {
 							FOURTH = true;
 							AUCTION = false;
 						}
-						/*
-						 * int nextIndex = -1;
-						 * 
-						 * for(int i = 0 ; i<players.size(); i++) {
-						 * if(gs.getDecision().get(players.get(i)) == false && i != currPlayer) {
-						 * nextIndex = i; } } currPlayer = nextIndex;
-						 */
-						int nextIndex = nextIndex();
-						if (nextIndex == -1) {
-
-//							System.out.println("Index is -1");
-//							Player winner = null;
-//							// give player powerplant
-//							for (int i = 0; i < players.size(); i++) {
-//								if (gs.getBids().get(players.get(i)) > -1) {
-//									winner = players.get(i);
-//								}
-//							}
-//							winner.subtractMoney(minBid); // CHECK ~
-//							gs.getCurrentMarket().remove(gs.getAuctionCard());
-//							gs.addPowerPlant();
-//							winner.addPowerPlant(gs.getAuctionCard());
-//							gs.getDecision().put(winner, true);
-//							gs.setAuctionCard(null);
-//							if (winner.getPowerList().size() == 4) {
-//								FOURTH = true;
-//								AUCTION = false;
-							// }
+						else if (nextIndex == -1) {
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
@@ -1829,6 +1805,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							MAPUI = false;
 							this.endNumCitiesPowered = numCitiesPowered;
 						} else {
+							System.out.println("Final numCitiesPowered: "+numCitiesPowered);
 							gs.givingMoney(numCitiesPowered);
 							gs.setRestock();
 							gs.marketFix();
