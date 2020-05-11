@@ -1291,23 +1291,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 						gs.getBids().put(players.get(currPlayer), Integer.parseInt(keyInput));
 
-						int nextIndex = -1;
-
-						for (int i = 0; i < players.size(); i++) {
-							if (gs.getDecision().get(players.get(i)) == false) {
-								System.out.println(players.get(i).getColor()+" made no decision.");
-									if( i != currPlayer) {
-										System.out.println(players.get(i).getColor()+" isn't current player.");
-										if(gs.getBids().get(players.get(i)) <= 0) {
-											System.out.println(players.get(i).getColor()+" bid is pass");
-											nextIndex = i;
-											break;
-										}
-									}
-							}
-						}
-
+						int nextIndex=nextIndex();
+						
 						if (nextIndex == -1) {
+							System.out.println("Index is -1");
 							Player winner = null;
 							// give player powerplant
 							for (int i = 0; i < players.size(); i++) {
@@ -1948,6 +1935,25 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		// g.fillRect(45, 685, 100, 50); //Buy Button
 		repaint();
 
+	}
+
+	private int nextIndex() {
+		int nextIndex = -1;
+
+		for (int i = 0; i < players.size(); i++) {
+			if (gs.getDecision().get(players.get(i)) == false) {
+				System.out.println(players.get(i).getColor()+" made no decision.");
+					if( i != currPlayer) {
+						System.out.println(players.get(i).getColor()+" isn't current player.");
+						if(gs.getBids().get(players.get(i)) <= 0) {
+							System.out.println(players.get(i).getColor()+" bid is pass");
+							nextIndex = i;
+							break;
+						}
+					}
+			}
+		}
+		return nextIndex;
 	}
 
 	public void keyTyped(KeyEvent e) {
