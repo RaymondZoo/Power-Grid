@@ -1792,9 +1792,48 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 			} else if (gs.getPhase() == 5) {
 				gs.resetDecision();
+				
+				HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
+				int citiesPowered = 0;
+				if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // END TURN
+				{
+					
+					System.out.println(players.get(currPlayer).getColor()+" reached the END TURN");
+					
+					auctionIndex=-1;
+					keyInput="";
+					
+					numCitiesPowered.put(players.get(currPlayer),
+							Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
+					gs.getDecision().put(players.get(currPlayer), true);
+					int bindex = currPlayer+1;
+					if (bindex == 4) {
+						// go to determinePlayerOrder
+						if (gs.isEndOfGame()) {
+							END = true;
+							MAPUI = false;
+							this.endNumCitiesPowered = numCitiesPowered;
+						} else {
+							gs.givingMoney(numCitiesPowered);
+							gs.setRestock();
+							gs.marketFix();
+							gs.nextPhase();
+							currPlayer = 0;
+							MAPUI=false;
+							AUCTION=true;
+
+							gs.determinePlayerOrder();
+							players = gs.getPlayerOrder();
+
+							if (round1) {
+								round1 = false;
+							}
+						}
+					} else {
+						currPlayer = bindex;
+					}
+				}
 				for (int i = 0; i < players.get(currPlayer).getPowerList().size(); i++) {
-					HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
-					int citiesPowered = 0;
 					// g.drawImage(card, MAPX, MAPY + (i * (PPHEIGHT + 20)), PPWIDTH, PPHEIGHT,
 					// null);
 					if (players.get(currPlayer).getPowerList().get(i).isHybrid()) {
@@ -1922,6 +1961,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 
 						}
+						System.out.println(players.get(currPlayer).getColor()+" is after reSupply");
 					} // g.fillRect(MAPX+PPWIDTH, MAPY + (i * (PPHEIGHT + 20)), 200, PPHEIGHT);
 					else if (players.get(currPlayer).getPowerList().get(i).canBurn() && e.getX() >= MAPX + PPWIDTH
 							&& e.getX() <= MAPX + PPWIDTH + 200 && e.getY() >= MAPY + (i * (PPHEIGHT + 20))
@@ -1931,40 +1971,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						citiesPowered += players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
 						gs.reSupplyAfterBurn(players.get(currPlayer).getPowerList().get(i).getCost(),
 								players.get(currPlayer).getPowerList().get(i));
-					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // END TURN
-					{
-						auctionIndex=-1;
-						keyInput="";
-						
-						numCitiesPowered.put(players.get(currPlayer),
-								Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
-						gs.getDecision().put(players.get(currPlayer), true);
-						int bindex = currPlayer+1;
-						if (bindex == 4) {
-							// go to determinePlayerOrder
-							if (gs.isEndOfGame()) {
-								END = true;
-								MAPUI = false;
-								this.endNumCitiesPowered = numCitiesPowered;
-							} else {
-								gs.givingMoney(numCitiesPowered);
-								gs.setRestock();
-								gs.marketFix();
-								gs.nextPhase();
-								currPlayer = 0;
-								MAPUI=false;
-								AUCTION=true;
-
-								gs.determinePlayerOrder();
-								players = gs.getPlayerOrder();
-
-								if (round1) {
-									round1 = false;
-								}
-							}
-						} else {
-							currPlayer = bindex;
-						}
+						System.out.println(players.get(currPlayer).getColor()+" is stuck in normal burn");
 					}
 				}
 			}
