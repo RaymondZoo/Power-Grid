@@ -303,11 +303,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			int sizeNuclear = gs.countResource(gs.getNuclearMarket());
 			int num = sizeNuclear;
 			if (num > 0) {
-				g.drawImage(nuclear, 950, 967, 45, 45, null);
+				g.drawImage(nuclear, 998, 967, 45, 45, null);
 				num--;
 			}
 			if (num > 0) {
-				g.drawImage(nuclear, 998, 967, 45, 45, null);
+				g.drawImage(nuclear, 950, 967, 45, 45, null);
 				num--;
 			}
 			if (num > 0) {
