@@ -2248,7 +2248,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						return false;
 					}
 				} else if (typeOfResource.equalsIgnoreCase(secondResource)) {
-					if (numOfSecondResource + numReq > plant.getCost().size() * 2) {
+					if (plant.getStorage().size()+ numReq > plant.getCost().size() * 2) {
 
 						displayMessage("Sorry you don't have space to put " + typeOfResource + " on this card");
 						return false;
