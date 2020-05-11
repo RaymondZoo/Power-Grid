@@ -1381,6 +1381,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									break;
 								}
 							}
+							currPlayer=nextIndex;
+							keyInput="";
 						} else {
 							currPlayer = nextIndex;
 							keyInput = "";
@@ -1390,6 +1392,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else if (e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) // pass
 				{
 					gs.getBids().put(players.get(currPlayer), -1);
+					System.out.println(gs.isAuctionDone());
 					if (gs.isAuctionDone()) {
 						System.out.println("Bids: "+gs.getBids());
 						Player winner = null;

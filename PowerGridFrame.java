@@ -11,14 +11,14 @@ public class PowerGridFrame extends JFrame {
 
 	public PowerGridFrame(String frameName) throws IOException {
 		super(frameName);
-		setExtendedState(JFrame.ICONIFIED); 
+		/*setExtendedState(JFrame.ICONIFIED); 
 		setExtendedState(getExtendedState() | JFrame.ICONIFIED); 
 		setExtendedState(JFrame.NORMAL); 
-		setExtendedState(getExtendedState() & (~JFrame.ICONIFIED));
+		setExtendedState(getExtendedState() & (~JFrame.ICONIFIED));*/
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH, HEIGHT);
 		add(new PowerGridPanel(WIDTH, HEIGHT));
-		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//setUndecorated(true);
 
 		/*
