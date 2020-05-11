@@ -1494,6 +1494,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			 * if (round1) { gs.randomizePlayerOrder(); } else { gs.determinePlayerOrder();
 			 * }
 			 */
+			
 		} else if (FOURTH) {
 			boolean hasSelectedAPowerPlant = false;
 			for (int i = 0; i < 4; i++) {
