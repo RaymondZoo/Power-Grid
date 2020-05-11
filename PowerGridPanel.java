@@ -378,11 +378,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawString("-Click the center of a city to occupy it", messX, 850);
 			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
 		}
-<<<<<<< HEAD
-		if(gs.getPhase() == 4)
-=======
+
 		if(gs.getPhase() == 5)
->>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 		{
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 			g.drawString("-Select the desired powerplant", messX, 850);
@@ -753,25 +750,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if(round1 = true)
 			{
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
-<<<<<<< HEAD
-				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
-=======
 				g.drawString("-(You can't pass starting an auction in round 1)", messX, 250);
->>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 			}
 		}
 		else
 		{
 			g.setColor(Color.white);
-<<<<<<< HEAD
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 460));
-			g.drawString("-Select the desired powerplant", messX, 510);
-			g.drawString("-Type in your bid", messX, 150);
-=======
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 			g.drawString("-Select the desired powerplant", messX, 460);
 			g.drawString("-Type in your bid", messX, 510);
->>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 			g.drawString("-Click either bid or pass", messX, 560);
 		}
 		
@@ -1212,7 +1199,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			return temp.get(p1) - temp.get(p2);
 		} else {
 			if (p1.getMoney() != p2.getMoney()) {
-				return p1.getMoney() - p1.getMoney();
+				return p1.getMoney() - p2.getMoney();
 			} else {
 				if (gs.getNumCities().get(p1) != gs.getNumCities().get(p2)) {
 					return gs.getNumCities().get(p1) - gs.getNumCities().get(p2);
@@ -1941,11 +1928,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if(c != null)
 					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
-<<<<<<< HEAD
-						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp (not now)
-=======
-						if (gs.getNumCities().get(players.get(currPlayer)) == 16) { //temp 
->>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
+						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp 
 							cost = c.getCost();
 						} else {
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm
@@ -2562,9 +2545,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 	}
-<<<<<<< HEAD
-}
-=======
+
 	public boolean containsMinBid(ArrayList<PowerPlant>in, int minBid) {
 		for (PowerPlant p:in) {
 			if (p.getMinBid()==minBid) {
@@ -2574,4 +2555,3 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		return false;
 	}
 }
->>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7

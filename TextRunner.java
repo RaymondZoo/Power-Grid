@@ -45,7 +45,7 @@ public class TextRunner {
 		//if it's the first turn, then randomize player order for 
 		//power plant buying otherwise use determinePlayerOrder()
 		while (!gs.isEndOfGame()) {
-			// phase 1
+			// phase 1 
 			if (turn1) {
 				gs.randomizePlayerOrder();
 			} else {
