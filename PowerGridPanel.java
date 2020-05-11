@@ -1292,7 +1292,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							Player winner = null;
 							// give player powerplant
 							for (int i = 0; i < players.size(); i++) {
-								if (gs.getBids().get(players.get(i)) > -1) {
+								if (gs.getBids().get(players.get(i)) > 0) {
 									winner = players.get(i);
 								}
 							}
@@ -1391,10 +1391,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				{
 					gs.getBids().put(players.get(currPlayer), -1);
 					if (gs.isAuctionDone()) {
+						System.out.println("Bids: "+gs.getBids());
 						Player winner = null;
 						// give player powerplant
 						for (int i = 0; i < players.size(); i++) {
-							if (gs.getBids().get(players.get(i)) > -1) {
+							if (gs.getBids().get(players.get(i)) > 0) {
 								winner = players.get(i);
 							}
 						}
