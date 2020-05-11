@@ -311,11 +311,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				num--;
 			}
 			if (num > 0) {
-				g.drawImage(nuclear, 950, 905, 45, 45, null);
+				g.drawImage(nuclear, 998, 905, 45, 45, null);
 				num--;
 			}
 			if (num > 0) {
-				g.drawImage(nuclear, 998, 905, 45, 45, null);
+				g.drawImage(nuclear, 950, 905, 45, 45, null);
 				num--;
 			}
 			int inv = 8 - num + 1;
