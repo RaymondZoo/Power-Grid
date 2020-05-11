@@ -597,12 +597,22 @@ public class GameState {
 					nextStep(); // 2-->3
 				}
 			}
-			currentMarket.add(toAdd);
-			Collections.sort(currentMarket);
-			//System.out.println(futureMarket);
-			futureMarket.add(currentMarket.remove(currentMarket.size()-1));
-			Collections.sort(futureMarket);
-			//System.out.println(currentMarket);
+			if (currentMarket.size()==3) {
+				futureMarket.add(toAdd);
+				Collections.sort(futureMarket);
+				//System.out.println(futureMarket);
+				currentMarket.add(futureMarket.remove(0));
+				Collections.sort(currentMarket);
+				//System.out.println(currentMarket);
+			}
+			else {
+				currentMarket.add(toAdd);
+				Collections.sort(currentMarket);
+				//System.out.println(futureMarket);
+				futureMarket.add(currentMarket.remove(currentMarket.size()-1));
+				Collections.sort(futureMarket);
+				//System.out.println(currentMarket);
+			}
 		} else {
 			currentMarket.add(toAdd);
 			rearrangeMarket();
