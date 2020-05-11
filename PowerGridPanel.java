@@ -1884,7 +1884,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							ArrayList<Coord> list = displayList.get(players.get(currPlayer).getColor());
 							if (list == null) {
 								list = new ArrayList<Coord>();
-							} else {
 							}
 							int numPlayers = c.getPlayersAtCity().size();
 							Coord cityCoord = gs.getCityCoords().get(c.getName());
@@ -1892,13 +1891,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							cityCoord.setY(-14 + cityCoord.getY() + 30 * numPlayers);
 							list.add(cityCoord);
 							displayList.put(players.get(currPlayer).getColor(), list);
-							repaint();
-							revalidate();
 							System.out.println(displayList);
-
+							
 							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
 							gs.checkPowerPlantSize();
+
+							
 						}
 						selectedCity = "";
 					} else {
