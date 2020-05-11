@@ -1601,9 +1601,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							MAPUI = true;
 							currPlayer = 3;
 							index = -1;
-							if (gs.getMarketStep3()) {
-								gs.restructureMarket();
-							}
 							if (firstTimeThrough&&round1) {
 								gs.determinePlayerOrder();
 								players=gs.getPlayerOrder();
@@ -1993,22 +1990,25 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					System.out.println("Player: "+players.get(currPlayer).getColor()+". NumCities: "+Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 					System.out.println("NumCitiesPowered: "+citiesPowered);
 					gs.getDecision().put(players.get(currPlayer), true);
-					int bindex = currPlayer-1;
-					if (bindex == -1) {
+					int bindex = currPlayer+1;
+					if (bindex == 4) {
 						// go to determinePlayerOrder
 						if (gs.isEndOfGame()) {
 							END = true;
 							MAPUI = false;
 							this.endNumCitiesPowered = numCitiesPowered;
 						} else {
+							System.out.println("gs.getMarketStep3(): "+gs.getMarketStep3());
 							if (gs.getMarketStep3()) {
 								gs.restructureMarket();
 								gs.setMarketStep3(false);
 							}
+							else {
+								gs.marketFix();
+							}
 							System.out.println("Final numCitiesPowered: "+numCitiesPowered);
 							gs.givingMoney(numCitiesPowered);
 							gs.setRestock();
-							gs.marketFix();
 							gs.nextPhase();
 							currPlayer = 0;
 							numCitiesPowered.clear();
