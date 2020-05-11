@@ -1533,7 +1533,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (!keyInput.equals("") && e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810
 						&& e.getY() <= (810 + 100)) // bid
 				{
-					if (Integer.parseInt(keyInput) >= minBid) {
+					if (Integer.parseInt(keyInput) > minBid) {
 						minBid = Integer.parseInt(keyInput);
 
 						gs.getBids().put(players.get(currPlayer), Integer.parseInt(keyInput));
