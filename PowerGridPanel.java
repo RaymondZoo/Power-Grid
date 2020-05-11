@@ -462,9 +462,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 				if (gs.getPhase() == 5) {
 					if (players.get(currPlayer).getPowerList().get(i).isHybrid()) {
-						if (index == i) {
-							drawCheck(MAPX + (i * (PPWIDTH + 20)) + 170, MAPY + 10, g);
-						}
 						g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 						// System.out.println(players.get(currPlayer).getPowerList().get(i).getMinBid()+"
 						// is a hybrid");
