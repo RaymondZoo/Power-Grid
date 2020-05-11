@@ -1218,7 +1218,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 
 		} else if (AUCTION) {
-
+			gs.setPhase(2);
 			// if (e.getX() >= 1715 && e.getY() >= 990) // temporary button for Switching
 			// UIs~
 			// {
