@@ -1053,10 +1053,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		int ENDX = 460, ENDY = 840;
 		for (int i = 0; i < players.size(); i++) {
 
-			g.drawString("TEST" + players.get(i).getColor().toUpperCase(), ENDX, ENDY - (i * 100));
-			g.drawString("TEST" + endNumCitiesPowered.get(players.get(i)), ENDX + 350, ENDY - (i * 100));
-			g.drawString("TEST" + players.get(i).getMoney(), ENDX + 700, ENDY - (i * 100));
-			g.drawString("TEST" + gs.getNumCities().get(players.get(i)), ENDX + 1050, ENDY - (i * 100));
+			g.drawString(""+players.get(i).getColor().toUpperCase(), ENDX, ENDY - (i * 100));
+			g.drawString(""+endNumCitiesPowered.get(players.get(i)), ENDX + 350, ENDY - (i * 100));
+			g.drawString(""+players.get(i).getMoney(), ENDX + 700, ENDY - (i * 100));
+			g.drawString(""+gs.getNumCities().get(players.get(i)), ENDX + 1050, ENDY - (i * 100));
 
 		}
 
