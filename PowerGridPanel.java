@@ -897,6 +897,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("4th Powerplant", 843, 48);
 		g.setColor(Color.WHITE);
 		g.drawString("4th Powerplant", 840, 45);
+		
+		g.drawString(players.get(currPlayer).getColor().toUpperCase() + " player", 295, 45); 
 
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
 		g.setColor(TRANSPARENTBLACK);
@@ -1532,6 +1534,34 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			
 		} else if (FOURTH) {
 			
+			ArrayList<Player> Others = new ArrayList<Player>();
+			for (int i = 0; i < players.size(); i++) {
+				if (i != currPlayer) {
+					Others.add(players.get(i));
+				}
+			}
+			if (e.getX() >= 0 && e.getX() <= 150 && e.getY() >= 0 && e.getY() <= 520) // if other player view
+			{
+				// System.out.println()
+
+				int colorX = 30, colorY = 50;
+				for (int i = 0; i < Others.size() + 1; i++) {// (colorX, colorY + (i * (100 + 10)), 100, 100);
+					if (i < 3 && e.getX() >= colorX && e.getX() <= colorX + 100 && e.getY() >= colorY + (i * (100 + 10))
+							&& e.getY() <= colorY + (i * (100 + 10)) + 100) {
+						// System.out.println("bug");
+						view = Others.get(i);
+					} else if (i == 3 && e.getX() >= colorX && e.getX() <= colorX + 100
+							&& e.getY() >= colorY + (i * (100 + 10)) && e.getY() <= colorY + (i * (100 + 10)) + 100) // map
+																														// view
+					{
+						mapView = true;
+						System.out.println("reached");
+					}
+					// System.out.println(i);
+				}
+			}
+			
+			System.out.println("PowerList: "+players.get(currPlayer).getPowerList());
 			for (int i = 0; i < 4; i++) {
 				if (!hasSelectedAPowerPlant && e.getX() >= MARKETX + (i * (PPWIDTH + 20))
 						&& e.getX() <= (MARKETX + (i * (PPWIDTH + 20)) + PPWIDTH) && e.getY() >= MARKETY
