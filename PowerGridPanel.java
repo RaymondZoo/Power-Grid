@@ -95,8 +95,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		END = false;
 
 		gs = new GameState();
-		players = new ArrayList<Player>();
-		players.addAll(gs.getPlayerOrder());
+		players = gs.getPlayerOrder();
 		System.out.println(players);
 		currPlayer = 0;
 		round1 = true;
