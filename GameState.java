@@ -295,7 +295,7 @@ public class GameState {
 			socket.addAll(plug);
 			Collections.shuffle(socket);
 			socket.add(0, topCard);
-			socket.add(0, new PowerPlant(1234));
+			socket.add(socket.size(), new PowerPlant(1234));
 			deck.addAll(socket);
 
 			Collections.sort(tempList);
@@ -307,7 +307,7 @@ public class GameState {
 				futureMarket.add(tempList.remove(0));
 			}
 			for (Player p : playerOrder) {
-				numCities.put(p, 0);
+				numCities.put(p, 16); //temp
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -630,7 +630,12 @@ public class GameState {
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
-		currentMarket.remove(new PowerPlant(1234));
+		for (PowerPlant p:getCurrentMarket()) {
+			if (p.getMinBid()==1234) {
+				currentMarket.remove(p);
+				break;
+			}
+		}
 		System.out.println("Current Market: "+currentMarket);
 	}
 

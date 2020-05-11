@@ -1450,8 +1450,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							winner.addPowerPlant(gs.getAuctionCard());
 							gs.getDecision().put(winner, true);
 							gs.setAuctionCard(null);
-							if (gs.getMarketStep3()) {
-								gs.restructureMarket();
+							if (containsMinBid(gs.getFutureMarket(), 1234)) {
+								gs.setMarketStep3(true);
 							}		
 							if (winner.getPowerList().size() == 4) {
 								FOURTH = true;
@@ -1469,7 +1469,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									System.out.println("players after round1 auction: "+players);
 									firstTimeThrough=false;
 								}
-								if (gs.getFutureMarket().contains(new PowerPlant(1234))) {
+								if (containsMinBid(gs.getFutureMarket(), 1234)) {
 									if (gs.getStep()==1) {
 										gs.nextStep();
 										gs.nextStep();
@@ -1512,8 +1512,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						currPlayer = 3;
 						AUCTION = false;
 						MAPUI = true;
-						if (gs.getMarketStep3()) {
-							gs.restructureMarket();
+						if (gs.getFutureMarket().contains(new PowerPlant(1234))) {
+							gs.setMarketStep3(true);
 						}
 						index =-1;
 						if (firstTimeThrough&&round1) {
@@ -1607,6 +1607,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								System.out.println("players after round1 auction: "+players);
 								firstTimeThrough=false;
 							}
+							if (containsMinBid(gs.getFutureMarket(), 1234)) {
+								gs.setMarketStep3(true);
+							}
 							gs.nextPhase();
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1643,7 +1646,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 				}
 			}
-			System.out.println(gs.getDecision());
+			System.out.println("Future Market: "+gs.getFutureMarket());
 
 			/*
 			 * if (auctionIndex == -1) { gs.getDecision().put(tempPlayers.get(0), true);
@@ -1780,7 +1783,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					fourthPlayer=-1;
 					currPlayer = 3;
 					index = -1;
-					if (gs.getMarketStep3()) {
+					if (containsMinBid(gs.getFutureMarket(), 1234)) {
 						gs.restructureMarket();
 					}
 					if (firstTimeThrough&&round1) {
@@ -1923,7 +1926,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if(c != null)
 					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
-						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp (not now)
+						if (gs.getNumCities().get(players.get(currPlayer)) == 16) { //temp 
 							cost = c.getCost();
 						} else {
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm
@@ -2539,5 +2542,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void keyReleased(KeyEvent e) {
 
+	}
+	public boolean containsMinBid(ArrayList<PowerPlant>in, int minBid) {
+		for (PowerPlant p:in) {
+			if (p.getMinBid()==minBid) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
