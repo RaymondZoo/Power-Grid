@@ -1869,7 +1869,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if(c != null)
 					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
-						if (gs.getNumCities().get(players.get(currPlayer)) == 6) { //temp
+						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp (not now)
 							cost = c.getCost();
 						} else {
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm

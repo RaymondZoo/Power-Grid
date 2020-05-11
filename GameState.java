@@ -308,7 +308,7 @@ public class GameState {
 				futureMarket.add(tempList.remove(0));
 			}
 			for (Player p : playerOrder) {
-				numCities.put(p, 6);
+				numCities.put(p, 0);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
