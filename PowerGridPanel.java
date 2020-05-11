@@ -378,7 +378,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawString("-Click the center of a city to occupy it", messX, 850);
 			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
 		}
-		if(gs.getPhase() == 4)
+		if(gs.getPhase() == 5)
 		{
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 			g.drawString("-Select the desired powerplant", messX, 850);
