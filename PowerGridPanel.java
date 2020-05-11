@@ -484,7 +484,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							g.drawString("1 " + res1, MAPX + PPWIDTH + 50, MAPY + (i * (PPHEIGHT + 20)) + 50);
 							g.drawString("1 " + res2, MAPX + PPWIDTH + 50, MAPY + (i * (PPHEIGHT + 20)) + 150);
 						}
-						if (players.get(currPlayer).getPowerList().get(i).getCost().size() == 2) {
+						else if (players.get(currPlayer).getPowerList().get(i).getCost().size() == 2) {
 							ArrayList<String> temp = players.get(currPlayer).getPowerList().get(i).getCost();
 							String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
 							String res2 = temp.get(0).substring(temp.get(0).indexOf("||") + 2);
@@ -494,7 +494,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									MAPY + (i * (PPHEIGHT + 20)) + 100);
 							g.drawString("2 " + res2, MAPX + PPWIDTH + 50, MAPY + (i * (PPHEIGHT + 20)) + 170);
 						}
-						if (players.get(currPlayer).getPowerList().get(i).getCost().size() == 3) {
+						else if (players.get(currPlayer).getPowerList().get(i).getCost().size() == 3) {
 							ArrayList<String> temp = players.get(currPlayer).getPowerList().get(i).getCost();
 							String res1 = temp.get(0).substring(0, temp.get(0).indexOf("||"));
 							String res2 = temp.get(0).substring(temp.get(0).indexOf("||") + 2);
