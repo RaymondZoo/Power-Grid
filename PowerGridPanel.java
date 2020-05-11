@@ -26,6 +26,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	private boolean hasSelected;
 	private int fourthindex;
+	boolean firstTimeThrough=true;
 	private HashMap<Player, Integer> numCitiesPowered = new HashMap<Player, Integer>();
 	private int width;
 	private int index;
@@ -1323,7 +1324,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							gs.setAuctionCard(null);
 							if (gs.getMarketStep3()) {
 								gs.restructureMarket();
-							}
+							}		
 							if (winner.getPowerList().size() == 4) {
 								FOURTH = true;
 								AUCTION = false;
@@ -1334,6 +1335,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								currPlayer = 3;
 								index =-1;
 								gs.nextPhase();
+								if (firstTimeThrough&&round1) {
+									gs.determinePlayerOrder();
+									players=gs.getPlayerOrder();
+									System.out.println("players after round1 auction: "+players);
+									firstTimeThrough=false;
+								}
 							}
 						} else {
 							System.out.println(players.get(nextIndex).getColor());
@@ -1372,6 +1379,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							gs.restructureMarket();
 						}
 						index =-1;
+						if (firstTimeThrough&&round1) {
+							gs.determinePlayerOrder();
+							players=gs.getPlayerOrder();
+							System.out.println("players after round1 auction: "+players);
+							firstTimeThrough=false;
+						}
 						gs.nextPhase();
 					} else {
 						currPlayer = nextIndex;
@@ -1452,6 +1465,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							index = -1;
 							if (gs.getMarketStep3()) {
 								gs.restructureMarket();
+							}
+							if (firstTimeThrough&&round1) {
+								gs.determinePlayerOrder();
+								players=gs.getPlayerOrder();
+								System.out.println("players after round1 auction: "+players);
+								firstTimeThrough=false;
 							}
 							gs.nextPhase();
 						} else {
@@ -1598,6 +1617,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if (gs.getMarketStep3()) {
 						gs.restructureMarket();
 					}
+					if (firstTimeThrough&&round1) {
+						gs.determinePlayerOrder();
+						players=gs.getPlayerOrder();
+						System.out.println("players after round1 auction: "+players);
+						firstTimeThrough=false;
+					}
 					gs.nextPhase();
 				} else {
 					AUCTION = true;
@@ -1633,11 +1658,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 			} else if (gs.getPhase() == 3) {
-				if (round1) {
-					gs.determinePlayerOrder();
-					players=gs.getPlayerOrder();
-					System.out.println("players after round1 auction: "+players);
-				}
 				gs.resetDecision();
 				boolean canCoal = false, canOil = false, canTrash = false, canNuclear = false;
 				displayMessage("Please select the powerplant you want to place resources on and then select resources");
