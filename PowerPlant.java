@@ -97,17 +97,10 @@ public class PowerPlant implements Comparable {
 			if(storage.size()==0)
 				return false;
 			if (canBurnH(resources)) {
-				for (int i=resources.size()-1;i>=0;i--) {
-					for (int j=storage.size()-1;j>=0;j--) {
-						if (resources.get(i).equals(storage.get(j))) {
-							resources.remove(i);
-							storage.remove(j);
-						}
-					}
+				for (String str:resources) {
+					storage.remove(str);
 				}
-				if (resources.size()==0) {
-					return true;
-				}
+				return true;
 			}
 			else {
 				return false;
@@ -192,20 +185,24 @@ public class PowerPlant implements Comparable {
 		return storage.size()>=cost.size();
 	}
 	public boolean canBurnH(ArrayList<String>toBurn) {
-		ArrayList<String>storageCopy=new ArrayList<String>();
-		storageCopy.addAll(storage);
-		for (int i=toBurn.size()-1;i>=0;i--) {
-			for (int k=0;k<storageCopy.size();k++) {
-				if (storageCopy.get(k).contains(toBurn.get(i))) {
-					storageCopy.remove(k);
-					toBurn.remove(i);
-					k--;
-				}
+		int numCoal=0, numOil=0;
+		int snumCoal=0, snumOil=0;
+		for (String str:toBurn) {
+			if (str.equals("coal")) {
+				numCoal++;
 			}
-			if (toBurn.size()==0) {
-				return true;
+			if (str.equals("oil")) {
+				numOil++;
 			}
 		}
-		return (toBurn.size()==0);
+		for (String str:storage) {
+			if (str.equals("coal")) {
+				snumCoal++;
+			}
+			if (str.equals("oil")) {
+				snumOil++;
+			}
+		}
+		return snumCoal>=numCoal&&snumOil>=numOil;
 	}
 }
