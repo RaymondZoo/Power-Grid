@@ -1983,9 +1983,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				{
 					
 					System.out.println(players.get(currPlayer).getColor()+" reached the END TURN");
-					if (gs.getMarketStep3()) {
-						gs.restructureMarket();
-					}
 					
 					auctionIndex=-1;
 					keyInput="";
@@ -2004,6 +2001,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							MAPUI = false;
 							this.endNumCitiesPowered = numCitiesPowered;
 						} else {
+							if (gs.getMarketStep3()) {
+								gs.restructureMarket();
+								gs.setMarketStep3(false);
+							}
 							System.out.println("Final numCitiesPowered: "+numCitiesPowered);
 							gs.givingMoney(numCitiesPowered);
 							gs.setRestock();

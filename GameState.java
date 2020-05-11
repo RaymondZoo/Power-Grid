@@ -62,7 +62,6 @@ public class GameState {
 		setCityCoord();
 		try {
 			marketStep3 = false;
-			marketStep3 = false;
 			playerOrder = new ArrayList<Player>();
 			coalMarket = new TreeMap<Integer, ArrayList<String>>();
 			oilMarket = new TreeMap<Integer, ArrayList<String>>();
@@ -1047,5 +1046,9 @@ public class GameState {
 		for (Player p:this.decision.keySet()) {
 			decision.put(p, false);
 		}
+	}
+
+	public void setMarketStep3(boolean b) {
+		marketStep3=b;
 	}
 }
