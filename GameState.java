@@ -552,9 +552,9 @@ public class GameState {
 	public boolean isGreater(Player p1, Player p2) {
 		int p1num = numCities.get(p1);
 		int p2num = numCities.get(p2);
-		if (p1num > p2num) {
+		if (p1num < p2num) {
 			return true;
-		} else if (p1num < p2num) {
+		} else if (p1num > p2num) {
 			return false;
 		} else {
 			if (p1.getHighestPowerPlant() < p2.getHighestPowerPlant()) {
