@@ -126,11 +126,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		} else if (END) {
 			drawEND(g);
 		}
-		gs.setPhase(3);
-		if (MAPUI) {
-			drawMAPUI(g);
-		}
-
 	}
 
 	public void drawMainMenu(Graphics g) {
