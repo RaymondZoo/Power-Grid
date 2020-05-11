@@ -17,17 +17,27 @@ public class Player {
 		this.color = color;
 		
 		//temp
-		ArrayList<String>cost=new ArrayList<String>();
+		/*ArrayList<String>cost=new ArrayList<String>();
 		cost.add("coal");
 		cost.add("coal");
-		addPowerPlant(new PowerPlant(4, cost, 1));
+		PowerPlant p1=new PowerPlant(4, cost, 1);
+		ArrayList<String>resources=new ArrayList<String>();
+		resources.add("coal");
+		resources.add("coal");
+		p1.addResources(resources);
+		addPowerPlant(p1);
 		
 		ArrayList<String>cost1=new ArrayList<String>();
 		cost1.add("coal||oil");
 		cost1.add("coal||oil");
-		addPowerPlant(new PowerPlant(5, cost1, 1));
+		PowerPlant p2=new PowerPlant(5, cost1, 1);
+		ArrayList<String>resources1=new ArrayList<String>();
+		resources1.add("coal");
+		resources1.add("coal");
+		p2.addResources(resources1);
+		addPowerPlant(p2);
 		
-		addPowerPlant(new PowerPlant(13, new ArrayList<String>(), 1));
+		addPowerPlant(new PowerPlant(13, new ArrayList<String>(), 1));*/
 	}
 
 	public void addPowerPlant(PowerPlant p) {

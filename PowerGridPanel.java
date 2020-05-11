@@ -362,6 +362,33 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("MESSAGE BOARD:", 1573, 783);
 		g.setColor(Color.WHITE);
 		g.drawString("MESSAGE BOARD:", 1570, 780);
+		
+		int messX = 1495;
+		
+		if(gs.getPhase() == 3)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 850);
+			g.drawString("-Click the resource button to buy a single unit", messX, 900);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
+		if(gs.getPhase() == 4)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Click the center of a city to occupy it", messX, 850);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
+		if(gs.getPhase() == 4)
+		{
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 850);
+			g.drawString("-Click the the respective burn button", messX, 900);
+			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
+		}
+		
+		
+		
+		
 		/*
 		 * try { BufferedImage coal =
 		 * ImageIO.read(PowerGridPanel.class.getResource("UI/coal.PNG")); int
@@ -393,6 +420,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		 * System.out.println("Cannot find Map image!"); }
 		 */
 		if (gs.getPhase() == 3) {
+			g.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
 			g.setColor(TRANSPARENTBLACK);
 			g.fillRect(464, 772, 100, 50);
 			g.setColor(Color.BLACK);
@@ -688,6 +716,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	}
 
 	public void drawAUCTION(Graphics g) {
+		
 		drawAUCTIONBACKGROUND(g);
 		g.setFont(new Font("Berlin Sans FB", Font.BOLD, 38));
 		g.setColor(TRANSPARENTBLACK);
@@ -707,6 +736,31 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		g.drawString("YOUR POWERPLANTS:", 13, 583);
 		g.setColor(Color.WHITE);
 		g.drawString("YOUR POWERPLANTS:", 10, 580);
+		
+		
+		int messX = 1600;
+		if (gs.getStep() != 3) 
+		{
+			g.setColor(Color.white);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 100);
+			g.drawString("-Type in your bid", messX, 150);
+			g.drawString("-Click either bid or pass", messX, 200);
+			if(round1 = true)
+			{
+				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
+			}
+		}
+		else
+		{
+			g.setColor(Color.white);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 460));
+			g.drawString("-Select the desired powerplant", messX, 510);
+			g.drawString("-Type in your bid", messX, 150);
+			g.drawString("-Click either bid or pass", messX, 560);
+		}
+		
 
 		int AUCTIONX = 10, AUCTIONY = 595;
 		int side = 120; // only for this UI
@@ -1035,6 +1089,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				g.drawString("MAP", colorX + 35, colorY + (i * (100 + 10)) + 50);
 			}
 		}
+		int messX = 1600;
+		g.setColor(Color.white);
+		g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		g.drawString("-Select the powerplant to remove", messX, 100);
+		g.drawString("-Click the move button to move a single unit", messX, 150);
+		g.drawString("-Click END TURN to discard remaining resources", messX, 200);
+		g.drawString("--This will remove the selected card", messX, 250);
+		g.drawString("--This will also end your turn", messX, 250);
 
 	}
 
@@ -1669,6 +1731,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 
 					} else {
+						System.out.println("("+(MARKETX + (i * (PPWIDTH + 20)))+","+(MARKETY + PPHEIGHT + 95)+")");
 						if (e.getX() >= MARKETX + (i * (PPWIDTH + 20))
 								&& e.getX() <= MARKETX + (i * (PPWIDTH + 20)) + PPWIDTH
 								&& e.getY() >= MARKETY + PPHEIGHT + 20 && e.getY() <= MARKETY + PPHEIGHT + 95) {
@@ -1677,11 +1740,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										&& players.get(fourthPlayer).getPowerList().get(fourthindex).getStorage()
 												.size() > 0
 										&& players.get(fourthPlayer).getPowerList().get(fourthindex).getCost().get(0)
-												.equals(players.get(fourthPlayer).getPowerList().get(i).getCost()
+												.contains(players.get(fourthPlayer).getPowerList().get(i).getCost()
 														.get(0))) {
 									ArrayList<String> test = new ArrayList<String>();
 									test.add(players.get(fourthPlayer).getPowerList().get(fourthindex).getStorage()
 											.remove(0));
+									System.out.println("Resource to move: "+test);
 									players.get(fourthPlayer).getPowerList().get(i).addResources(test);
 								}
 							}
@@ -1853,7 +1917,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if(c != null)
 					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
-						if (gs.getNumCities().get(players.get(currPlayer)) == 0) {
+						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp (not now)
 							cost = c.getCost();
 						} else {
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm
@@ -1868,21 +1932,20 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							ArrayList<Coord> list = displayList.get(players.get(currPlayer).getColor());
 							if (list == null) {
 								list = new ArrayList<Coord>();
-							} else {
 							}
 							int numPlayers = c.getPlayersAtCity().size();
-							Coord cityCoord = gs.getCityCoords().get(c.getName());
-							cityCoord.setX(-14 + cityCoord.getX() + 30 * numPlayers);
-							cityCoord.setY(-14 + cityCoord.getY() + 30 * numPlayers);
+							Coord cityCoord = new Coord(gs.getCityCoords().get(c.getName()).getX(), gs.getCityCoords().get(c.getName()).getY());
+							cityCoord.setX(-14 + cityCoord.getX() + (30 * numPlayers));
+							cityCoord.setY(-14 + cityCoord.getY() + (30 * numPlayers));
 							list.add(cityCoord);
 							displayList.put(players.get(currPlayer).getColor(), list);
-							repaint();
-							revalidate();
 							System.out.println(displayList);
-
+							
 							c.addPlayer(players.get(currPlayer));
 							gs.addCityBuilt(players.get(currPlayer));
 							gs.checkPowerPlantSize();
+
+							
 						}
 						selectedCity = "";
 					} else {
@@ -1921,8 +1984,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					System.out.println("Player: "+players.get(currPlayer).getColor()+". NumCities: "+Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 					System.out.println("NumCitiesPowered: "+citiesPowered);
 					gs.getDecision().put(players.get(currPlayer), true);
-					int bindex = currPlayer+1;
-					if (bindex == 4) {
+					int bindex = currPlayer-1;
+					if (bindex == -1) {
 						// go to determinePlayerOrder
 						if (gs.isEndOfGame()) {
 							END = true;
