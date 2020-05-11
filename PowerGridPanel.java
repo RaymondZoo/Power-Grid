@@ -1839,10 +1839,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								else if (temp == 3) {
 									if (j == 0) {
 
+										System.out.println("Burning 2 coal");
 										list.add("coal");
 										list.add("coal");
 										if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+											System.out.println("PreBurnResources");
 											players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											System.out.println("PostBurnResources");
 										}
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();

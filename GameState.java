@@ -1008,17 +1008,17 @@ public class GameState {
 		}
 		
 		if (list.contains("coal")) {
-			int newCoal = gs.getCoalSupply() + countResource[0];
-			gs.setCoalSupply(newCoal);
+			int newCoal = getCoalSupply() + countResource[0];
+			setCoalSupply(newCoal);
 		} else if (list.contains("trash")) {
-			int newTrash = gs.getTrashSupply() + countResource[2];
-			gs.setTrashSupply(newTrash);
+			int newTrash = getTrashSupply() + countResource[2];
+			setTrashSupply(newTrash);
 		} else if (list.contains("oil")) {
-			int newOil = gs.getTrashSupply() + countResource[1];
-			gs.setOilSupply(newOil);
+			int newOil = getTrashSupply() + countResource[1];
+			setOilSupply(newOil);
 		} else if (list.contains("nuclear")) {
-			int newNuclear = gs.getTrashSupply() + countResource[3];
-			gs.setNuclearSupply(newNuclear);
+			int newNuclear = getTrashSupply() + countResource[3];
+			setNuclearSupply(newNuclear);
 		}
 	}
 	public void resetDecision() {
