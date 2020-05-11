@@ -2298,7 +2298,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				for (int w = 0; w < size; w++) {
 					ArrayList<String> tempList = market.get(key);// each key has an array list of resources like:(cost 1
 																	// = coal, coal, coal)
-					tempList.remove(0);// remove from arraylist
+					//tempList.remove(0);// remove from arraylist
 					numCollectedResources++;
 					totalCost+=key;
 					if (numCollectedResources == numReq)// if the number of collected resources equals the number		// required stop removing from market
