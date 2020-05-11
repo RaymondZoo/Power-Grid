@@ -25,7 +25,7 @@ public class GameState {
 	private int nuclearSupply = 12;
 	private int trashSupply = 24;
 	private int phase = 1;
-	private int step;
+	private int step = 1;
 	private int maxHouseInCity;
 	private PowerPlant auctionCard;
 	private int numberOfPlayers;
