@@ -1669,6 +1669,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						}
 
 					} else {
+						System.out.println("("+(MARKETX + (i * (PPWIDTH + 20)))+","+(MARKETY + PPHEIGHT + 95)+")");
 						if (e.getX() >= MARKETX + (i * (PPWIDTH + 20))
 								&& e.getX() <= MARKETX + (i * (PPWIDTH + 20)) + PPWIDTH
 								&& e.getY() >= MARKETY + PPHEIGHT + 20 && e.getY() <= MARKETY + PPHEIGHT + 95) {
@@ -1677,11 +1678,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 										&& players.get(fourthPlayer).getPowerList().get(fourthindex).getStorage()
 												.size() > 0
 										&& players.get(fourthPlayer).getPowerList().get(fourthindex).getCost().get(0)
-												.equals(players.get(fourthPlayer).getPowerList().get(i).getCost()
+												.contains(players.get(fourthPlayer).getPowerList().get(i).getCost()
 														.get(0))) {
 									ArrayList<String> test = new ArrayList<String>();
 									test.add(players.get(fourthPlayer).getPowerList().get(fourthindex).getStorage()
 											.remove(0));
+									System.out.println("Resource to move: "+test);
 									players.get(fourthPlayer).getPowerList().get(i).addResources(test);
 								}
 							}
