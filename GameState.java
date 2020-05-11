@@ -597,12 +597,12 @@ public class GameState {
 					nextStep(); // 2-->3
 				}
 			}
-			futureMarket.add(toAdd);
-			Collections.sort(futureMarket);
-			System.out.println(futureMarket);
-			currentMarket.add(futureMarket.remove(0));
+			currentMarket.add(toAdd);
 			Collections.sort(currentMarket);
-			System.out.println(currentMarket);
+			//System.out.println(futureMarket);
+			futureMarket.add(currentMarket.remove(currentMarket.size()-1));
+			Collections.sort(futureMarket);
+			//System.out.println(currentMarket);
 		} else {
 			currentMarket.add(toAdd);
 			rearrangeMarket();
@@ -679,7 +679,6 @@ public class GameState {
 	public void marketFix() { // Phase 5
 		if (step != 3) {
 			deck.add(deck.size(), futureMarket.remove(futureMarket.size() - 1));
-			addPowerPlant();
 			addPowerPlant();
 		} else {
 			currentMarket.remove(0);
