@@ -1809,6 +1809,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									/ (players.get(currPlayer).getPowerList().get(i).getCost().size() + 1)));
 							int buttonH = (PPHEIGHT
 									/ (players.get(currPlayer).getPowerList().get(i).getCost().size() + 1)) - 10;
+							System.out.println("("+(MAPX + PPWIDTH)+","+buttonY+")");
+							System.out.println("("+(MAPX + PPWIDTH+200)+","+(buttonY+buttonH)+")");
 							displayMessage(
 									"Choose the powerplant and the resources you want to burn by clicking on the button");
 							if (e.getX() >= MAPX + PPWIDTH && e.getX() <= MAPX + PPWIDTH + 200 && e.getY() >= buttonY
@@ -1834,7 +1836,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 												.getNumCitiesPowered();
 									}
 								}
-								if (temp == 2) {
+								if (temp == 3) {
 									if (j == 0) {
 
 										list.add("coal");
@@ -1866,7 +1868,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 												.getNumCitiesPowered();
 									}
 								}
-								if (temp == 2) {
+								if (temp == 4) {
 									if (j == 0) {
 
 										list.add("coal");
