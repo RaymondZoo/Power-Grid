@@ -4,7 +4,6 @@ public class Player {
 	private ArrayList<PowerPlant> powerList;
 	private int money;
 	private String color;
-	
 
 	public Player() {
 		powerList = new ArrayList<PowerPlant>();
@@ -19,13 +18,8 @@ public class Player {
 	}
 
 	public void addPowerPlant(PowerPlant p) {
-		if (powerList.size() >= 3) {
-			addPowerPlant(p);
-		}
-		else {
-			powerList.add(p);
-			return;
-		}
+		powerList.add(p);
+		return;
 	}
 
 	public int getHighestPowerPlant() {
@@ -69,45 +63,49 @@ public class Player {
 	public void addMoney(int in) {
 		money += in;
 	}
-	
+
 	public int getMaxCoal() {
-		int maxCoal=0;
-		for (PowerPlant p:powerList) {
-			if (p.getCost().contains("coal")||p.getCost().get(0).contains("coal")) {
-				maxCoal+=p.getCost().size();
+		int maxCoal = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getCost().contains("coal") || p.getCost().get(0).contains("coal")) {
+				maxCoal += p.getCost().size();
 			}
 		}
-		return maxCoal*2;
+		return maxCoal * 2;
 	}
+
 	public int getMaxOil() {
-		int maxOil=0;
-		for (PowerPlant p:powerList) {
-			if (p.getCost().contains("oil")||p.getCost().get(0).contains("oil")) {
-				maxOil+=p.getCost().size();
+		int maxOil = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getCost().contains("oil") || p.getCost().get(0).contains("oil")) {
+				maxOil += p.getCost().size();
 			}
 		}
-		return maxOil*2;
+		return maxOil * 2;
 	}
+
 	public int getMaxNuclear() {
-		int maxNuclear=0;
-		for (PowerPlant p:powerList) {
-			if (p.getCost().contains("nuclear")||p.getCost().get(0).contains("nuclear")) {
-				maxNuclear+=p.getCost().size();
+		int maxNuclear = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getCost().contains("nuclear") || p.getCost().get(0).contains("nuclear")) {
+				maxNuclear += p.getCost().size();
 			}
 		}
-		return maxNuclear*2;
+		return maxNuclear * 2;
 	}
+
 	public int getMaxTrash() {
-		int maxTrash=0;
-		for (PowerPlant p:powerList) {
-			if (p.getCost().contains("trash")||p.getCost().get(0).contains("trash")) {
-				maxTrash+=p.getCost().size();
+		int maxTrash = 0;
+		for (PowerPlant p : powerList) {
+			if (p.getCost().contains("trash") || p.getCost().get(0).contains("trash")) {
+				maxTrash += p.getCost().size();
 			}
 		}
-		return maxTrash*2;
+		return maxTrash * 2;
 	}
+
 	public String toString() {
 		return this.color;
 	}
-	
+
 }

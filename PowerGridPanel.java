@@ -1636,6 +1636,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (round1) {
 					gs.determinePlayerOrder();
 					players=gs.getPlayerOrder();
+					System.out.println("players after round1 auction: "+players);
 				}
 				gs.resetDecision();
 				boolean canCoal = false, canOil = false, canTrash = false, canNuclear = false;
