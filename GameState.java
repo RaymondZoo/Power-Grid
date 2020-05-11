@@ -62,7 +62,6 @@ public class GameState {
 		setCityCoord();
 		try {
 			marketStep3 = false;
-			marketStep3 = false;
 			playerOrder = new ArrayList<Player>();
 			coalMarket = new TreeMap<Integer, ArrayList<String>>();
 			oilMarket = new TreeMap<Integer, ArrayList<String>>();
@@ -308,7 +307,7 @@ public class GameState {
 				futureMarket.add(tempList.remove(0));
 			}
 			for (Player p : playerOrder) {
-				numCities.put(p, 0);
+				numCities.put(p, 16); //temp
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -573,6 +572,8 @@ public class GameState {
 			maxHouseInCity++;
 			currentMarket.remove(0);
 			addPowerPlant();
+			System.out.println("Current Market after Step 1: "+currentMarket);
+			System.out.println("Future Market after Step 1: "+futureMarket);
 		} else if (step == 2) {
 			maxHouseInCity++;
 			if (phase == 2 || phase == 4) {
@@ -582,13 +583,16 @@ public class GameState {
 				restructureMarket();
 			}
 		}
+		System.out.println("Current Market after Step 2: "+currentMarket);
+		System.out.println("Current Market size after Step 2: "+currentMarket.size());
 		step++;
 	}
+	@SuppressWarnings("unchecked")
 	public void addPowerPlant() {
 		PowerPlant toAdd = deck.remove(0);
 		System.out.println(step);
 		if (step != 3) {
-			if (toAdd.getMinBid() == 1234) {
+			/*if (toAdd.getMinBid() == 1234) {
 				if (step == 1) {
 					nextStep(); // 1-->2
 					nextStep(); // 2-->3
@@ -596,7 +600,7 @@ public class GameState {
 				if (step == 2) {
 					nextStep(); // 2-->3
 				}
-			}
+			}*/
 			if (currentMarket.size()==3) {
 				futureMarket.add(toAdd);
 				Collections.sort(futureMarket);
@@ -616,7 +620,9 @@ public class GameState {
 			}
 		} else {
 			currentMarket.add(toAdd);
-			rearrangeMarket();
+			currentMarket.addAll(futureMarket);
+			Collections.sort(currentMarket);
+			System.out.println(currentMarket);
 		}
 	}
 
@@ -624,7 +630,13 @@ public class GameState {
 		currentMarket.addAll(futureMarket);
 		futureMarket.clear();
 		currentMarket.remove(0);
-		currentMarket.remove(new PowerPlant(1234));
+		for (PowerPlant p:getCurrentMarket()) {
+			if (p.getMinBid()==1234) {
+				currentMarket.remove(p);
+				break;
+			}
+		}
+		System.out.println("Current Market: "+currentMarket);
 	}
 
 	public boolean isAuctionDone() {
@@ -1039,5 +1051,9 @@ public class GameState {
 		for (Player p:this.decision.keySet()) {
 			decision.put(p, false);
 		}
+	}
+
+	public void setMarketStep3(boolean b) {
+		marketStep3=b;
 	}
 }

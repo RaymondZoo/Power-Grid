@@ -378,7 +378,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			g.drawString("-Click the center of a city to occupy it", messX, 850);
 			g.drawString("-Click the END TURN button to finish your turn", messX, 950);
 		}
+<<<<<<< HEAD
 		if(gs.getPhase() == 4)
+=======
+		if(gs.getPhase() == 5)
+>>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 		{
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 			g.drawString("-Select the desired powerplant", messX, 850);
@@ -749,15 +753,25 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			if(round1 = true)
 			{
 				g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 13));
+<<<<<<< HEAD
 				g.drawString("-(You can't pass starting a auction in round 1)", messX, 250);
+=======
+				g.drawString("-(You can't pass starting an auction in round 1)", messX, 250);
+>>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 			}
 		}
 		else
 		{
 			g.setColor(Color.white);
+<<<<<<< HEAD
 			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 460));
 			g.drawString("-Select the desired powerplant", messX, 510);
 			g.drawString("-Type in your bid", messX, 150);
+=======
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 460);
+			g.drawString("-Type in your bid", messX, 510);
+>>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 			g.drawString("-Click either bid or pass", messX, 560);
 		}
 		
@@ -1450,8 +1464,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							winner.addPowerPlant(gs.getAuctionCard());
 							gs.getDecision().put(winner, true);
 							gs.setAuctionCard(null);
-							if (gs.getMarketStep3()) {
-								gs.restructureMarket();
+							if (containsMinBid(gs.getFutureMarket(), 1234)) {
+								gs.setMarketStep3(true);
 							}		
 							if (winner.getPowerList().size() == 4) {
 								FOURTH = true;
@@ -1468,6 +1482,15 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 									players=gs.getPlayerOrder();
 									System.out.println("players after round1 auction: "+players);
 									firstTimeThrough=false;
+								}
+								if (containsMinBid(gs.getFutureMarket(), 1234)) {
+									if (gs.getStep()==1) {
+										gs.nextStep();
+										gs.nextStep();
+									}
+									else if (gs.getStep()==2) {
+										gs.nextStep();
+									}
 								}
 							}
 						} else {
@@ -1503,8 +1526,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						currPlayer = 3;
 						AUCTION = false;
 						MAPUI = true;
-						if (gs.getMarketStep3()) {
-							gs.restructureMarket();
+						if (gs.getFutureMarket().contains(new PowerPlant(1234))) {
+							gs.setMarketStep3(true);
 						}
 						index =-1;
 						if (firstTimeThrough&&round1) {
@@ -1524,7 +1547,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				if (!keyInput.equals("") && e.getX() >= 500 && e.getX() <= (500 + 360) && e.getY() >= 810
 						&& e.getY() <= (810 + 100)) // bid
 				{
-					if (Integer.parseInt(keyInput) >= minBid) {
+					if (Integer.parseInt(keyInput) > minBid) {
 						minBid = Integer.parseInt(keyInput);
 
 						gs.getBids().put(players.get(currPlayer), Integer.parseInt(keyInput));
@@ -1592,14 +1615,14 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							MAPUI = true;
 							currPlayer = 3;
 							index = -1;
-							if (gs.getMarketStep3()) {
-								gs.restructureMarket();
-							}
 							if (firstTimeThrough&&round1) {
 								gs.determinePlayerOrder();
 								players=gs.getPlayerOrder();
 								System.out.println("players after round1 auction: "+players);
 								firstTimeThrough=false;
+							}
+							if (containsMinBid(gs.getFutureMarket(), 1234)) {
+								gs.setMarketStep3(true);
 							}
 							gs.nextPhase();
 						} else {
@@ -1628,6 +1651,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								}
 							}
 						}
+						keyInput = "";
 						currPlayer = nextIndex;
 						if(currPlayer == -1)
 						{
@@ -1637,7 +1661,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 				}
 			}
-			System.out.println(gs.getDecision());
+			System.out.println("Future Market: "+gs.getFutureMarket());
 
 			/*
 			 * if (auctionIndex == -1) { gs.getDecision().put(tempPlayers.get(0), true);
@@ -1774,7 +1798,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					fourthPlayer=-1;
 					currPlayer = 3;
 					index = -1;
-					if (gs.getMarketStep3()) {
+					if (containsMinBid(gs.getFutureMarket(), 1234)) {
 						gs.restructureMarket();
 					}
 					if (firstTimeThrough&&round1) {
@@ -1917,7 +1941,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					if(c != null)
 					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
+<<<<<<< HEAD
 						if (gs.getNumCities().get(players.get(currPlayer)) == 0) { //temp (not now)
+=======
+						if (gs.getNumCities().get(players.get(currPlayer)) == 16) { //temp 
+>>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
 							cost = c.getCost();
 						} else {
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm
@@ -1992,10 +2020,17 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							MAPUI = false;
 							this.endNumCitiesPowered = numCitiesPowered;
 						} else {
+							System.out.println("gs.getMarketStep3(): "+gs.getMarketStep3());
+							if (gs.getMarketStep3()) {
+								gs.restructureMarket();
+								gs.setMarketStep3(false);
+							}
+							else {
+								gs.marketFix();
+							}
 							System.out.println("Final numCitiesPowered: "+numCitiesPowered);
 							gs.givingMoney(numCitiesPowered);
 							gs.setRestock();
-							gs.marketFix();
 							gs.nextPhase();
 							currPlayer = 0;
 							numCitiesPowered.clear();
@@ -2527,4 +2562,16 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 	}
+<<<<<<< HEAD
 }
+=======
+	public boolean containsMinBid(ArrayList<PowerPlant>in, int minBid) {
+		for (PowerPlant p:in) {
+			if (p.getMinBid()==minBid) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+>>>>>>> 2beaab0e56f8c39f5ba43c69aaa439f384837fb7
