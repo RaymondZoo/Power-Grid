@@ -1743,7 +1743,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							cost = c.leastCost(players.get(currPlayer));// least cost algorithm
 							cost += c.getCost();
 						}
-						if (players.get(currPlayer).getMoney() > cost) {
+						if (players.get(currPlayer).getMoney() >= cost) {
 							displayMessage(
 									players.get(currPlayer).getColor() + " has bought " + c.getName() + " for " + cost);
 							players.get(currPlayer).addMoney(cost * -1);// subtracting money
