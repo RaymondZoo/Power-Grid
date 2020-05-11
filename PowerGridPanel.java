@@ -1887,8 +1887,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							}
 							int numPlayers = c.getPlayersAtCity().size();
 							Coord cityCoord = gs.getCityCoords().get(c.getName());
-							cityCoord.setX(-14 + cityCoord.getX() + 30 * numPlayers);
-							cityCoord.setY(-14 + cityCoord.getY() + 30 * numPlayers);
+							cityCoord.setX(-14 + cityCoord.getX() + (30 * numPlayers));
+							cityCoord.setY(-14 + cityCoord.getY() + (30 * numPlayers));
 							list.add(cityCoord);
 							displayList.put(players.get(currPlayer).getColor(), list);
 							System.out.println(displayList);
