@@ -7,7 +7,7 @@ minCost/listResourcesNeeded/numCitiesPowered
 8/3 coal/2
 9/1 oil/1
 10/2 coal/2
-11/2 nuclear/2
+11/1 nuclear/2
 12/2 coal||oil/2
 13/green/1
 14/2 trash/2
