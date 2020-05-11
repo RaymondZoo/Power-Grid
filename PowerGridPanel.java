@@ -96,7 +96,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		gs = new GameState();
 		players = gs.getPlayerOrder();
-		System.out.println(players);
+		//System.out.println(players);
 		currPlayer = 0;
 		round1 = true;
 		auctionIndex = -1;
@@ -231,7 +231,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		if (selectedRegions.contains("green")) {
 			drawCheck(1170, 830, g);
 		}
-		System.out.println(currPlayer);
+		//System.out.println(currPlayer);
 
 		int textX = 1570, textY = 190;
 		for (int i = 0; i < players.size(); i++) {
@@ -329,7 +329,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				for (Coord c : displayList.get(s)) {
 					BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/" + s + ".PNG"));
 					g.drawImage(house, c.getX(), c.getY(), 20, 20, null);
-					System.out.println(s + " at " + c.toString());
+					//System.out.println(s + " at " + c.toString());
 				}
 			}
 		} catch (IOException e) {
@@ -1985,11 +1985,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		for (int i = 0; i < players.size(); i++) {
 			if (gs.getDecision().get(players.get(i)) == false) {
-				System.out.println(players.get(i).getColor() + " made no decision.");
+				//System.out.println(players.get(i).getColor() + " made no decision.");
 				if (1==1) {
-					System.out.println(players.get(i).getColor() + " isn't current player.");
+					//System.out.println(players.get(i).getColor() + " isn't current player.");
 					if (gs.getBids().get(players.get(i)) <= 0) {
-						System.out.println(players.get(i).getColor() + " bid is pass");
+						//System.out.println(players.get(i).getColor() + " bid is pass");
 						nextIndex = i;
 						break;
 					}
@@ -2001,7 +2001,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void keyTyped(KeyEvent e) {
 		if (e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8 || e.getKeyChar() == '') {
-			System.out.println("backspace");
+			//System.out.println("backspace");
 			if (keyInput.length() >= 1)
 				keyInput = keyInput.substring(0, keyInput.length() - 1);
 			/*
