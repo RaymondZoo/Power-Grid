@@ -1633,6 +1633,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 			} else if (gs.getPhase() == 3) {
+				if (round1) {
+					gs.determinePlayerOrder();
+					players=gs.getPlayerOrder();
+					System.out.println("players after round1 auction: "+players);
+				}
 				gs.resetDecision();
 				boolean canCoal = false, canOil = false, canTrash = false, canNuclear = false;
 				displayMessage("Please select the powerplant you want to place resources on and then select resources");
