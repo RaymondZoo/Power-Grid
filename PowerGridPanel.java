@@ -1761,17 +1761,12 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																											// TURN
 				{
 					gs.getDecision().put(players.get(currPlayer), true);
-					int index = -1;
-					for (int i = players.size() - 1; i >= 0; i--) {
-						if (!gs.getDecision().get(players.get(i))) {
-							index = i;
-						}
-					}
-					if (index == -1) {
-						gs.nextPhase();
+					int cityindex = currPlayer-1;
+					if (cityindex == -1) {
+						gs.setPhase(5);
 						currPlayer = 0;
 					} else {
-						currPlayer = index;
+						currPlayer = cityindex;
 					}
 				}
 
