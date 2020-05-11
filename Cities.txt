@@ -39,10 +39,10 @@ Savannah green Jacksonville/0, Atlanta/7, Raleigh/7
 Raleigh green Savannah/7, Atlanta/7, Pittsburgh/7, Norfolk/3
 Norfolk green Washington_D.C./5, Raleigh/3
 
-Detroit brown Duluth/15, Chicago/7, Cincinnati/4, Pittsburgh/6, Buffalo/7
-Pittsburgh brown Detroit/6, Cincinnati/7, Raleigh/7, Washington_D.C./6, Buffalo/7
-Buffalo brown Detroit/7, Pittsburgh/7, New_York/8
-Washington_D.C. brown Pittsburgh/6, Philadelphia/3, Norfolk/5
-Philadelphia brown Washington_D.C./3, New_York/0
-New_York brown Philadelphia/0, Buffalo/8, Boston/3
-Boston brown New_York/3
+Detroit orange Duluth/15, Chicago/7, Cincinnati/4, Pittsburgh/6, Buffalo/7
+Pittsburgh orange Detroit/6, Cincinnati/7, Raleigh/7, Washington_D.C./6, Buffalo/7
+Buffalo orange Detroit/7, Pittsburgh/7, New_York/8
+Washington_D.C. orange Pittsburgh/6, Philadelphia/3, Norfolk/5
+Philadelphia orange Washington_D.C./3, New_York/0
+New_York orange Philadelphia/0, Buffalo/8, Boston/3
+Boston orange New_York/3

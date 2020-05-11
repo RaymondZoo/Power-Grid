@@ -96,7 +96,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 		gs = new GameState();
 		players = gs.getPlayerOrder();
-		System.out.println(players);
+		//System.out.println(players);
 		currPlayer = 0;
 		round1 = true;
 		auctionIndex = -1;
@@ -231,7 +231,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		if (selectedRegions.contains("green")) {
 			drawCheck(1170, 830, g);
 		}
-		System.out.println(currPlayer);
+		//System.out.println(currPlayer);
 
 		int textX = 1570, textY = 190;
 		for (int i = 0; i < players.size(); i++) {
@@ -329,7 +329,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				for (Coord c : displayList.get(s)) {
 					BufferedImage house = ImageIO.read(PowerGridPanel.class.getResource("UI/" + s + ".PNG"));
 					g.drawImage(house, c.getX(), c.getY(), 20, 20, null);
-					System.out.println(s + " at " + c.toString());
+					//System.out.println(s + " at " + c.toString());
 				}
 			}
 		} catch (IOException e) {
@@ -1207,7 +1207,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 			}
 
 			if (selectedRegions.size() == 4) {
-
+				System.out.println("Sel Region List: "+selectedRegions);
 				ArrayList<City> cityList = gs.getListOfCites();
 				ArrayList<City> adjustedCityList = new ArrayList<City>();
 				for (City c : cityList) {
@@ -1216,6 +1216,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					}
 				}
 				gs.setListOfCites(adjustedCityList);
+				System.out.println("Adj Region List: "+adjustedCityList);
 
 				if (round1) {
 					gs.randomizePlayerOrder();
@@ -1701,7 +1702,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else if (canNuclear && hasSelected && e.getX() >= 593 && e.getX() <= 693 && e.getY() >= 831
 						&& e.getY() <= 881) {
 					gs.moveResources(powerPlantforResource, "nuclear", players.get(currPlayer), 1);
-				} else if (e.getX() >= 525 && e.getX() <= 785 && e.getY() >= 10 && e.getY() <= 80) {
+				} else if (e.getX() >= 527 && e.getX() <= 787 && e.getY() >= 10 && e.getY() <= 90) {
 					gs.getDecision().put(players.get(currPlayer), true);
 					int resindex = currPlayer-1;
 					System.out.println("Index"+resindex);
@@ -1776,7 +1777,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				}
 				// g.fillRect(527, 10, 260, 80);
 
-				if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 20 && e.getY() <= (10 + 80)) // IF END
+				if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // IF END
 																											// TURN
 				{
 					gs.getDecision().put(players.get(currPlayer), true);
@@ -1839,10 +1840,13 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								else if (temp == 3) {
 									if (j == 0) {
 
+										System.out.println("Burning 2 coal");
 										list.add("coal");
 										list.add("coal");
 										if (players.get(currPlayer).getPowerList().get(i).canBurnH(list)) {
+											System.out.println("PreBurnResources");
 											players.get(currPlayer).getPowerList().get(i).burnResources(list);
+											System.out.println("PostBurnResources");
 										}
 										citiesPowered += players.get(currPlayer).getPowerList().get(i)
 												.getNumCitiesPowered();
@@ -1927,7 +1931,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						citiesPowered += players.get(currPlayer).getPowerList().get(i).getNumCitiesPowered();
 						gs.reSupplyAfterBurn(players.get(currPlayer).getPowerList().get(i).getCost(),
 								players.get(currPlayer).getPowerList().get(i));
-					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 20 && e.getY() <= (10 + 80)) // END TURN
+					} else if (e.getX() >= 527 && e.getX() <= (527 + 260) && e.getY() >= 10 && e.getY() <= (10 + 80)) // END TURN
 					{
 						numCitiesPowered.put(players.get(currPlayer),
 								Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
@@ -1981,11 +1985,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		
 		for (int i = 0; i < players.size(); i++) {
 			if (gs.getDecision().get(players.get(i)) == false) {
-				System.out.println(players.get(i).getColor() + " made no decision.");
+				//System.out.println(players.get(i).getColor() + " made no decision.");
 				if (1==1) {
-					System.out.println(players.get(i).getColor() + " isn't current player.");
+					//System.out.println(players.get(i).getColor() + " isn't current player.");
 					if (gs.getBids().get(players.get(i)) <= 0) {
-						System.out.println(players.get(i).getColor() + " bid is pass");
+						//System.out.println(players.get(i).getColor() + " bid is pass");
 						nextIndex = i;
 						break;
 					}
@@ -1997,7 +2001,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 
 	public void keyTyped(KeyEvent e) {
 		if (e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || e.getExtendedKeyCode() == 8 || e.getKeyChar() == '') {
-			System.out.println("backspace");
+			//System.out.println("backspace");
 			if (keyInput.length() >= 1)
 				keyInput = keyInput.substring(0, keyInput.length() - 1);
 			/*

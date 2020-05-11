@@ -108,4 +108,8 @@ public class City {
 	public int getCost() {
 		return 10 + (5 * playersAtCity.size());
 	}
+	
+	public String toString() {
+		return name;
+	}
 }
