@@ -1718,6 +1718,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 					selectedCity = name;
 					int cost = 0;
 					City c = gs.findCity(selectedCity);
+					if(c != null)
+					{
 					if (!(c.getPlayersAtCity().size() >= gs.getMaxHouseInCity())) {
 						if (gs.getNumCities().get(players.get(currPlayer)) == 0) {
 							cost = c.getCost();
@@ -1753,6 +1755,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						selectedCity = "";
 					} else {
 						displayMessage("There is no more space in this city. Please choose another one");
+					}
 					}
 				}
 				// g.fillRect(527, 10, 260, 80);
@@ -1914,7 +1917,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								Math.min(citiesPowered, gs.getNumCities().get(players.get(currPlayer))));
 						gs.getDecision().put(players.get(currPlayer), true);
 						int index = -1;
-						for (int i1 = 0; i1 < players.size(); i1--) {
+						for (int i1 = 0; i1 < players.size(); i1++) {
 							if (!gs.getDecision().get(players.get(i1))) {
 								index = i1;
 							}
