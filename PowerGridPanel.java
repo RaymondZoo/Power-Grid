@@ -755,9 +755,9 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 		else
 		{
 			g.setColor(Color.white);
-			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 460));
-			g.drawString("-Select the desired powerplant", messX, 510);
-			g.drawString("-Type in your bid", messX, 150);
+			g.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+			g.drawString("-Select the desired powerplant", messX, 460);
+			g.drawString("-Type in your bid", messX, 510);
 			g.drawString("-Click either bid or pass", messX, 560);
 		}
 		
