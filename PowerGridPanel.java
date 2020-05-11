@@ -1293,7 +1293,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						&& e.getY() <= (810 + 100)) // bid starting auction
 				{
 					// bidded = true;
-					if (Integer.parseInt(keyInput) >= gs.getCurrentMarket().get(auctionIndex).getMinBid()) {
+					if (auctionIndex!=-1&&Integer.parseInt(keyInput) >= gs.getCurrentMarket().get(auctionIndex).getMinBid()) {
 						gs.setAuctionCard(gs.getCurrentMarket().get(auctionIndex));
 
 						minBid = Integer.parseInt(keyInput);
