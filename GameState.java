@@ -573,6 +573,8 @@ public class GameState {
 			maxHouseInCity++;
 			currentMarket.remove(0);
 			addPowerPlant();
+			System.out.println("Current Market after Step 1: "+currentMarket);
+			System.out.println("Future Market after Step 1: "+futureMarket);
 		} else if (step == 2) {
 			maxHouseInCity++;
 			if (phase == 2 || phase == 4) {
@@ -582,13 +584,16 @@ public class GameState {
 				restructureMarket();
 			}
 		}
+		System.out.println("Current Market after Step 2: "+currentMarket);
+		System.out.println("Current Market size after Step 2: "+currentMarket.size());
 		step++;
 	}
+	@SuppressWarnings("unchecked")
 	public void addPowerPlant() {
 		PowerPlant toAdd = deck.remove(0);
 		System.out.println(step);
 		if (step != 3) {
-			if (toAdd.getMinBid() == 1234) {
+			/*if (toAdd.getMinBid() == 1234) {
 				if (step == 1) {
 					nextStep(); // 1-->2
 					nextStep(); // 2-->3
@@ -596,7 +601,7 @@ public class GameState {
 				if (step == 2) {
 					nextStep(); // 2-->3
 				}
-			}
+			}*/
 			if (currentMarket.size()==3) {
 				futureMarket.add(toAdd);
 				Collections.sort(futureMarket);
@@ -616,7 +621,9 @@ public class GameState {
 			}
 		} else {
 			currentMarket.add(toAdd);
-			rearrangeMarket();
+			currentMarket.addAll(futureMarket);
+			Collections.sort(currentMarket);
+			System.out.println(currentMarket);
 		}
 	}
 
