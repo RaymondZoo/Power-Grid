@@ -2029,6 +2029,8 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							citiesPowered=0;
 							MAPUI=false;
 							AUCTION=true;
+							gs.resetDecision();
+							
 
 							gs.determinePlayerOrder();
 							players = gs.getPlayerOrder();
