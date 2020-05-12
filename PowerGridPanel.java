@@ -1464,6 +1464,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								MAPUI = true;
 								currPlayer = 3;
 								index =-1;
+								gs.resetDecision();
 								gs.nextPhase();
 								if (firstTimeThrough&&round1) {
 									gs.determinePlayerOrder();
@@ -1512,6 +1513,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						gs.resetBid();
 						minBid = 0;
 						auctionIndex = -1;
+						gs.resetDecision();
 						currPlayer = 3;
 						AUCTION = false;
 						MAPUI = true;
@@ -1593,6 +1595,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						System.out.println(gs.getDecision());
 						gs.setAuctionCard(null);
 						gs.resetBid();
+						gs.resetDecision();
 						minBid = 0;
 						auctionIndex = -1;
 						int nextIndex = nextIndex();
@@ -1797,6 +1800,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						System.out.println("players after round1 auction: "+players);
 						firstTimeThrough=false;
 					}
+					gs.resetDecision();
 					hasSelectedAPowerPlant = false;
 					gs.nextPhase();
 				} else {
