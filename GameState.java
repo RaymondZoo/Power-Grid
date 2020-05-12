@@ -640,15 +640,12 @@ public class GameState {
 	}
 
 	public boolean isAuctionDone() {
-		int countPositive = 0;
-		for (Player p : decision.keySet()) {
+		for (Player p:decision.keySet()) {
 			if (!decision.get(p)) {
-				if (p != null && bids.get(p) >= 0) {
-					countPositive++;
-				}
+				return false;
 			}
 		}
-		return countPositive == 1;
+		return true;
 	}
 
 	public void playerDecision(Player p) {
