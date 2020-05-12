@@ -1464,8 +1464,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								MAPUI = true;
 								currPlayer = 3;
 								index =-1;
-								gs.resetDecision();
-								gs.resetBid();
 								gs.nextPhase();
 								if (firstTimeThrough&&round1) {
 									gs.determinePlayerOrder();
@@ -1496,8 +1494,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 																															// starting
 																															// auction
 				{
-					System.out.println("AuctionDone: "+gs.isAuctionDone());
-					System.out.println("Decision: "+gs.getDecision());
 					// auctionIndex = -1;
 					// gs.getDecision().put(tempPlayers.get(0), true);
 					// tempPlayers.remove(tempPlayers.get(0));
@@ -1519,7 +1515,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						currPlayer = 3;
 						AUCTION = false;
 						MAPUI = true;
-						gs.resetDecision();
 						if (gs.getFutureMarket().contains(new PowerPlant(1234))) {
 							gs.setMarketStep3(true);
 						}
@@ -1577,7 +1572,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 				} else if (e.getX() >= 880 && e.getX() <= (880 + 360) && e.getY() >= 810 && e.getY() <= (810 + 100)) // pass
 				{
 					gs.getBids().put(players.get(currPlayer), -1);
-					System.out.println("AuctionDone: "+gs.isAuctionDone());
+					System.out.println(gs.isAuctionDone());
 					if (gs.isAuctionDone()) {
 						System.out.println("Bids: "+gs.getBids());
 						Player winner = null;
@@ -1606,8 +1601,6 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 							AUCTION = false;
 						}
 						else if (nextIndex == -1) {
-							gs.resetDecision();
-							gs.resetBid();
 							AUCTION = false;
 							MAPUI = true;
 							currPlayer = 3;
@@ -1804,14 +1797,11 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						System.out.println("players after round1 auction: "+players);
 						firstTimeThrough=false;
 					}
-					gs.resetDecision();
-					gs.resetBid();
 					hasSelectedAPowerPlant = false;
 					gs.nextPhase();
 				} else {
 					AUCTION = true;
 					FOURTH = false;
-					gs.resetBid();
 					fourthPlayer=-1;
 					hasSelectedAPowerPlant = false;
 					System.out.println("curr and next" + currPlayer + " " + nextIndex);
