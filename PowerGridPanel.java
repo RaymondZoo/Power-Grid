@@ -1465,6 +1465,7 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 								currPlayer = 3;
 								index =-1;
 								gs.resetDecision();
+								gs.resetBid();
 								gs.nextPhase();
 								if (firstTimeThrough&&round1) {
 									gs.determinePlayerOrder();
