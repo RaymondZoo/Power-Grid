@@ -1513,10 +1513,10 @@ public class PowerGridPanel extends JPanel implements MouseListener, KeyListener
 						gs.resetBid();
 						minBid = 0;
 						auctionIndex = -1;
-						gs.resetDecision();
 						currPlayer = 3;
 						AUCTION = false;
 						MAPUI = true;
+						gs.resetDecision();
 						if (gs.getFutureMarket().contains(new PowerPlant(1234))) {
 							gs.setMarketStep3(true);
 						}
